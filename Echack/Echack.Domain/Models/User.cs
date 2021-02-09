@@ -16,5 +16,6 @@ namespace Echack.Domain.Models
         public string PasswordHash { get; set; }
         [Required, MaxLength(50)]
         public string Role { get; set; }
+        public List<Chack> Chacks { get; set; }
     }
 }
