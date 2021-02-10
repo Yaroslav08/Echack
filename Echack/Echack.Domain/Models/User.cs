@@ -18,5 +18,6 @@ namespace Echack.Domain.Models
         public string Role { get; set; }
         public List<Chack> Chacks { get; set; }
         public List<GroupMember> GroupMembers { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }
