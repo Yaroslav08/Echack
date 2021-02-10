@@ -15,5 +15,7 @@ namespace Echack.Domain.Models
         public bool IsImportant { get; set; } = false;
         public int UserId { get; set; }
         public User User { get; set; }
+        public Guid GroupId { get; set; }
+        public Group Group { get; set; }
     }
 }
