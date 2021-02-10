@@ -14,5 +14,6 @@ namespace Echack.Domain.Models
         public string Color { get; set; } = "#6495ED";
         [MinLength(10), MaxLength(250)]
         public string Desc { get; set; }
+        public List<GroupMember> GroupMembers { get; set; }
     }
 }

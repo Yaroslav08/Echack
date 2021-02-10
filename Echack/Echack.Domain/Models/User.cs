@@ -17,5 +17,6 @@ namespace Echack.Domain.Models
         [Required, MaxLength(50)]
         public string Role { get; set; }
         public List<Chack> Chacks { get; set; }
+        public List<GroupMember> GroupMembers { get; set; }
     }
 }
