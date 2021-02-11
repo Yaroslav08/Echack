@@ -9,8 +9,11 @@ namespace Echack.Infrastructure.Data.Context
 {
     public class EchackContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Chack> Chacks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
