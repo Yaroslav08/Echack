@@ -13,10 +13,21 @@ namespace Echack.Domain.Models
         public string Products { get; set; }
         [Required]
         public bool IsImportant { get; set; } = false;
+        [Required]
+        public bool CanEdit { get; set; } = true;
+        [Required]
+        public ChackType ChackType { get; set; } = ChackType.Internal;
+
         public int UserId { get; set; }
         public User User { get; set; }
 
         public Guid GroupId { get; set; }
         public Group Group { get; set; }
+    }
+
+    public enum ChackType
+    {
+        Paymant,
+        Internal
     }
 }
