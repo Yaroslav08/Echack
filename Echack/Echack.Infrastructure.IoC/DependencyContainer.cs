@@ -10,8 +10,11 @@ namespace Echack.Infrastructure.IoC
     {
         public static void AddService(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IChackRepository, ChackRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IGroupMemberRepository, GroupMemberRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
