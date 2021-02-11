@@ -10,9 +10,13 @@ namespace Echack.Application.ViewModels.Chack
 {
     public class ChackViewModel
     {
+        public Guid Id { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public string ShopName { get; set; }
         public double TotalPrice { get; set; }
-        public string Products { get; set; }
+        public List<ProductViewModel> Products { get; set; }
         public bool IsImportant { get; set; }
         public bool CanEdit { get; set; }
         public ChackType ChackType { get; set; }
