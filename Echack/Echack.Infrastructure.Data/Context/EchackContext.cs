@@ -1,8 +1,10 @@
 ﻿using Echack.Domain.Models;
+using Echack.Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Infrastructure.Data.Context
@@ -15,6 +17,15 @@ namespace Echack.Infrastructure.Data.Context
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<User> Users { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ChackConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupMemberConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
