@@ -1,4 +1,5 @@
 ﻿using Echack.Domain.Interfaces;
+using Echack.Infrastructure.Data;
 using Echack.Infrastructure.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -10,6 +11,7 @@ namespace Echack.Infrastructure.IoC
     {
         public static void AddService(this IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IChackRepository, ChackRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
