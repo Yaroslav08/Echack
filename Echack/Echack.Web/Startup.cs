@@ -28,7 +28,7 @@ namespace Echack.Web
         {
             services.AddServices();
             services.AddEchackAutoMapper();
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Echack.Web", Version = "v1" });
