@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Echack.Application\Echack.Application.csproj" />
     <ProjectReference Include="..\Echack.Domain\Echack.Domain.csproj" />
     <ProjectReference Include="..\Echack.Infrastructure.Data\Echack.Infrastructure.Data.csproj" />
   </ItemGroup>
