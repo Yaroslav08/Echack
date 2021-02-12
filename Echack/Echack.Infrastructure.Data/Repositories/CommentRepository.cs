@@ -9,13 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Infrastructure.Data.Repositories
 {
-    public class CommentRepository : CRUDRepository<Comment, long, EchackContext>, ICommentRepository
+    public class CommentRepository : Repository<Comment>, ICommentRepository
     {
-        private EchackContext db;
-        public CommentRepository(EchackContext _db) : base(_db)
-        {
-            db = _db;
-        }
 
     }
 }

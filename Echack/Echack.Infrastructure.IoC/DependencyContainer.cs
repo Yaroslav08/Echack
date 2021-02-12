@@ -1,4 +1,5 @@
-﻿using Echack.Application.Interfaces;
+﻿using AutoMapper;
+using Echack.Application.Interfaces;
 using Echack.Application.Services;
 using Echack.Domain.Interfaces;
 using Echack.Infrastructure.Data;
@@ -13,13 +14,24 @@ namespace Echack.Infrastructure.IoC
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IChackRepository, ChackRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<IGroupMemberRepository, GroupMemberRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IChackRepository, ChackRepository>();
+            services.AddSingleton<ICommentRepository, CommentRepository>();
+            services.AddSingleton<IGroupRepository, GroupRepository>();
+            services.AddSingleton<IGroupMemberRepository, GroupMemberRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserService, UserService>();
+        }
+
+        public static void AddEchackAutoMapper(this IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new Echack.Application.Mapper());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

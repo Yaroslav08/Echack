@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Domain.Interfaces
 {
-    public interface IGroupMemberRepository : ICRUDRepository<GroupMember, Guid>
+    public interface IGroupMemberRepository : IRepository<GroupMember>
     {
 
     }

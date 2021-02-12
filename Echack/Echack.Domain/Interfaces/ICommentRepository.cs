@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Domain.Interfaces
 {
-    public interface ICommentRepository : ICRUDRepository<Comment, long>
+    public interface ICommentRepository : IRepository<Comment>
     {
 
     }

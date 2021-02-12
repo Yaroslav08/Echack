@@ -6,7 +6,7 @@ namespace Echack.Domain.Models
 {
     public class User : BaseModelWithIdentityGen<int>
     {
-        [Required]
+        [Required, MinLength(5), MaxLength(150)]
         public string Name { get; set; }
         [MinLength(20), MaxLength(150)]
         public string Avatar { get; set; }

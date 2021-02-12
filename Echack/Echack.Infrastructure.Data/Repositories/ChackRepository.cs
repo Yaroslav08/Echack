@@ -10,14 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Infrastructure.Data.Repositories
 {
-    public class ChackRepository : CRUDRepository<Chack, Guid, EchackContext>, IChackRepository
+    public class ChackRepository : Repository<Chack>, IChackRepository
     {
-        private EchackContext db;
-        public ChackRepository(EchackContext _db) : base(_db)
-        {
-            db = _db;
-        }
-
         public async Task<List<Chack>> GetChacksByMounthAsync(int ownerId, int mounth)
         {
             return await db.Chacks.AsNoTracking()

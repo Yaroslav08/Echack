@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Domain.Interfaces
 {
-    public interface IUserRepository : ICRUDRepository<User,int>
+    public interface IUserRepository : IRepository<User>
     {
         Task<List<User>> SearchUsersAsync(string name, int afterId);
     }

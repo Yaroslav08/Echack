@@ -9,13 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Infrastructure.Data.Repositories
 {
-    public class GroupRepository : CRUDRepository<Group, Guid, EchackContext>, IGroupRepository
+    public class GroupRepository : Repository<Group>, IGroupRepository
     {
-        private EchackContext db;
-        public GroupRepository(EchackContext _db) : base(_db)
-        {
-            db = _db;
-        }
 
     }
 }

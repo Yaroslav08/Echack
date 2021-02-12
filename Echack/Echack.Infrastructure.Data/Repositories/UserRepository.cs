@@ -9,14 +9,8 @@ using System.Threading.Tasks;
 
 namespace Echack.Infrastructure.Data.Repositories
 {
-    public class UserRepository : CRUDRepository<User, int, EchackContext>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        private EchackContext db;
-        public UserRepository(EchackContext _db) : base(_db)
-        {
-            db = _db;
-        }
-
         public async Task<List<User>> SearchUsersAsync(string name, int afterId)
         {
             if (afterId == 0)

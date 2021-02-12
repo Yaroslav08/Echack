@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Echack.Application.ViewModels.Chack;
+using Echack.Application.ViewModels.User;
 using Echack.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Echack.Application
         {
             CreateMap<Chack, ChackViewModel>()
                 .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)));
+
+            CreateMap<User, UserViewModel>();
         }
 
 

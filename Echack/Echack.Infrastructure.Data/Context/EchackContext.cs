@@ -17,7 +17,6 @@ namespace Echack.Infrastructure.Data.Context
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<User> Users { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ChackConfiguration());

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Echack.Domain.Interfaces
 {
-    public interface IChackRepository : ICRUDRepository<Chack, Guid>
+    public interface IChackRepository : IRepository<Chack>
     {
         Task<List<Chack>> GetChacksByMounthAsync(int ownerId, int mounth);
         Task<List<Chack>> GetChacksByTimeAsync(int ownerId, DateTime from, DateTime to);
