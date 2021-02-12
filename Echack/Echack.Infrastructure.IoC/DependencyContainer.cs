@@ -11,7 +11,7 @@ namespace Echack.Infrastructure.IoC
 {
     public static class DependencyContainer
     {
-        public static void AddService(this IServiceCollection services)
+        public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IChackRepository, ChackRepository>();
