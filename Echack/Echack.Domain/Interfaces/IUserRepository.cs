@@ -9,6 +9,6 @@ namespace Echack.Domain.Interfaces
 {
     public interface IUserRepository : ICRUDRepository<User,int>
     {
-
+        Task<List<User>> SearchUsersAsync(string name, int afterId);
     }
 }

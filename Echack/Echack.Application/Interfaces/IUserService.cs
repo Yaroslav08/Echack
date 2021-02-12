@@ -9,6 +9,6 @@ namespace Echack.Application.Interfaces
     public interface IUserService
     {
         Task<UserViewModel> GetUserById(int id);
-        Task<List<List<UserViewModel>>> SearchUsers(string user, int afterId);
+        Task<List<UserViewModel>> SearchUsers(string user, int afterId);
     }
 }
