@@ -1,5 +1,6 @@
 ﻿using Echack.Application.Interfaces;
 using Echack.Application.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,6 +33,7 @@ namespace Echack.Web.Controllers
         }
 
         [HttpGet("search")]
+        //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> SearchUsers(string name, int afterId = 0)
         {
             var users = await _userService.SearchUsers(name, afterId);
