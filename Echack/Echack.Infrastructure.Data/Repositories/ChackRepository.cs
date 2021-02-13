@@ -14,11 +14,12 @@ namespace Echack.Infrastructure.Data.Repositories
     {
         public async Task<Chack> GetChackByIdAsync(Guid id)
         {
-            return await db.Chacks
+            var chack = await db.Chacks
                 .AsNoTracking()
                 .Include(d => d.User)
                 .Include(d => d.Group)
                 .SingleOrDefaultAsync(d => d.Id == id);
+            return chack;
         }
 
         public async Task<List<Chack>> GetChacksByMounthAsync(int ownerId, int mounth)

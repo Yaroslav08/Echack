@@ -10,11 +10,10 @@ namespace Echack.Application.ViewModels.Chack
     {
         [Required, MinLength(1), MaxLength(100)]
         public string ShopName { get; set; }
-        [Required]
-        public bool IsImportant { get; set; } = false;
+        public bool IsImportant { get; set; }
         public double TotalPrice { get; set; }
         public int UserId { get; set; }
-        public Guid GroupId { get; set; }
+        public Guid? GroupId { get; set; }
         public List<ProductCreateViewModel> Products { get; set; }
     }
 }

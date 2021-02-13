@@ -16,6 +16,7 @@ namespace Echack.Infrastructure.IoC
         {
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IChackRepository, ChackRepository>();
+            services.AddSingleton<IChackService, ChackService>();
             services.AddSingleton<ICommentRepository, CommentRepository>();
             services.AddSingleton<IGroupRepository, GroupRepository>();
             services.AddSingleton<IGroupMemberRepository, GroupMemberRepository>();

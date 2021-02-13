@@ -31,14 +31,20 @@ namespace Echack.Application.Services
                 GroupId = model.GroupId,
                 ChackType = ChackType.Internal,
                 Products = JsonSerializer.Serialize(model.Products),
-                TotalPrice = Convert.ToDouble(model.Products.Sum(d => d.Price))
+                TotalPrice = model.Products.Sum(d => d.Price)
             };
             return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.CreateAsync(chack));
         }
 
+        public async Task<List<ChackViewModel>> GetAllChacks(int skip)
+        {
+            return _mapper.Map<List<ChackViewModel>>(await _unitOfWork.ChackRepository.GetAllAsync());
+        }
+
         public async Task<ChackViewModel> GetChack(Guid id)
         {
-            return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.GetChackByIdAsync(id));
+            var chack = await _unitOfWork.ChackRepository.GetChackByIdAsync(id);
+            return _mapper.Map<ChackViewModel>(chack);
         }
 
         public async Task<List<ChackViewModel>> GetUserChacksByUserId(int ownerId, int skip)

@@ -11,5 +11,8 @@ namespace Echack.Application.Interfaces
         Task<ChackViewModel> CreateCheck(ChackCreateViewModel model);
         Task<ChackViewModel> GetChack(Guid id);
         Task<List<ChackViewModel>> GetUserChacksByUserId(int ownerId, int skip);
+
+
+        Task<List<ChackViewModel>> GetAllChacks(int skip);
     }
 }

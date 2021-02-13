@@ -28,10 +28,17 @@ namespace Echack.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetChackById(Guid id)
+        public async Task<IActionResult> GetChackById(string id)
         {
-            var chack = await _chackService.GetChack(id);
+            var chack = await _chackService.GetChack(Guid.Parse(id));
             return Ok(chack);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllChacks(int skip = 0)
+        {
+            var chaks = await _chackService.GetAllChacks(skip);
+            return Ok(chaks);
         }
 
     }
