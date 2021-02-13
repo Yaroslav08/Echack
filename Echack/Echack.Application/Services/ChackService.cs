@@ -43,8 +43,7 @@ namespace Echack.Application.Services
 
         public async Task<ChackViewModel> GetChack(Guid id)
         {
-            var chack = await _unitOfWork.ChackRepository.GetChackByIdAsync(id);
-            return _mapper.Map<ChackViewModel>(chack);
+            return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.GetChackByIdAsync(id));
         }
 
         public async Task<List<ChackViewModel>> GetUserChacksByUserId(int ownerId, int skip)
