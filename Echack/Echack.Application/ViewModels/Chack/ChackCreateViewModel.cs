@@ -13,8 +13,8 @@ namespace Echack.Application.ViewModels.Chack
         [Required]
         public bool IsImportant { get; set; } = false;
         public double TotalPrice { get; set; }
-        public List<ProductCreateViewModel> Products { get; set; }
         public int UserId { get; set; }
         public Guid GroupId { get; set; }
+        public List<ProductCreateViewModel> Products { get; set; }
     }
 }
