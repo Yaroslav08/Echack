@@ -37,7 +37,7 @@ namespace Echack.Application.Services
 
         public async Task<List<UserViewModel>> GetAllUsers(int afterId)
         {
-            return _mapper.Map<List<UserViewModel>>(await _unitOfWork.UserRepository.GetAllAsync());
+            return _mapper.Map<List<UserViewModel>>(await _unitOfWork.UserRepository.GetAllAsync(afterId));
         }
 
         public async Task<UserViewModel> GetUserById(int id)

@@ -25,7 +25,7 @@ namespace Echack.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers(int afterId)
+        public async Task<IActionResult> GetAllUsers(int afterId = 0)
         {
             var users = await _userService.GetAllUsers(afterId);
             return Ok(users);

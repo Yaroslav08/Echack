@@ -11,6 +11,13 @@ namespace Echack.Infrastructure.Data.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
+        public async Task<List<User>> GetAllAsync(int afterId)
+        {
+            if (afterId == 0)
+                return await db.Users.AsNoTracking().Take(20).ToListAsync();
+            return await db.Users.AsNoTracking().Where(d => d.Id > afterId).Take(20).ToListAsync();
+        }
+
         public async Task<List<User>> SearchUsersAsync(string name, int afterId)
         {
             if (afterId == 0)
