@@ -9,5 +9,9 @@ namespace Echack.Infrastructure.Data
     public interface IUnitOfWork
     {
         IUserRepository UserRepository { get; }
+        IChackRepository ChackRepository { get; }
+        ICommentRepository CommentRepository { get; }
+        IGroupRepository GroupRepository { get; }
+        IGroupMemberRepository GroupMemberRepository { get; }
     }
 }
