@@ -12,6 +12,15 @@ namespace Echack.Infrastructure.Data.Repositories
 {
     public class ChackRepository : Repository<Chack>, IChackRepository
     {
+        public async Task<Chack> GetChackByIdAsync(Guid id)
+        {
+            return await db.Chacks
+                .AsNoTracking()
+                .Include(d => d.User)
+                .Include(d => d.Group)
+                .SingleOrDefaultAsync(d => d.Id == id);
+        }
+
         public async Task<List<Chack>> GetChacksByMounthAsync(int ownerId, int mounth)
         {
             return await db.Chacks.AsNoTracking()
@@ -35,6 +44,15 @@ namespace Echack.Infrastructure.Data.Repositories
         {
             return await db.Chacks.AsNoTracking()
                 .Where(d => d.UserId == ownerId && d.CreatedAt >= from && d.CreatedAt <= to)
+                .ToListAsync();
+        }
+
+        public async Task<List<Chack>> GetChacksByUserIdAsync(int ownerId, int skip)
+        {
+            return await db.Chacks.AsNoTracking()
+                .Where(d => d.UserId == ownerId)
+                .Include(d => d.Group)
+                .Skip(skip)
                 .ToListAsync();
         }
     }

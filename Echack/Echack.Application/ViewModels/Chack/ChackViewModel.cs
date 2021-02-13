@@ -22,5 +22,16 @@ namespace Echack.Application.ViewModels.Chack
         public ChackType ChackType { get; set; }
         public UserViewModel User { get; set; }
         public GroupViewModel Group { get; set; }
+        public double GetTotalPrice()
+        {
+            if (Products == null || Products.Count == 0)
+            {
+                TotalPrice = 0;
+                return 0;
+            }
+            var tPrice = Products.Sum(d => d.Price);
+            TotalPrice = tPrice;
+            return tPrice;
+        }
     }
 }

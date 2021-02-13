@@ -9,8 +9,10 @@ namespace Echack.Domain.Interfaces
 {
     public interface IChackRepository : IRepository<Chack>
     {
+        Task<List<Chack>> GetChacksByUserIdAsync(int ownerId, int skip);
         Task<List<Chack>> GetChacksByMounthAsync(int ownerId, int mounth);
         Task<List<Chack>> GetChacksByTimeAsync(int ownerId, DateTime from, DateTime to);
         Task<List<Chack>> GetChacksByShopNameAsync(int ownerId, string shopName, int afterId);
+        Task<Chack> GetChackByIdAsync(Guid id);
     }
 }
