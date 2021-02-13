@@ -30,6 +30,13 @@ namespace Echack.Web.Controllers
             var users = await _userService.GetAllUsers(afterId);
             return Ok(users);
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchUsers(string name, int afterId = 0)
+        {
+            var users = await _userService.SearchUsers(name, afterId);
+            return Ok(users);
+        }
         
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
