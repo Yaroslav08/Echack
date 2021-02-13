@@ -26,6 +26,7 @@ namespace Echack.Web.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllUsers(int afterId = 0)
         {
             var users = await _userService.GetAllUsers(afterId);

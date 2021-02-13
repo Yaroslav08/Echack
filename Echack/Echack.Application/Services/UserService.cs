@@ -35,6 +35,17 @@ namespace Echack.Application.Services
             return _mapper.Map<UserViewModel>(await _unitOfWork.UserRepository.CreateAsync(user));
         }
 
+        public async Task<UserViewModel> EditUser(UserEditViewModel model)
+        {
+            var user = await _unitOfWork.UserRepository.GetByIdAsTrackingAsync(model.Id);
+            if (user == null)
+                return null;
+            user.Name = model.Name;
+            user.UpdatedAt = DateTime.Now;
+            user.UpdatedBy = user.Id.ToString();
+            return _mapper.Map<UserViewModel>(await _unitOfWork.UserRepository.UpdateAsync(user));
+        }
+
         public async Task<List<UserViewModel>> GetAllUsers(int afterId)
         {
             return _mapper.Map<List<UserViewModel>>(await _unitOfWork.UserRepository.GetAllAsync(afterId));
