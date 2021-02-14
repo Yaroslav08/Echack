@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 
 namespace Echack.Web.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ChacksController : BaseController
     {
         private readonly IChackService _chackService;

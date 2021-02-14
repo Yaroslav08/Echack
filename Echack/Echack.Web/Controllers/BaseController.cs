@@ -13,6 +13,6 @@ namespace Echack.Web.Controllers
     {
         private string GetIdentityName() => User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
-
+        private int GetId() => Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
     }
 }

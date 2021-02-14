@@ -33,6 +33,15 @@ namespace Echack.Web.Controllers
             return Ok(users);
         }
 
+        [HttpPut("{id}")]
+        //[Authorize]
+        public async Task<IActionResult> EditUser(int id, [FromBody] UserEditViewModel model)
+        {
+            model.Id = id;
+            var result = await _userService.EditUser(model);
+            return Ok(result);
+        }
+
         [HttpGet("search")]
         //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> SearchUsers(string name, int afterId = 0)
