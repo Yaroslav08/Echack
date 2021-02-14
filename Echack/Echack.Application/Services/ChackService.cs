@@ -31,7 +31,8 @@ namespace Echack.Application.Services
                 GroupId = model.GroupId,
                 ChackType = ChackType.Internal,
                 Products = JsonSerializer.Serialize(model.Products),
-                TotalPrice = model.Products.Sum(d => d.Price)
+                TotalPrice = model.Products.Sum(d => d.Price),
+                CreatedBy = model.UserId.ToString()
             };
             return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.CreateAsync(chack));
         }

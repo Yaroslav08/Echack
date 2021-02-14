@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Echack.Application.ViewModels.Group
+
+namespace Echack.Application.ViewModels.Chack
 {
-    public class GroupViewModel
+    public class UserChackViewModel
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Name { get; set; }
-        public string Color { get; set; }
-        public string Desc { get; set; }
+        public string Avatar { get; set; }
+        public string Role { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }
 }

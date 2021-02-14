@@ -28,8 +28,8 @@ namespace Echack.Infrastructure.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EchackDb;Trusted_Connection=True;");
-            optionsBuilder.UseInMemoryDatabase(Guid.NewGuid().ToString());
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EchackDb;Trusted_Connection=True;");
+            //optionsBuilder.UseInMemoryDatabase(Guid.NewGuid().ToString());
         }
     }
 }

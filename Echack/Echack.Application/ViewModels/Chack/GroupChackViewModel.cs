@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Echack.Application.ViewModels.Group
+namespace Echack.Application.ViewModels.Chack
 {
-    public class GroupViewModel
+    public class GroupChackViewModel
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

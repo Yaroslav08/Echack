@@ -20,8 +20,8 @@ namespace Echack.Application.ViewModels.Chack
         public bool IsImportant { get; set; }
         public bool CanEdit { get; set; }
         public ChackType ChackType { get; set; }
-        public UserViewModel User { get; set; }
-        public GroupViewModel Group { get; set; }
+        public UserChackViewModel User { get; set; }
+        public GroupChackViewModel Group { get; set; }
         public double GetTotalPrice()
         {
             if (Products == null || Products.Count == 0)
