@@ -1,5 +1,6 @@
 ﻿using Echack.Application.MediatR.Commands;
 using Echack.Application.MediatR.Queries;
+using Echack.Application.ViewModels.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -15,9 +16,9 @@ namespace Echack.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserCreateCommand model)
+        public async Task<IActionResult> CreateUser([FromBody] UserCreateViewModel model)
         {
-            var result = await _mediator.Send(model);
+            var result = await _mediator.Send(new UserCreateCommand(model));
             return Ok(result);
         }
 
@@ -31,10 +32,10 @@ namespace Echack.Web.Controllers
 
         [HttpPut("{id}")]
         //[Authorize]
-        public async Task<IActionResult> EditUser(int id, [FromBody] UserEditCommand model)
+        public async Task<IActionResult> EditUser(int id, [FromBody] UserEditViewModel model)
         {
             model.UserId = id;
-            var result = await _mediator.Send(model);
+            var result = await _mediator.Send(new UserEditCommand(model));
             return Ok(result);
         }
 

@@ -11,10 +11,13 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Echack.Application.MediatR.Commands
 {
-    public class UserEditCommand : RequestModel, IRequest<UserViewModel>
+    public class UserEditCommand : IRequest<UserViewModel>
     {
-        [Required, MinLength(5), MaxLength(150)]
-        public string Name { get; set; }
+        public UserEditViewModel User { get; set; }
+        public UserEditCommand(UserEditViewModel user)
+        {
+            User = user;
+        }
     }
 
     public class UserEditCommandHandler : IRequestHandler<UserEditCommand, UserViewModel>
@@ -28,11 +31,7 @@ namespace Echack.Application.MediatR.Commands
 
         public async Task<UserViewModel> Handle(UserEditCommand request, CancellationToken cancellationToken)
         {
-            return await _userService.EditUser(new UserEditViewModel
-            {
-                Name = request.Name,
-                UserId = request.UserId
-            });
+            return await _userService.EditUser(request.User);
         }
     }
 }
