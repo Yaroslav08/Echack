@@ -37,6 +37,24 @@ namespace Echack.Application.Services
             return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.CreateAsync(chack));
         }
 
+        public async Task<ChackEditViewModel> EditChack(ChackEditViewModel model)
+        {
+            var chack = await _unitOfWork.ChackRepository.FindAsTrackingAsync(d => d.Id == model.Id);
+            if (chack == null)
+                return null;
+            if (chack.UserId != model.UserId)
+                return null;
+            if (!chack.CanEdit)
+                return null;
+            chack.ShopName = model.ShopName;
+            chack.IsImportant = model.IsImportant;
+            chack.TotalPrice = model.GetTotalPrice();
+            chack.Products = JsonSerializer.Serialize(model.Products);
+            chack.UpdatedAt = DateTime.Now;
+            chack.UpdatedBy = model.UserId.ToString();
+            return _mapper.Map<ChackEditViewModel>(await _unitOfWork.ChackRepository.UpdateAsync(chack));
+        }
+
         public async Task<List<ChackViewModel>> GetAllChacks(int skip)
         {
             return _mapper.Map<List<ChackViewModel>>(await _unitOfWork.ChackRepository.GetAllAsync());
