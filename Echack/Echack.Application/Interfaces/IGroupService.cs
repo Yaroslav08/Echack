@@ -10,5 +10,7 @@ namespace Echack.Application.Interfaces
     {
         Task<GroupViewModel> GetGroupById(Guid id);
         Task<GroupViewModel> CreateGroup(GroupCreateViewModel model);
+        Task<GroupViewModel> EditGroup(GroupEditViewModel model);
+        Task<List<ChackGroupViewModel>> GetChacksByGroupId(Guid groupId, int skip);
     }
 }
