@@ -8,6 +8,6 @@ namespace Echack.Application.ViewModels
     public class RequestModel
     {
         public string IP { get; set; }
-        public int Id { get; set; }
+        public int UserId { get; set; }
     }
 }
