@@ -21,6 +21,22 @@ namespace Echack.Infrastructure.Data.Repositories
                 .SingleOrDefaultAsync(d => d.Id == id);
         }
 
+        public async Task<List<Chack>> GetChacksByGroupIdAsync(Guid groupId, int skip)
+        {
+            if (skip == 0)
+                return await db.Chacks.AsNoTracking()
+                    .Where(d => d.GroupId == groupId)
+                    .OrderByDescending(d => d.CreatedAt)
+                    .Take(20)
+                    .ToListAsync();
+            return await db.Chacks.AsNoTracking()
+                    .Where(d => d.GroupId == groupId)
+                    .OrderByDescending(d => d.CreatedAt)
+                    .Skip(skip)
+                    .Take(20)
+                    .ToListAsync();
+        }
+
         public async Task<List<Chack>> GetChacksByMounthAsync(int ownerId, int mounth)
         {
             return await db.Chacks.AsNoTracking()

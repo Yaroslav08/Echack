@@ -8,6 +8,8 @@ namespace Echack.Application.ViewModels.Group
 {
     public class GroupEditViewModel : RequestModel
     {
+        [Required]
+        public Guid Id { get; set; }
         [Required, MinLength(1), MaxLength(100)]
         public string Name { get; set; }
         [MinLength(2), MaxLength(25)]

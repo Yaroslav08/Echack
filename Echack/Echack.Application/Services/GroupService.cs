@@ -20,6 +20,16 @@ namespace Echack.Application.Services
             _mapper = mapper;
         }
 
+        public async Task<bool> CanEditGroup(Guid groupId, int userId)
+        {
+            var member = await _unitOfWork.GroupMemberRepository.FindAsync(d => d.UserId == userId && d.GroupId == groupId);
+            if (member == null)
+                return false;
+            if (member.Title != "Creator")
+                return true;
+            return false;
+        }
+
         public async Task<GroupViewModel> CreateGroup(GroupCreateViewModel model)
         {
             var group = new Group
@@ -42,12 +52,22 @@ namespace Echack.Application.Services
 
         public async Task<GroupViewModel> EditGroup(GroupEditViewModel model)
         {
-            throw new NotImplementedException();
+            if (!await CanEditGroup(model.Id, model.UserId))
+                return null;
+            var group = await _unitOfWork.GroupRepository.FindAsTrackingAsync(d => d.Id == model.Id);
+            if (group == null)
+                return null;
+            group.Name = model.Name;
+            group.Desc = model.Desc;
+            group.Color = model.Color;
+            group.UpdatedAt = DateTime.Now;
+            group.UpdatedBy = model.UserId.ToString();
+            return _mapper.Map<GroupViewModel>(await _unitOfWork.GroupRepository.UpdateAsync(group));
         }
 
-        public async Task<List<ChackGroupViewModel>> GetChacksByGroupId(Guid groupId, Guid afterId)
+        public async Task<List<ChackGroupViewModel>> GetChacksByGroupId(Guid groupId, int skip = 0)
         {
-            return _mapper.Map<List<ChackGroupViewModel>>(await _unitOfWork.ChackRepository.GetChacksByGroupIdAsync(groupId, afterId));
+            return _mapper.Map<List<ChackGroupViewModel>>(await _unitOfWork.ChackRepository.GetChacksByGroupIdAsync(groupId, skip));
         }
 
         public async Task<GroupViewModel> GetGroupById(Guid id)
