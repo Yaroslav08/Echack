@@ -21,6 +21,21 @@ namespace Echack.Application.Services
             _mapper = mapper;
         }
 
+        public async Task<ChackViewModel> AddChackToGroup(ChackGroupCreateModel model)
+        {
+            var chack = await _unitOfWork.ChackRepository.FindAsTrackingAsync(d => d.Id == model.ChackId);
+            if (chack == null)
+                return null;
+            if (chack.UserId != model.UserId)
+                return null;
+            if (chack.GroupId != null)
+                return null;
+            chack.GroupId = model.GroupId;
+            chack.UpdatedAt = DateTime.Now;
+            chack.UpdatedBy = model.UserId.ToString();
+            return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.UpdateAsync(chack));
+        }
+
         public async Task<ChackViewModel> CreateCheck(ChackCreateViewModel model)
         {
             var chack = new Chack
@@ -37,7 +52,7 @@ namespace Echack.Application.Services
             return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.CreateAsync(chack));
         }
 
-        public async Task<ChackEditViewModel> EditChack(ChackEditViewModel model)
+        public async Task<ChackViewModel> EditChack(ChackEditViewModel model)
         {
             var chack = await _unitOfWork.ChackRepository.FindAsTrackingAsync(d => d.Id == model.Id);
             if (chack == null)
@@ -52,7 +67,7 @@ namespace Echack.Application.Services
             chack.Products = JsonSerializer.Serialize(model.Products);
             chack.UpdatedAt = DateTime.Now;
             chack.UpdatedBy = model.UserId.ToString();
-            return _mapper.Map<ChackEditViewModel>(await _unitOfWork.ChackRepository.UpdateAsync(chack));
+            return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.UpdateAsync(chack));
         }
 
         public async Task<List<ChackViewModel>> GetAllChacks(int skip)
@@ -68,6 +83,21 @@ namespace Echack.Application.Services
         public async Task<List<ChackViewModel>> GetUserChacksByUserId(int ownerId, int skip)
         {
             return _mapper.Map<List<ChackViewModel>>(await _unitOfWork.ChackRepository.GetChacksByUserIdAsync(ownerId, skip));
+        }
+
+        public async Task<ChackViewModel> RemoveChackFromGroup(ChackGroupCreateModel model)
+        {
+            var chack = await _unitOfWork.ChackRepository.FindAsTrackingAsync(d => d.Id == model.ChackId);
+            if (chack == null)
+                return null;
+            if (chack.UserId != model.UserId)
+                return null;
+            if (chack.GroupId != model.GroupId)
+                return null;
+            chack.GroupId = null;
+            chack.UpdatedAt = DateTime.Now;
+            chack.UpdatedBy = model.UserId.ToString();
+            return _mapper.Map<ChackViewModel>(await _unitOfWork.ChackRepository.UpdateAsync(chack));
         }
     }
 }
