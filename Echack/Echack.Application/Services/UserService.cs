@@ -37,7 +37,7 @@ namespace Echack.Application.Services
 
         public async Task<UserViewModel> EditUser(UserEditViewModel model)
         {
-            var user = await _unitOfWork.UserRepository.GetByIdAsTrackingAsync(model.Id);
+            var user = await _unitOfWork.UserRepository.GetByIdAsTrackingAsync(model.UserId);
             if (user == null)
                 return null;
             user.Name = model.Name;

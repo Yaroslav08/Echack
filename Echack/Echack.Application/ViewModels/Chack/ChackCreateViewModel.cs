@@ -12,7 +12,6 @@ namespace Echack.Application.ViewModels.Chack
         public string ShopName { get; set; }
         public bool IsImportant { get; set; }
         public double TotalPrice { get; set; }
-        public int UserId { get; set; }
         public Guid? GroupId { get; set; }
         public List<ProductCreateViewModel> Products { get; set; }
     }

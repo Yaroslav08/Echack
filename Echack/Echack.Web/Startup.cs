@@ -1,4 +1,6 @@
+using Echack.Application;
 using Echack.Infrastructure.IoC;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +35,7 @@ namespace Echack.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Echack.Web", Version = "v1" });
             });
+            services.AddMediatR(typeof(Mapper));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
