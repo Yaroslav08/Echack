@@ -1,5 +1,4 @@
-﻿using Echack.Application.Interfaces;
-using Echack.Application.MediatR.Commands;
+﻿using Echack.Application.MediatR.Commands;
 using Echack.Application.MediatR.Queries;
 using Echack.Application.ViewModels.Chack;
 using MediatR;
@@ -11,13 +10,12 @@ namespace Echack.Web.Controllers
 {
     public class ChacksController : BaseController
     {
-        private readonly IChackService _chackService;
         IMediator _mediator;
-        public ChacksController(IChackService chackService)
-        {
-            _chackService = chackService;
-        }
 
+        public ChacksController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateChack([FromBody] ChackCreateViewModel model)
@@ -39,6 +37,5 @@ namespace Echack.Web.Controllers
             var chaks = await _mediator.Send(new GetAllChackQuery(skip));
             return Ok(chaks);
         }
-
     }
 }
