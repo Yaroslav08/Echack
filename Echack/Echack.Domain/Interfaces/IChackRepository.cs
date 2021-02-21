@@ -14,5 +14,6 @@ namespace Echack.Domain.Interfaces
         Task<List<Chack>> GetChacksByTimeAsync(int ownerId, DateTime from, DateTime to);
         Task<List<Chack>> GetChacksByShopNameAsync(int ownerId, string shopName, int afterId);
         Task<Chack> GetChackByIdAsync(Guid id);
+        Task<List<Chack>> GetChacksByGroupIdAsync(Guid groupId, Guid afterId);
     }
 }

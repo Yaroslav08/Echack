@@ -40,6 +40,16 @@ namespace Echack.Application.Services
             return _mapper.Map<GroupViewModel>(groupToResult);
         }
 
+        public async Task<GroupViewModel> EditGroup(GroupEditViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<ChackGroupViewModel>> GetChacksByGroupId(Guid groupId, Guid afterId)
+        {
+            return _mapper.Map<List<ChackGroupViewModel>>(await _unitOfWork.ChackRepository.GetChacksByGroupIdAsync(groupId, afterId));
+        }
+
         public async Task<GroupViewModel> GetGroupById(Guid id)
         {
             return _mapper.Map<GroupViewModel>(await _unitOfWork.GroupRepository.FindAsync(d => d.Id == id));

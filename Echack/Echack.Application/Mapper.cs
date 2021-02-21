@@ -19,7 +19,8 @@ namespace Echack.Application
                 .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)))
                 .ForMember(d => d.Group, s => s.MapFrom(d => d.Group))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
-            CreateMap<Chack, ChackGroupViewModel>();
+            CreateMap<Chack, ChackGroupViewModel>()
+                .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)));
 
             CreateMap<User, UserViewModel>();
             CreateMap<User, UserChackViewModel>();
