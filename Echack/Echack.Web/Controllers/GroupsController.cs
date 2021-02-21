@@ -1,10 +1,7 @@
 ﻿using Echack.Application.Interfaces;
 using Echack.Application.ViewModels.Group;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 namespace Echack.Web.Controllers
 {
