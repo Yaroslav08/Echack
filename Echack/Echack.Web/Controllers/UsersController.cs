@@ -16,9 +16,8 @@ namespace Echack.Web.Controllers
     public class UsersController : BaseController
     {
         IMediator _mediator;
-        public UsersController(IUserService userService, IMediator mediator)
+        public UsersController(IMediator mediator)
         {
-            _userService = userService;
             _mediator = mediator;
         }
 
