@@ -15,11 +15,13 @@ namespace Ereceipt.Application.Services
     public class ChackService : IChackService
     {
         private IChackRepository _chackRepos;
+        private IProductService _productService;
         private IMapper _mapper;
-        public ChackService(IChackRepository chackRepos, IMapper mapper)
+        public ChackService(IChackRepository chackRepos, IMapper mapper, IProductService productService)
         {
             _chackRepos = chackRepos;
             _mapper = mapper;
+            _productService = productService;
         }
 
         public async Task<ChackViewModel> AddChackToGroup(ChackGroupCreateModel model)
@@ -47,7 +49,7 @@ namespace Ereceipt.Application.Services
                 GroupId = model.GroupId,
                 ChackType = ChackType.Internal,
                 Products = JsonSerializer.Serialize(model.Products),
-                TotalPrice = model.Products.Sum(d => d.Price),
+                TotalPrice = _productService.GetSum(model.Products),
                 CreatedBy = model.UserId.ToString()
             };
             return _mapper.Map<ChackViewModel>(await _chackRepos.CreateAsync(chack));
