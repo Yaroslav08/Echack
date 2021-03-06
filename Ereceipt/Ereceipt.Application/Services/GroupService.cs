@@ -1,28 +1,30 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.ViewModels.Group;
+using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
-using Ereceipt.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Services
 {
     public class GroupService : IGroupService
     {
-        private IUnitOfWork _unitOfWork;
+        private IGroupRepository _groupRepository;
+        private IGroupMemberRepository _groupMemberRepository;
+        private IChackRepository _chackRepository;
         private IMapper _mapper;
-        public GroupService(IUnitOfWork unitOfWork, IMapper mapper)
+        public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IChackRepository chackRepository)
         {
-            _unitOfWork = unitOfWork;
+            _groupRepository = groupRepository;
             _mapper = mapper;
+            _groupMemberRepository = groupMemberRepository;
+            _chackRepository = chackRepository;
         }
 
         public async Task<bool> CanEditGroup(Guid groupId, int userId)
         {
-            var member = await _unitOfWork.GroupMemberRepository.FindAsync(d => d.UserId == userId && d.GroupId == groupId);
+            var member = await _groupMemberRepository.FindAsync(d => d.UserId == userId && d.GroupId == groupId);
             if (member == null)
                 return false;
             if (member.Title != "Creator")
@@ -39,8 +41,8 @@ namespace Ereceipt.Application.Services
                 Color = model.Color,
                 CreatedBy = model.UserId.ToString()
             };
-            var groupToResult = await _unitOfWork.GroupRepository.CreateAsync(group);
-            await _unitOfWork.GroupMemberRepository.CreateAsync(new GroupMember
+            var groupToResult = await _groupRepository.CreateAsync(group);
+            await _groupMemberRepository.CreateAsync(new GroupMember
             {
                 GroupId = groupToResult.Id,
                 UserId = model.UserId,
@@ -54,7 +56,7 @@ namespace Ereceipt.Application.Services
         {
             if (!await CanEditGroup(model.Id, model.UserId))
                 return null;
-            var group = await _unitOfWork.GroupRepository.FindAsTrackingAsync(d => d.Id == model.Id);
+            var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == model.Id);
             if (group == null)
                 return null;
             group.Name = model.Name;
@@ -62,17 +64,17 @@ namespace Ereceipt.Application.Services
             group.Color = model.Color;
             group.UpdatedAt = DateTime.Now;
             group.UpdatedBy = model.UserId.ToString();
-            return _mapper.Map<GroupViewModel>(await _unitOfWork.GroupRepository.UpdateAsync(group));
+            return _mapper.Map<GroupViewModel>(await _groupRepository.UpdateAsync(group));
         }
 
         public async Task<List<ChackGroupViewModel>> GetChacksByGroupId(Guid groupId, int skip = 0)
         {
-            return _mapper.Map<List<ChackGroupViewModel>>(await _unitOfWork.ChackRepository.GetChacksByGroupIdAsync(groupId, skip));
+            return _mapper.Map<List<ChackGroupViewModel>>(await _chackRepository.GetChacksByGroupIdAsync(groupId, skip));
         }
 
         public async Task<GroupViewModel> GetGroupById(Guid id)
         {
-            return _mapper.Map<GroupViewModel>(await _unitOfWork.GroupRepository.FindAsync(d => d.Id == id));
+            return _mapper.Map<GroupViewModel>(await _groupRepository.FindAsync(d => d.Id == id));
         }
     }
 }
