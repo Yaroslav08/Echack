@@ -1,5 +1,8 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.MediatR.Commands;
+using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Group;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -7,31 +10,31 @@ namespace Ereceipt.Web.Controllers
 {
     public class GroupsController : BaseController
     {
-        private readonly IGroupService _groupService;
-        public GroupsController(IGroupService groupService)
+        private IMediator _mediatr;
+        public GroupsController(IMediator mediatr)
         {
-            _groupService = groupService;
+            _mediatr = mediatr;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupById(Guid id)
         {
-            var group = await _groupService.GetGroupById(id);
-            return Ok(group);
+            var result = await _mediatr.Send(new GetGroupByIdQuery(id));
+            return Ok(result);
         }
 
         [HttpGet("{groupId}/chacks")]
         public async Task<IActionResult> GetChacksByGroupId(Guid groupId, int skip)
         {
-            var chacks = await _groupService.GetChacksByGroupId(groupId, skip);
-            return Ok(chacks);
+            var result = await _mediatr.Send(new GetChacksByGroupIdQuery(groupId, skip));
+            return Ok(result);
         }
 
 
         [HttpPost]
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
         {
-            var result = await _groupService.CreateGroup(model);
+            var result = await _mediatr.Send(new GroupCreateCommand(model));
             return Ok(result);
         }
     }
