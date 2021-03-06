@@ -46,6 +46,5 @@ namespace Ereceipt.Web.Controllers
             var chaks = await _mediator.Send(new GetMyChacksQuery(GetId(), skip));
             return Ok(chaks);
         }
-
     }
 }

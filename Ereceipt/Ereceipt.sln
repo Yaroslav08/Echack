@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ereceipt.Application", "Ere
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ereceipt.Web", "Ereceipt.Web\Ereceipt.Web.csproj", "{F69ECE37-54F1-4190-8A3D-6483DB5CE12E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ereceipt.Tests", "Ereceipt.Tests\Ereceipt.Tests.csproj", "{349604A6-C80B-4F02-B088-78A3D960EC6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{F69ECE37-54F1-4190-8A3D-6483DB5CE12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F69ECE37-54F1-4190-8A3D-6483DB5CE12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F69ECE37-54F1-4190-8A3D-6483DB5CE12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{349604A6-C80B-4F02-B088-78A3D960EC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{349604A6-C80B-4F02-B088-78A3D960EC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{349604A6-C80B-4F02-B088-78A3D960EC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{349604A6-C80B-4F02-B088-78A3D960EC6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{CBE45AAF-9DD2-4C2A-8BA8-7288258B11D8} = {A737B6C2-69F1-484F-90FB-4C762524838E}
 		{2B33BEBC-2EB4-4878-9733-293276C36116} = {A737B6C2-69F1-484F-90FB-4C762524838E}
 		{F69ECE37-54F1-4190-8A3D-6483DB5CE12E} = {A737B6C2-69F1-484F-90FB-4C762524838E}
+		{349604A6-C80B-4F02-B088-78A3D960EC6F} = {EE4A02AB-C1F0-417D-95EC-203C2B97BB96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC14A54D-2E0F-4D5E-931E-F0FDAC19E9DF}
