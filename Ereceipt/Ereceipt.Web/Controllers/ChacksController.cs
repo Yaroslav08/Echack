@@ -2,6 +2,7 @@
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Chack;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatEreceipt([FromBody] ChackCreateViewModel model)
+        public async Task<IActionResult> CreateEreceipt([FromBody] ChackCreateViewModel model)
         {
             var result = await _mediator.Send(new ChackCreateCommand(model));
             return Ok(result);
@@ -32,6 +33,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllChacks(int skip = 0)
         {
             var chaks = await _mediator.Send(new GetAllChackQuery(skip));

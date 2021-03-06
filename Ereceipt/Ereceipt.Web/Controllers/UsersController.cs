@@ -48,6 +48,7 @@ namespace Ereceipt.Web.Controllers
         }
         
         [HttpGet("{id}")]
+        //[Authorize]
         public async Task<IActionResult> GetUserById(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
