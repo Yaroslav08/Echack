@@ -20,13 +20,15 @@ namespace Ereceipt.Application
                 .ForMember(d => d.Group, s => s.MapFrom(d => d.Group))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
             CreateMap<Chack, ChackGroupViewModel>()
-                .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)));
+                .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)))
+                .ForMember(d => d.User, s => s.MapFrom(d => d.User));
 
             CreateMap<User, UserViewModel>();
             CreateMap<User, UserChackViewModel>();
 
 
             CreateMap<Group, GroupViewModel>();
+            CreateMap<Group, GroupChackViewModel>();
         }
 
 

@@ -20,6 +20,14 @@ namespace Ereceipt.Web.Controllers
             return Ok(group);
         }
 
+        [HttpGet("{groupId}/chacks")]
+        public async Task<IActionResult> GetChacksByGroupId(Guid groupId, int skip)
+        {
+            var chacks = await _groupService.GetChacksByGroupId(groupId, skip);
+            return Ok(chacks);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
         {

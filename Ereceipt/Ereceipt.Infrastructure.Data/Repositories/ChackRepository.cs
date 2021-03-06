@@ -26,11 +26,13 @@ namespace Ereceipt.Infrastructure.Data.Repositories
             if (skip == 0)
                 return await db.Chacks.AsNoTracking()
                     .Where(d => d.GroupId == groupId)
+                    .Include(d=>d.User)
                     .OrderByDescending(d => d.CreatedAt)
                     .Take(20)
                     .ToListAsync();
             return await db.Chacks.AsNoTracking()
                     .Where(d => d.GroupId == groupId)
+                    .Include(d=>d.User)
                     .OrderByDescending(d => d.CreatedAt)
                     .Skip(skip)
                     .Take(20)

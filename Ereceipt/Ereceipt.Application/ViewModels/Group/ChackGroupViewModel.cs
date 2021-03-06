@@ -16,5 +16,6 @@ namespace Ereceipt.Application.ViewModels.Group
         public double TotalPrice { get; set; }
         public List<ProductViewModel> Products { get; set; }
         public bool IsImportant { get; set; }
+        public UserChackViewModel User { get; set; }
     }
 }
