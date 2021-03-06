@@ -68,7 +68,7 @@ namespace Ereceipt.Infrastructure.Data.Repositories
             return await db.Chacks.AsNoTracking()
                 .Where(d => d.UserId == ownerId)
                 .Include(d => d.Group)
-                .Skip(skip)
+                .Skip(skip).Take(20)
                 .ToListAsync();
         }
     }

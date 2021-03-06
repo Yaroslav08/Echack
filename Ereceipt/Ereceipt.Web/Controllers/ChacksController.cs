@@ -39,5 +39,13 @@ namespace Ereceipt.Web.Controllers
             var chaks = await _mediator.Send(new GetAllChackQuery(skip));
             return Ok(chaks);
         }
+
+        [HttpGet("my")]
+        public async Task<IActionResult> GetMyChaks(int skip = 0)
+        {
+            var chaks = await _mediator.Send(new GetMyChacksQuery(GetId(), skip));
+            return Ok(chaks);
+        }
+
     }
 }

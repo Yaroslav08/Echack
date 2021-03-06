@@ -8,8 +8,13 @@ namespace Ereceipt.Web.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
-        private string GetIdentityName() => User.Identity.IsAuthenticated ? User.Identity.Name : null;
+        protected string GetIdentityName() => User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
-        private int GetId() => Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
+        protected int GetId() 
+        {
+            if (User.Identity.IsAuthenticated)
+                return Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
+            return 1;
+        }
     }
 }
