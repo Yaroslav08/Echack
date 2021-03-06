@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Domain.Interfaces;
+using Ereceipt.Domain.Models;
 using Ereceipt.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
     {
         protected EreceiptContext db;
         protected DbSet<TEntity> dbSet;
@@ -85,7 +86,10 @@ namespace Ereceipt.Infrastructure.Data.Repositories
 
         public async Task<List<TEntity>> GetAllAsync()
         {
-            return await db.Set<TEntity>().AsNoTracking().ToListAsync();
+            return await db.Set<TEntity>()
+                .OrderByDescending(d => d.CreatedAt)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<TEntity> GetByIdAsTrackingAsync(object Id)
