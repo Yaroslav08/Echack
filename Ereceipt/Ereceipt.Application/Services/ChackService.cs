@@ -66,7 +66,7 @@ namespace Ereceipt.Application.Services
                 return null;
             chack.ShopName = model.ShopName;
             chack.IsImportant = model.IsImportant;
-            chack.TotalPrice = model.GetTotalPrice();
+            chack.TotalPrice = _productService.GetSum(model.Products);
             chack.Products = JsonSerializer.Serialize(model.Products);
             chack.UpdatedAt = DateTime.Now;
             chack.UpdatedBy = model.UserId.ToString();

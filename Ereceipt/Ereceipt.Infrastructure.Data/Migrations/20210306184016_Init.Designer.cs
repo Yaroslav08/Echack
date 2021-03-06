@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ereceipt.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(EreceiptContext))]
-    [Migration("20210214154136_Init")]
+    [Migration("20210306184016_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
