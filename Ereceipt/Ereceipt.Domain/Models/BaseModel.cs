@@ -9,7 +9,7 @@ namespace Ereceipt.Domain.Models
     public class BaseModel
     {
         [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         [Required]
         public string CreatedBy { get; set; }
 

@@ -42,7 +42,7 @@ namespace Ereceipt.Application.Services
             if (user == null)
                 return null;
             user.Name = model.Name;
-            user.UpdatedAt = DateTime.Now;
+            user.UpdatedAt = DateTime.UtcNow;
             user.UpdatedBy = user.Id.ToString();
             return _mapper.Map<UserViewModel>(await _userRepository.UpdateAsync(user));
         }
