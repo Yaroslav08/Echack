@@ -25,6 +25,13 @@ namespace Ereceipt.Web.Controllers
             return Ok(result);
         }
 
+        [HttpPost("togroup")]
+        public async Task<IActionResult> AddChackToGroup([FromBody] ChackGroupCreateModel model)
+        {
+            var result = await _mediator.Send(new AddChackToGroupCommand(model));
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetChackById(Guid id)
         {

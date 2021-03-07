@@ -34,7 +34,7 @@ namespace Ereceipt.Application.Services
             if (chack.GroupId != null)
                 return null;
             chack.GroupId = model.GroupId;
-            chack.UpdatedAt = DateTime.Now;
+            chack.UpdatedAt = DateTime.UtcNow;
             chack.UpdatedBy = model.UserId.ToString();
             return _mapper.Map<ChackViewModel>(await _chackRepos.UpdateAsync(chack));
         }
