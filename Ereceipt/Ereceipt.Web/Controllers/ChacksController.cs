@@ -54,10 +54,26 @@ namespace Ereceipt.Web.Controllers
             return Ok(chaks);
         }
 
+        [HttpGet("count")]
+        //[Authorize(Roles = "Admin, SAdmin")]
+        public async Task<IActionResult> GetAllChacksCount()
+        {
+            var chaks = await _mediator.Send(new GetAllChacksCountQuery());
+            return Ok(chaks);
+        }
+
+
         [HttpGet("my")]
         public async Task<IActionResult> GetMyChaks(int skip = 0)
         {
             var chaks = await _mediator.Send(new GetMyChacksQuery(GetId(), skip));
+            return Ok(chaks);
+        }
+
+        [HttpGet("my/count")]
+        public async Task<IActionResult> GetMyChaksCount()
+        {
+            var chaks = await _mediator.Send(new GetUserChacksCountQuery(GetId()));
             return Ok(chaks);
         }
     }
