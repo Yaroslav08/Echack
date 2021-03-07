@@ -78,6 +78,11 @@ namespace Ereceipt.Application.Services
             return _mapper.Map<List<ChackViewModel>>(await _chackRepos.GetAllAsync(20, skip));
         }
 
+        public async Task<int> GetAllChacksCount()
+        {
+            return await _chackRepos.CountAsync();
+        }
+
         public async Task<ChackViewModel> GetChack(Guid id)
         {
             return _mapper.Map<ChackViewModel>(await _chackRepos.GetChackByIdAsync(id));
@@ -86,6 +91,11 @@ namespace Ereceipt.Application.Services
         public async Task<List<ChackViewModel>> GetUserChacksByUserId(int ownerId, int skip)
         {
             return _mapper.Map<List<ChackViewModel>>(await _chackRepos.GetChacksByUserIdAsync(ownerId, skip));
+        }
+
+        public async Task<int> GetUserChacksCount(int ownerId)
+        {
+            return await _chackRepos.CountAsync(d => d.UserId == ownerId);
         }
 
         public async Task<ChackViewModel> RemoveChackFromGroup(ChackGroupCreateModel model)
