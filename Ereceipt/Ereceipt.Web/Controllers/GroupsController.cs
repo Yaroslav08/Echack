@@ -16,6 +16,13 @@ namespace Ereceipt.Web.Controllers
             _mediatr = mediatr;
         }
 
+        [HttpGet("my")]
+        public async Task<IActionResult> GetMyGroups()
+        {
+            var result = await _mediatr.Send(new GetUserGroupsQuery(GetId()));
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupById(Guid id)
         {

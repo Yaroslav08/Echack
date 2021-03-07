@@ -12,6 +12,7 @@ namespace Ereceipt.Application.Interfaces
         Task<GroupViewModel> CreateGroup(GroupCreateViewModel model);
         Task<GroupViewModel> EditGroup(GroupEditViewModel model);
         Task<List<ChackGroupViewModel>> GetChacksByGroupId(Guid groupId, int skip);
+        Task<List<GroupViewModel>> GetGroupsByUserId(int id);
         Task<bool> CanEditGroup(Guid groupId, int userId);
     }
 }

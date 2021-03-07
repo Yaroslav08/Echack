@@ -76,5 +76,10 @@ namespace Ereceipt.Application.Services
         {
             return _mapper.Map<GroupViewModel>(await _groupRepository.FindAsync(d => d.Id == id));
         }
+
+        public async Task<List<GroupViewModel>> GetGroupsByUserId(int id)
+        {
+            return _mapper.Map<List<GroupViewModel>>(await _groupRepository.GetGroupsByUserIdAsync(id));
+        }
     }
 }
