@@ -88,7 +88,7 @@ namespace Ereceipt.Application.Services
             return _mapper.Map<List<ChackViewModel>>(await _chackRepos.GetChacksByUserIdAsync(ownerId, skip));
         }
 
-        public async Task<ChackViewModel> RemovEreceiptFromGroup(ChackGroupCreateModel model)
+        public async Task<ChackViewModel> RemoveChackFromGroup(ChackGroupCreateModel model)
         {
             var chack = await _chackRepos.FindAsTrackingAsync(d => d.Id == model.ChackId);
             if (chack == null)

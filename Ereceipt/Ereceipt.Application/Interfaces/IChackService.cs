@@ -13,7 +13,7 @@ namespace Ereceipt.Application.Interfaces
         Task<ChackViewModel> GetChack(Guid id);
         Task<List<ChackViewModel>> GetUserChacksByUserId(int ownerId, int skip);
         Task<ChackViewModel> AddChackToGroup(ChackGroupCreateModel model);
-        Task<ChackViewModel> RemovEreceiptFromGroup(ChackGroupCreateModel model);
+        Task<ChackViewModel> RemoveChackFromGroup(ChackGroupCreateModel model);
         Task<List<ChackViewModel>> GetAllChacks(int skip);
     }
 }

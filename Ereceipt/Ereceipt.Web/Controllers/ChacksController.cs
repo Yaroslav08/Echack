@@ -32,6 +32,13 @@ namespace Ereceipt.Web.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("fromgroup")]
+        public async Task<IActionResult> RemoveChackFromGroup([FromBody] ChackGroupCreateModel model)
+        {
+            var result = await _mediator.Send(new RemoveChackFromGroupCommand(model));
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetChackById(Guid id)
         {
