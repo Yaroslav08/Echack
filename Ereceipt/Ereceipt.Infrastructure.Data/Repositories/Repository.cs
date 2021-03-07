@@ -84,11 +84,12 @@ namespace Ereceipt.Infrastructure.Data.Repositories
             return await db.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task<List<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync(int count, int offset)
         {
             return await db.Set<TEntity>()
-                .OrderByDescending(d => d.CreatedAt)
                 .AsNoTracking()
+                .OrderByDescending(d => d.CreatedAt)
+                .Skip(offset).Take(count)
                 .ToListAsync();
         }
 

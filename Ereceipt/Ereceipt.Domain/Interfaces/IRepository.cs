@@ -16,7 +16,7 @@ namespace Ereceipt.Domain.Interfaces
         Task<TEntity> RemoveAsync(TEntity entity);
         Task RemoveRangeAsync(List<TEntity> entities);
         Task<TEntity> GetByIdAsTrackingAsync(object Id);
-        Task<List<TEntity>> GetAllAsync();
+        Task<List<TEntity>> GetAllAsync(int count, int offset);
         Task<TEntity> FirstAsync();
         Task<TEntity> LastAsync();
         Task<int> CountAsync();

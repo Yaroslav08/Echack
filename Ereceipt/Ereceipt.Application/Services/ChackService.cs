@@ -75,7 +75,7 @@ namespace Ereceipt.Application.Services
 
         public async Task<List<ChackViewModel>> GetAllChacks(int skip)
         {
-            return _mapper.Map<List<ChackViewModel>>(await _chackRepos.GetAllAsync());
+            return _mapper.Map<List<ChackViewModel>>(await _chackRepos.GetAllAsync(20, skip));
         }
 
         public async Task<ChackViewModel> GetChack(Guid id)
