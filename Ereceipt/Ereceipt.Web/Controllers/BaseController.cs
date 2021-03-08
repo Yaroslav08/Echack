@@ -17,5 +17,13 @@ namespace Ereceipt.Web.Controllers
                 return Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
             return 1;
         }
+
+        protected IActionResult ResultOk(object data)
+        {
+            if (data == null)
+                return Ok();
+            return Ok(data);
+        }
+
     }
 }
