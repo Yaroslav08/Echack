@@ -4,8 +4,9 @@ using System.Linq;
 
 namespace Ereceipt.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class BaseController : ControllerBase
     {
         protected string GetIdentityName() => User.Identity.IsAuthenticated ? User.Identity.Name : null;
