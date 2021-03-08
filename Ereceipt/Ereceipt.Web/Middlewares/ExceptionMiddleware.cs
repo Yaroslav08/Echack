@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Ereceipt.Web.Responses;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -33,11 +34,7 @@ namespace Ereceipt.Web.Middlewares
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return context.Response.WriteAsync(new ErrorResponse()
-            {
-                StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error"
-            }.ToString());
+            return context.Response.WriteAsJsonAsync(new APIInternalServerErrorResponse());
         }
     }
 }

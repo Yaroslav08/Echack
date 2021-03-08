@@ -22,28 +22,28 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> CreateEreceipt([FromBody] ChackCreateViewModel model)
         {
             var result = await _mediator.Send(new ChackCreateCommand(model));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpPost("togroup")]
         public async Task<IActionResult> AddChackToGroup([FromBody] ChackGroupCreateModel model)
         {
             var result = await _mediator.Send(new AddChackToGroupCommand(model));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpDelete("fromgroup")]
         public async Task<IActionResult> RemoveChackFromGroup([FromBody] ChackGroupCreateModel model)
         {
             var result = await _mediator.Send(new RemoveChackFromGroupCommand(model));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetChackById(Guid id)
         {
             var result = await _mediator.Send(new GetChackByIdQuery(id));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpGet]
@@ -51,7 +51,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetAllChacks(int skip = 0)
         {
             var chaks = await _mediator.Send(new GetAllChackQuery(skip));
-            return Ok(chaks);
+            return ResultOk(chaks);
         }
 
         [HttpGet("count")]
@@ -59,7 +59,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetAllChacksCount()
         {
             var chaks = await _mediator.Send(new GetAllChacksCountQuery());
-            return Ok(chaks);
+            return ResultOk(chaks);
         }
 
 
@@ -67,14 +67,14 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetMyChaks(int skip = 0)
         {
             var chaks = await _mediator.Send(new GetMyChacksQuery(GetId(), skip));
-            return Ok(chaks);
+            return ResultOk(chaks);
         }
 
         [HttpGet("my/count")]
         public async Task<IActionResult> GetMyChaksCount()
         {
             var chaks = await _mediator.Send(new GetUserChacksCountQuery(GetId()));
-            return Ok(chaks);
+            return ResultOk(chaks);
         }
     }
 }

@@ -20,21 +20,21 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetMyGroups()
         {
             var result = await _mediatr.Send(new GetUserGroupsQuery(GetId()));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupById(Guid id)
         {
             var result = await _mediatr.Send(new GetGroupByIdQuery(id));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpGet("{groupId}/chacks")]
         public async Task<IActionResult> GetChacksByGroupId(Guid groupId, int skip)
         {
             var result = await _mediatr.Send(new GetChacksByGroupIdQuery(groupId, skip));
-            return Ok(result);
+            return ResultOk(result);
         }
 
 
@@ -42,7 +42,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
         {
             var result = await _mediatr.Send(new GroupCreateCommand(model));
-            return Ok(result);
+            return ResultOk(result);
         }
     }
 }

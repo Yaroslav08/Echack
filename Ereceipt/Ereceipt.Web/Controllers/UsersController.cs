@@ -19,7 +19,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> CreateUser([FromBody] UserCreateViewModel model)
         {
             var result = await _mediator.Send(new UserCreateCommand(model));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpGet]
@@ -27,7 +27,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetAllUsers(int afterId = 0)
         {
             var result = await _mediator.Send(new GetAllUsersQuery(afterId));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpPut("{id}")]
@@ -36,7 +36,7 @@ namespace Ereceipt.Web.Controllers
         {
             model.UserId = id;
             var result = await _mediator.Send(new UserEditCommand(model));
-            return Ok(result);
+            return ResultOk(result);
         }
 
         [HttpGet("search")]
@@ -44,7 +44,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> SearchUsers(string name, int afterId = 0)
         {
             var result = await _mediator.Send(new SearchUsersQuery(name, afterId));
-            return Ok(result);
+            return ResultOk(result);
         }
         
         [HttpGet("{id}")]
@@ -52,7 +52,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetUserById(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
-            return Ok(result);
+            return ResultOk(result);
         }
     }
 }
