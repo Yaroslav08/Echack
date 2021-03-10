@@ -21,15 +21,15 @@ namespace Ereceipt.Web.Controllers
             return 1;
         }
 
-        protected IActionResult ResultOk(object data)
+        protected IActionResult ResultOk(object data, string errorMessage = "")
         {
             if (data is ICollection)
             {
                 if ((data as ICollection) == null || (data as ICollection).Count == 0)
-                    return Ok(new APINotFoundResponse());
+                    return Ok(new APINotFoundResponse(errorMessage));
             }
             if (data == null)
-                return Ok(new APINotFoundResponse());
+                return Ok(new APINotFoundResponse(errorMessage));
             return Ok(new APIOKResponse(data));
         }
     }

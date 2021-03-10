@@ -57,6 +57,18 @@ namespace Ereceipt.Application.Services
             return _mapper.Map<UserViewModel>(await _userRepository.FindAsync(d => d.Id == id));
         }
 
+        public async Task<User> LoginUser(UserLoginViewModel model)
+        {
+            var user = await _userRepository.FindAsync(d => d.Login == model.Login);
+            if (user == null)
+                return null;
+            if(!PasswordManager.VerifyPasswordHash(model.Password, user.PasswordHash))
+            {
+                return null;
+            }
+            return user;
+        }
+
         public async Task<List<UserViewModel>> SearchUsers(string user, int afterId)
         {
             return _mapper.Map<List<UserViewModel>>(await _userRepository.SearchUsersAsync(user, afterId));

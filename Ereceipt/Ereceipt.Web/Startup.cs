@@ -1,13 +1,16 @@
 using Ereceipt.Application;
 using Ereceipt.Infrastructure.IoC;
+using Ereceipt.Web.AppSetting;
 using Ereceipt.Web.Middlewares;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 namespace Ereceipt.Web
 {
@@ -22,9 +25,24 @@ namespace Ereceipt.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOption.ISSUER,
+                        ValidateAudience = true,
+                        ValidAudience = AuthOption.AUDIENCE,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = AuthOption.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
             services.AddServices();
             services.AddEreceiptAutoMapper();
-            services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null);
+            services.AddControllers();
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
@@ -50,7 +68,7 @@ namespace Ereceipt.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
