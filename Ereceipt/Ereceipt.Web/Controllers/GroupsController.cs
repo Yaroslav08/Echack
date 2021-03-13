@@ -52,5 +52,12 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediatr.Send(new GroupEditCommand(model));
             return ResultOk(result);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveGroup(Guid id)
+        {
+            var result = await _mediatr.Send(new GroupRemoveCommand(id, GetId()));
+            return ResultOk(result);
+        }
     }
 }

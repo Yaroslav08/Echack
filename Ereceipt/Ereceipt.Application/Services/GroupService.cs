@@ -81,5 +81,26 @@ namespace Ereceipt.Application.Services
         {
             return _mapper.Map<List<GroupViewModel>>(await _groupRepository.GetGroupsByUserIdAsync(id));
         }
+
+        public async Task<GroupViewModel> RemoveGroup(Guid id, int userId)
+        {
+            var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == id);
+            if (group == null)
+                return null;
+            if (await CanEditGroup(id, userId))
+                return null;
+            var chacks = await _chackRepository.FindListAsTrackingAsync(d => d.GroupId == id);
+            if(chacks!=null || chacks.Count>0)
+            {
+                chacks.ForEach(d =>
+                {
+                    d.GroupId = null;
+                    d.UpdatedAt = DateTime.UtcNow;
+                    d.UpdatedBy = userId.ToString();
+                });
+                await _chackRepository.UpdateRangeAsync(chacks);
+            }
+            return _mapper.Map<GroupViewModel>(await _groupRepository.RemoveAsync(group));
+        }
     }
 }
