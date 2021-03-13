@@ -3,6 +3,7 @@ using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Group;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> EditGroup([FromBody] GroupEditViewModel model)
         {
             var result = await _mediatr.Send(new GroupEditCommand(model));
