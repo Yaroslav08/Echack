@@ -37,11 +37,17 @@ namespace Ereceipt.Web.Controllers
             return ResultOk(result);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
         {
             var result = await _mediatr.Send(new GroupCreateCommand(model));
+            return ResultOk(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditGroup([FromBody] GroupEditViewModel model)
+        {
+            var result = await _mediatr.Send(new GroupEditCommand(model));
             return ResultOk(result);
         }
     }
