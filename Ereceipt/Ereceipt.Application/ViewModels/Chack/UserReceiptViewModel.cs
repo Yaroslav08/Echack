@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ereceipt.Application.ViewModels.Chack
+namespace Ereceipt.Application.ViewModels.Receipt
 {
-    public class UserChackViewModel
+    public class UserReceiptViewModel
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }

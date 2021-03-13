@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.ViewModels.Chack
+namespace Ereceipt.Application.ViewModels.Receipt
 {
-    public class ChackViewModel
+    public class ReceiptViewModel
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -19,9 +19,9 @@ namespace Ereceipt.Application.ViewModels.Chack
         public List<ProductViewModel> Products { get; set; }
         public bool IsImportant { get; set; }
         public bool CanEdit { get; set; }
-        public ChackType ChackType { get; set; }
-        public UserChackViewModel User { get; set; }
-        public GroupChackViewModel Group { get; set; }
+        public ReceiptType ReceiptType { get; set; }
+        public UserReceiptViewModel User { get; set; }
+        public GroupReceiptViewModel Group { get; set; }
         public double GetTotalPrice()
         {
             if (Products == null || Products.Count == 0)

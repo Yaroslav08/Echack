@@ -8,27 +8,27 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class GetUserChacksCountQuery : IRequest<int>
+    public class GetUserReceiptsCountQuery : IRequest<int>
     {
         public int UserId { get; set; }
-        public GetUserChacksCountQuery(int userId)
+        public GetUserReceiptsCountQuery(int userId)
         {
             UserId = userId;
         }
     }
 
-    public class GetUserChacksCountQueryHandler : IRequestHandler<GetUserChacksCountQuery, int>
+    public class GetUserReceiptsCountQueryHandler : IRequestHandler<GetUserReceiptsCountQuery, int>
     {
-        IChackService _chackService;
-        public GetUserChacksCountQueryHandler(IChackService chackService)
+        IReceiptService _ReceiptService;
+        public GetUserReceiptsCountQueryHandler(IReceiptService ReceiptService)
         {
-            _chackService = chackService;
+            _ReceiptService = ReceiptService;
         }
 
 
-        public async Task<int> Handle(GetUserChacksCountQuery request, CancellationToken cancellationToken)
+        public async Task<int> Handle(GetUserReceiptsCountQuery request, CancellationToken cancellationToken)
         {
-            return await _chackService.GetUserChacksCount(request.UserId);
+            return await _ReceiptService.GetUserReceiptsCount(request.UserId);
         }
     }
 }

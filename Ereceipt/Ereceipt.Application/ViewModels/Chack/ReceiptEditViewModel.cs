@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.ViewModels.Chack
+namespace Ereceipt.Application.ViewModels.Receipt
 {
-    public class ChackEditViewModel : RequestModel
+    public class ReceiptEditViewModel : RequestModel
     {
         [Required]
         public Guid Id { get; set; }

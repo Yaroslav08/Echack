@@ -12,14 +12,14 @@ namespace Ereceipt.Application.Services
     {
         private IGroupRepository _groupRepository;
         private IGroupMemberRepository _groupMemberRepository;
-        private IChackRepository _chackRepository;
+        private IReceiptRepository _ReceiptRepository;
         private IMapper _mapper;
-        public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IChackRepository chackRepository)
+        public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IReceiptRepository ReceiptRepository)
         {
             _groupRepository = groupRepository;
             _mapper = mapper;
             _groupMemberRepository = groupMemberRepository;
-            _chackRepository = chackRepository;
+            _ReceiptRepository = ReceiptRepository;
         }
 
         public async Task<bool> CanEditGroup(Guid groupId, int userId)
@@ -67,9 +67,9 @@ namespace Ereceipt.Application.Services
             return _mapper.Map<GroupViewModel>(await _groupRepository.UpdateAsync(group));
         }
 
-        public async Task<List<ChackGroupViewModel>> GetChacksByGroupId(Guid groupId, int skip = 0)
+        public async Task<List<ReceiptGroupViewModel>> GetReceiptsByGroupId(Guid groupId, int skip = 0)
         {
-            return _mapper.Map<List<ChackGroupViewModel>>(await _chackRepository.GetChacksByGroupIdAsync(groupId, skip));
+            return _mapper.Map<List<ReceiptGroupViewModel>>(await _ReceiptRepository.GetReceiptsByGroupIdAsync(groupId, skip));
         }
 
         public async Task<GroupViewModel> GetGroupById(Guid id)
@@ -89,16 +89,16 @@ namespace Ereceipt.Application.Services
                 return null;
             if (await CanEditGroup(id, userId))
                 return null;
-            var chacks = await _chackRepository.FindListAsTrackingAsync(d => d.GroupId == id);
-            if(chacks!=null || chacks.Count>0)
+            var Receipts = await _ReceiptRepository.FindListAsTrackingAsync(d => d.GroupId == id);
+            if(Receipts!=null || Receipts.Count>0) //ToDo (take out handler code)
             {
-                chacks.ForEach(d =>
+                Receipts.ForEach(d =>
                 {
                     d.GroupId = null;
                     d.UpdatedAt = DateTime.UtcNow;
                     d.UpdatedBy = userId.ToString();
                 });
-                await _chackRepository.UpdateRangeAsync(chacks);
+                await _ReceiptRepository.UpdateRangeAsync(Receipts);
             }
             return _mapper.Map<GroupViewModel>(await _groupRepository.RemoveAsync(group));
         }

@@ -1,4 +1,4 @@
-﻿using Ereceipt.Application.ViewModels.Chack;
+﻿using Ereceipt.Application.ViewModels.Receipt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.ViewModels.Group
 {
-    public class ChackGroupViewModel
+    public class ReceiptGroupViewModel
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -16,6 +16,6 @@ namespace Ereceipt.Application.ViewModels.Group
         public double TotalPrice { get; set; }
         public List<ProductViewModel> Products { get; set; }
         public bool IsImportant { get; set; }
-        public UserChackViewModel User { get; set; }
+        public UserReceiptViewModel User { get; set; }
     }
 }

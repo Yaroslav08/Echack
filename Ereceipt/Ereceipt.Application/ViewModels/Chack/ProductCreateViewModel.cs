@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.ViewModels.Chack
+namespace Ereceipt.Application.ViewModels.Receipt
 {
     public class ProductCreateViewModel
     {

@@ -16,7 +16,7 @@ namespace Ereceipt.Domain.Models
         public string PasswordHash { get; set; }
         [Required, MaxLength(50)]
         public string Role { get; set; }
-        public List<Chack> Chacks { get; set; }
+        public List<Receipt> Receipts { get; set; }
         public List<GroupMember> GroupMembers { get; set; }
         public List<Comment> Comments { get; set; }
     }

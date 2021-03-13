@@ -31,10 +31,10 @@ namespace Ereceipt.Web.Controllers
             return ResultOk(result);
         }
 
-        [HttpGet("{groupId}/chacks")]
-        public async Task<IActionResult> GetChacksByGroupId(Guid groupId, int skip)
+        [HttpGet("{groupId}/Receipts")]
+        public async Task<IActionResult> GetReceiptsByGroupId(Guid groupId, int skip)
         {
-            var result = await _mediatr.Send(new GetChacksByGroupIdQuery(groupId, skip));
+            var result = await _mediatr.Send(new GetReceiptsByGroupIdQuery(groupId, skip));
             return ResultOk(result);
         }
 

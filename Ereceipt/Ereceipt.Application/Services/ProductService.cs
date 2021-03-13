@@ -1,5 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.ViewModels.Chack;
+using Ereceipt.Application.ViewModels.Receipt;
 using System;
 using System.Collections.Generic;
 using System.Linq;

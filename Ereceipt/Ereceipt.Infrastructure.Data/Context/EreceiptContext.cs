@@ -11,7 +11,7 @@ namespace Ereceipt.Infrastructure.Data.Context
 {
     public class EreceiptContext : DbContext
     {
-        public DbSet<Chack> Chacks { get; set; }
+        public DbSet<Receipt> Receipts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
@@ -19,7 +19,7 @@ namespace Ereceipt.Infrastructure.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ChackConfiguration());
+            modelBuilder.ApplyConfiguration(new ReceiptConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
             modelBuilder.ApplyConfiguration(new GroupMemberConfiguration());

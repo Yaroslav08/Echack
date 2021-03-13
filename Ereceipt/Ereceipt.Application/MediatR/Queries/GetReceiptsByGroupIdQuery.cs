@@ -9,29 +9,29 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class GetChacksByGroupIdQuery : IRequest<List<ChackGroupViewModel>>
+    public class GetReceiptsByGroupIdQuery : IRequest<List<ReceiptGroupViewModel>>
     {
         public Guid Id { get; set; }
         public int Skip { get; set; }
-        public GetChacksByGroupIdQuery(Guid id, int skip)
+        public GetReceiptsByGroupIdQuery(Guid id, int skip)
         {
             Id = id;
             Skip = skip;
         }
     }
 
-    public class GetChacksByGroupIdQueryHandler : IRequestHandler<GetChacksByGroupIdQuery, List<ChackGroupViewModel>>
+    public class GetReceiptsByGroupIdQueryHandler : IRequestHandler<GetReceiptsByGroupIdQuery, List<ReceiptGroupViewModel>>
     {
         IGroupService _groupService;
 
-        public GetChacksByGroupIdQueryHandler(IGroupService groupService)
+        public GetReceiptsByGroupIdQueryHandler(IGroupService groupService)
         {
             _groupService = groupService;
         }
 
-        public async Task<List<ChackGroupViewModel>> Handle(GetChacksByGroupIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<ReceiptGroupViewModel>> Handle(GetReceiptsByGroupIdQuery request, CancellationToken cancellationToken)
         {
-            return await _groupService.GetChacksByGroupId(request.Id, request.Skip);
+            return await _groupService.GetReceiptsByGroupId(request.Id, request.Skip);
         }
     }
 }

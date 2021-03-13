@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.ViewModels.Chack
+namespace Ereceipt.Application.ViewModels.Receipt
 {
-    public class ChackCreateViewModel : RequestModel
+    public class ReceiptCreateViewModel : RequestModel
     {
         [Required, MinLength(1), MaxLength(100)]
         public string ShopName { get; set; }

@@ -13,6 +13,6 @@ namespace Ereceipt.Application.ViewModels.Group
         public string Color { get; set; }
         public string Desc { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public List<ChackGroupViewModel> Chacks { get; set; }
+        public List<ReceiptGroupViewModel> Receipts { get; set; }
     }
 }

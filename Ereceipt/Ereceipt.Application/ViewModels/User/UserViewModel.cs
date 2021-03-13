@@ -1,4 +1,4 @@
-﻿using Ereceipt.Application.ViewModels.Chack;
+﻿using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Application.ViewModels.Comment;
 using Ereceipt.Application.ViewModels.GroupMember;
 using System;
@@ -16,7 +16,7 @@ namespace Ereceipt.Application.ViewModels.User
         public string Avatar { get; set; }
         public string Role { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public List<ChackViewModel> Chacks { get; set; }
+        public List<ReceiptViewModel> Receipts { get; set; }
         public List<GroupMemberViewModel> GroupMembers { get; set; }
         public List<CommentViewModel> Comments { get; set; }
     }

@@ -14,8 +14,8 @@ namespace Ereceipt.Infrastructure.IoC
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddSingleton<IChackRepository, ChackRepository>();
-            services.AddSingleton<IChackService, ChackService>();
+            services.AddSingleton<IReceiptRepository, ReceiptRepository>();
+            services.AddSingleton<IReceiptService, ReceiptService>();
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<ICommentRepository, CommentRepository>();
             services.AddSingleton<IGroupRepository, GroupRepository>();

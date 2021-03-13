@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 namespace Ereceipt.Domain.Models
 {
-    public class Chack : BaseModelWithIdentityGen<Guid>
+    public class Receipt : BaseModelWithIdentityGen<Guid>
     {
         [Required, MinLength(1), MaxLength(100)]
         public string ShopName { get; set; }
@@ -16,7 +16,7 @@ namespace Ereceipt.Domain.Models
         [Required]
         public bool CanEdit { get; set; } = true;
         [Required]
-        public ChackType ChackType { get; set; } = ChackType.Internal;
+        public ReceiptType ReceiptType { get; set; } = ReceiptType.Internal;
 
         public int UserId { get; set; }
         public User User { get; set; }
@@ -25,7 +25,7 @@ namespace Ereceipt.Domain.Models
         public Group Group { get; set; }
     }
 
-    public enum ChackType
+    public enum ReceiptType
     {
         Paymant,
         Internal

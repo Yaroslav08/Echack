@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Configurations
 {
-    public class ChackConfiguration : IEntityTypeConfiguration<Chack>
+    public class ReceiptConfiguration : IEntityTypeConfiguration<Receipt>
     {
-        public void Configure(EntityTypeBuilder<Chack> builder)
+        public void Configure(EntityTypeBuilder<Receipt> builder)
         {
             builder.HasKey(d => d.Id);
             builder.HasIndex(d => new
             {
-                d.ChackType,
+                d.ReceiptType,
                 d.ShopName,
                 d.CreatedAt,
                 d.TotalPrice
