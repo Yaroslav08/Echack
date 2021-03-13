@@ -9,38 +9,38 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Web.Controllers
 {
-    public class ChacksController : BaseController
+    public class ReceiptsController : BaseController
     {
         IMediator _mediator;
 
-        public ChacksController(IMediator mediator)
+        public ReceiptsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEreceipt([FromBody] ChackCreateViewModel model)
+        public async Task<IActionResult> CreateReceipt([FromBody] ChackCreateViewModel model)
         {
             var result = await _mediator.Send(new ChackCreateCommand(model));
             return ResultOk(result);
         }
 
         [HttpPost("togroup")]
-        public async Task<IActionResult> AddChackToGroup([FromBody] ChackGroupCreateModel model)
+        public async Task<IActionResult> AddReceiptToGroup([FromBody] ChackGroupCreateModel model)
         {
             var result = await _mediator.Send(new AddChackToGroupCommand(model));
             return ResultOk(result);
         }
 
         [HttpDelete("fromgroup")]
-        public async Task<IActionResult> RemoveChackFromGroup([FromBody] ChackGroupCreateModel model)
+        public async Task<IActionResult> RemoveReceiptFromGroup([FromBody] ChackGroupCreateModel model)
         {
             var result = await _mediator.Send(new RemoveChackFromGroupCommand(model));
             return ResultOk(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetChackById(Guid id)
+        public async Task<IActionResult> GetReceiptById(Guid id)
         {
             var result = await _mediator.Send(new GetChackByIdQuery(id));
             return ResultOk(result);
@@ -48,7 +48,7 @@ namespace Ereceipt.Web.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Admin, SAdmin")]
-        public async Task<IActionResult> GetAllChacks(int skip = 0)
+        public async Task<IActionResult> GetAllReceipts(int skip = 0)
         {
             var chaks = await _mediator.Send(new GetAllChackQuery(skip));
             return ResultOk(chaks);
@@ -56,7 +56,7 @@ namespace Ereceipt.Web.Controllers
 
         [HttpGet("count")]
         //[Authorize(Roles = "Admin, SAdmin")]
-        public async Task<IActionResult> GetAllChacksCount()
+        public async Task<IActionResult> GetAllReceiptsCount()
         {
             var chaks = await _mediator.Send(new GetAllChacksCountQuery());
             return ResultOk(chaks);
@@ -64,14 +64,14 @@ namespace Ereceipt.Web.Controllers
 
 
         [HttpGet("my")]
-        public async Task<IActionResult> GetMyChaks(int skip = 0)
+        public async Task<IActionResult> GetMyReceipts(int skip = 0)
         {
             var chaks = await _mediator.Send(new GetMyChacksQuery(GetId(), skip));
             return ResultOk(chaks);
         }
 
         [HttpGet("my/count")]
-        public async Task<IActionResult> GetMyChaksCount()
+        public async Task<IActionResult> GetMyReceiptsCount()
         {
             var chaks = await _mediator.Send(new GetUserChacksCountQuery(GetId()));
             return ResultOk(chaks);
