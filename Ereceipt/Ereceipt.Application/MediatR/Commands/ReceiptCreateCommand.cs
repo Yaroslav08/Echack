@@ -30,7 +30,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<ReceiptViewModel> Handle(ReceiptCreateCommand request, CancellationToken cancellationToken)
         {
-            return await _ReceiptService.CreateCheck(request.Receipt);
+            return await _ReceiptService.CreateReceipt(request.Receipt);
         }
     }
 }

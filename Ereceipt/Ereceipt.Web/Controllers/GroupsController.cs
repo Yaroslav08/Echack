@@ -18,6 +18,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("my")]
+        [Authorize]
         public async Task<IActionResult> GetMyGroups()
         {
             var result = await _mediatr.Send(new GetUserGroupsQuery(GetId()));
@@ -25,13 +26,15 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetGroupById(Guid id)
         {
             var result = await _mediatr.Send(new GetGroupByIdQuery(id));
             return ResultOk(result);
         }
 
-        [HttpGet("{groupId}/Receipts")]
+        [HttpGet("{groupId}/receipts")]
+        [Authorize]
         public async Task<IActionResult> GetReceiptsByGroupId(Guid groupId, int skip)
         {
             var result = await _mediatr.Send(new GetReceiptsByGroupIdQuery(groupId, skip));
@@ -39,6 +42,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
         {
             var result = await _mediatr.Send(new GroupCreateCommand(model));
@@ -54,6 +58,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> RemoveGroup(Guid id)
         {
             var result = await _mediatr.Send(new GroupRemoveCommand(id, GetId()));
