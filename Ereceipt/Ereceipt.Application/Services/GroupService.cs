@@ -88,8 +88,18 @@ namespace Ereceipt.Application.Services
             var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == id);
             if (group == null)
                 return null;
-            if (await CanEditGroup(id, userId))
+            if (!await CanEditGroup(id, userId))
                 return null;
+
+            var groupMembersForRemove = await _groupMemberRepository.FindListAsTrackingAsync(d => d.GroupId == id);
+
+            if(groupMembersForRemove!=null && groupMembersForRemove.Count > 0)
+            {
+                await _groupMemberRepository.RemoveRangeAsync(groupMembersForRemove);
+            }
+
+
+
             var Receipts = await _ReceiptRepository.FindListAsTrackingAsync(d => d.GroupId == id);
             if(Receipts!=null || Receipts.Count>0) //ToDo (take out handler code)
             {
@@ -124,6 +134,16 @@ namespace Ereceipt.Application.Services
         public async Task<List<GroupMemberViewModel>> GetGroupMembers(Guid id)
         {
             return _mapper.Map<List<GroupMemberViewModel>>(await _groupMemberRepository.GetGroupMembersAsync(id));
+        }
+
+        public async Task<GroupMemberViewModel> RemoveUserFromGroup(GroupMemberCreateViewModel model)
+        {
+            var groupMember = await _groupMemberRepository.FindAsTrackingAsync(d => d.GroupId == model.GroupId && d.UserId == model.Id);
+            if (groupMember == null)
+                return null;
+            if (!await CanEditGroup(model.GroupId, model.UserId))
+                return null;
+            return _mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.RemoveAsync(groupMember));
         }
     }
 }

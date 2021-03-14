@@ -74,6 +74,15 @@ namespace Ereceipt.Web.Controllers
             return ResultOk(result);
         }
 
+
+        [HttpDelete("members")]
+        public async Task<IActionResult> RemoveMember([FromBody] GroupMemberCreateViewModel model)
+        {
+            model.UserId = GetId();
+            var result = await _mediatr.Send(new RemoveUserFromGroupCommand(model));
+            return ResultOk(result);
+        }
+
         [HttpGet("{groupId}/members")]
         public async Task<IActionResult> GetGroupMembers(Guid groupId)
         {

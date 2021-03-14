@@ -13,6 +13,7 @@ namespace Ereceipt.Application.Interfaces
         Task<GroupViewModel> GetGroupById(Guid id);
         Task<GroupViewModel> CreateGroup(GroupCreateViewModel model);
         Task<GroupMemberViewModel> AddUserToGroup(GroupMemberCreateViewModel model);
+        Task<GroupMemberViewModel> RemoveUserFromGroup(GroupMemberCreateViewModel model);
         Task<GroupViewModel> EditGroup(GroupEditViewModel model);
         Task<GroupViewModel> RemoveGroup(Guid id, int userId);
         Task<List<ReceiptGroupViewModel>> GetReceiptsByGroupId(Guid groupId, int skip);
