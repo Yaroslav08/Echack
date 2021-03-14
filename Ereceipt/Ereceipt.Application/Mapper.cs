@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Ereceipt.Application.ViewModels.GroupMember;
+
 namespace Ereceipt.Application
 {
     public class Mapper : Profile
@@ -29,6 +31,10 @@ namespace Ereceipt.Application
 
             CreateMap<Group, GroupViewModel>();
             CreateMap<Group, GroupReceiptViewModel>();
+
+            CreateMap<GroupMember, GroupMemberViewModel>()
+                .ForMember(d => d.Group, s => s.MapFrom(d => d.Group))
+                .ForMember(d => d.User, s => s.MapFrom(d => d.User));
         }
 
 

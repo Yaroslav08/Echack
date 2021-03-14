@@ -1,18 +1,18 @@
 ﻿using Ereceipt.Application.ViewModels.Group;
-using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Application.ViewModels.User;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.ViewModels.GroupMember
 {
-    public class GroupMemberViewModel
+    public class GroupMemberCreateViewModel : RequestModel
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public GroupViewModel Group { get; set; }
-        public UserReceiptViewModel User { get; set; }
+        [Required]
+        public Guid GroupId { get; set; }
+        [Required]
+        public int Id { get; set; }
     }
 }

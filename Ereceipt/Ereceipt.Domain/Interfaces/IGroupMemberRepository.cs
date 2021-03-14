@@ -9,6 +9,7 @@ namespace Ereceipt.Domain.Interfaces
 {
     public interface IGroupMemberRepository : IRepository<GroupMember>
     {
-
+        Task<GroupMember> GetWithDataById(Guid id);
+        Task<List<GroupMember>> GetGroupMembersAsync(Guid id);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.ViewModels.Group;
+using Ereceipt.Application.ViewModels.GroupMember;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using System;
@@ -27,7 +28,7 @@ namespace Ereceipt.Application.Services
             var member = await _groupMemberRepository.FindAsync(d => d.UserId == userId && d.GroupId == groupId);
             if (member == null)
                 return false;
-            if (member.Title != "Creator")
+            if (member.Title == "Creator")
                 return true;
             return false;
         }
@@ -101,6 +102,28 @@ namespace Ereceipt.Application.Services
                 await _ReceiptRepository.UpdateRangeAsync(Receipts);
             }
             return _mapper.Map<GroupViewModel>(await _groupRepository.RemoveAsync(group));
+        }
+
+        public async Task<GroupMemberViewModel> AddUserToGroup(GroupMemberCreateViewModel model)
+        {
+            if (!await CanEditGroup(model.GroupId, model.UserId))
+                return null;
+
+            var member = new GroupMember()
+            {
+                GroupId = model.GroupId,
+                UserId = model.Id,
+                CreatedBy = model.UserId.ToString(),
+                Title = "Member"
+            };
+
+            var id = (await _groupMemberRepository.CreateAsync(member)).Id;
+            return _mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.GetWithDataById(id));
+        }
+
+        public async Task<List<GroupMemberViewModel>> GetGroupMembers(Guid id)
+        {
+            return _mapper.Map<List<GroupMemberViewModel>>(await _groupMemberRepository.GetGroupMembersAsync(id));
         }
     }
 }

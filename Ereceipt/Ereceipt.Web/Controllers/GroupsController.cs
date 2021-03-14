@@ -2,6 +2,7 @@
 using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Group;
+using Ereceipt.Application.ViewModels.GroupMember;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,6 +63,21 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> RemoveGroup(Guid id)
         {
             var result = await _mediatr.Send(new GroupRemoveCommand(id, GetId()));
+            return ResultOk(result);
+        }
+
+
+        [HttpPost("members")]
+        public async Task<IActionResult> AddMember([FromBody] GroupMemberCreateViewModel model)
+        {
+            var result = await _mediatr.Send(new AddUserToGroupCommand(model));
+            return ResultOk(result);
+        }
+
+        [HttpGet("{groupId}/members")]
+        public async Task<IActionResult> GetGroupMembers(Guid groupId)
+        {
+            var result = await _mediatr.Send(new GetGroupMembersQuery(groupId));
             return ResultOk(result);
         }
     }
