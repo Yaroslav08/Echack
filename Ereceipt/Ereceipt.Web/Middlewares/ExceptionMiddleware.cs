@@ -22,6 +22,7 @@ namespace Ereceipt.Web.Middlewares
         {
             try
             {
+                _logger.LogInformation($"Request to {httpContext.Request.Path}");
                 await _next(httpContext);
             }
             catch (Exception ex)

@@ -19,7 +19,6 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateViewModel model)
         {
             var result = await _mediator.Send(new ReceiptCreateCommand(model));
@@ -27,7 +26,6 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost("togroup")]
-        [Authorize]
         public async Task<IActionResult> AddReceiptToGroup([FromBody] ReceiptGroupCreateModel model)
         {
             var result = await _mediator.Send(new AddReceiptToGroupCommand(model));
@@ -35,7 +33,6 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpDelete("fromgroup")]
-        [Authorize]
         public async Task<IActionResult> RemoveReceiptFromGroup([FromBody] ReceiptGroupCreateModel model)
         {
             var result = await _mediator.Send(new RemoveReceiptFromGroupCommand(model));
@@ -43,7 +40,6 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<IActionResult> GetReceiptById(Guid id)
         {
             var result = await _mediator.Send(new GetReceiptByIdQuery(id));
@@ -68,7 +64,6 @@ namespace Ereceipt.Web.Controllers
 
 
         [HttpGet("my")]
-        [Authorize]
         public async Task<IActionResult> GetMyReceipts(int skip = 0)
         {
             var chaks = await _mediator.Send(new GetMyReceiptsQuery(GetId(), skip));
@@ -76,7 +71,6 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("my/count")]
-        [Authorize]
         public async Task<IActionResult> GetMyReceiptsCount()
         {
             var chaks = await _mediator.Send(new GetUserReceiptsCountQuery(GetId()));

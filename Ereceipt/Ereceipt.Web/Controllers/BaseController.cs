@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Web.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
@@ -10,6 +11,7 @@ namespace Ereceipt.Web.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
+    //[Authorize]
     public class BaseController : ControllerBase
     {
         protected string GetIdentityName() => User.Identity.IsAuthenticated ? User.Identity.Name : null;

@@ -32,7 +32,6 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> EditUser(int id, [FromBody] UserEditViewModel model)
         {
             model.UserId = id;
@@ -49,7 +48,6 @@ namespace Ereceipt.Web.Controllers
         }
         
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<IActionResult> GetUserById(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
