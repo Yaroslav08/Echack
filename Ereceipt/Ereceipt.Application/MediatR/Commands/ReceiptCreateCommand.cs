@@ -13,9 +13,9 @@ namespace Ereceipt.Application.MediatR.Commands
     {
         public ReceiptCreateViewModel Receipt { get; set; }
 
-        public ReceiptCreateCommand(ReceiptCreateViewModel Receipt)
+        public ReceiptCreateCommand(ReceiptCreateViewModel receipt)
         {
-            Receipt = Receipt;
+            Receipt = receipt;
         }
     }
 
