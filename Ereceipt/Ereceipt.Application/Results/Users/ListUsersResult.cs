@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ereceipt.Application.Results
+namespace Ereceipt.Application.Results.Users
 {
     public class ListUsersResult : Result<List<UserViewModel>>
     {

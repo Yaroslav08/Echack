@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.Results;
+using Ereceipt.Application.Results.Users;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
 namespace Ereceipt.Application.MediatR.Queries

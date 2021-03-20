@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.Results;
+using Ereceipt.Application.Results.Users;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;

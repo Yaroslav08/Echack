@@ -1,5 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.Results;
+using Ereceipt.Application.Results.Users;
 using Ereceipt.Application.ViewModels;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
