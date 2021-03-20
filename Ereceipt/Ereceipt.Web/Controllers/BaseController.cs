@@ -35,5 +35,15 @@ namespace Ereceipt.Web.Controllers
                 return Ok(new APINotFoundResponse(errorMessage));
             return Ok(new APIOKResponse(data));
         }
+
+        protected IActionResult ResultBadRequest(string error = "")
+        {
+            return Ok(new APIBadRequestResponse(string.IsNullOrEmpty(error) ? "Model not valid" : error));
+        }
+
+        protected IActionResult ResultNotFound(string error = "")
+        {
+            return Ok(new APINotFoundResponse(string.IsNullOrEmpty(error) ? "Resourse not found" : error));
+        }
     }
 }

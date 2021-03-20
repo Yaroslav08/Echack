@@ -23,7 +23,7 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediator.Send(new UserCreateCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);
-            return Ok(new APIBadRequestResponse(result.Error));
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet]
@@ -33,7 +33,7 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediator.Send(new GetAllUsersQuery(afterId));
             if (result.OK)
                 return ResultOk(result.Data);
-            return Ok(new APIBadRequestResponse(result.Error));
+            return ResultBadRequest(result.Error);
         }
 
         [HttpPut("{id}")]
@@ -43,7 +43,7 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediator.Send(new UserEditCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);
-            return Ok(new APIBadRequestResponse(result.Error));
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet("search")]
@@ -53,7 +53,7 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediator.Send(new SearchUsersQuery(name, afterId));
             if (result.OK)
                 return ResultOk(result.Data);
-            return Ok(new APIBadRequestResponse(result.Error));
+            return ResultBadRequest(result.Error);
         }
         
         [HttpGet("{id}")]
@@ -62,7 +62,7 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediator.Send(new GetUserByIdQuery(id));
             if (result.OK)
                 return ResultOk(result.Data);
-            return Ok(new APIBadRequestResponse(result.Error));
+            return ResultBadRequest(result.Error);
         }
     }
 }
