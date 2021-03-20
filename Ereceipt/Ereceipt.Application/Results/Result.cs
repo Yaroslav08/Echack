@@ -8,7 +8,7 @@ namespace Ereceipt.Application.Results
 {
     public class Result<T> where T : class
     {
-        public bool OK { get; } = true;
+        public bool OK { get; }
 
         public string Error { get; }
 
