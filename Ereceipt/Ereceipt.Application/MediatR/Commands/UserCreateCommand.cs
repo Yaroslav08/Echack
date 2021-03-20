@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results;
 using Ereceipt.Application.ViewModels;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
@@ -11,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class UserCreateCommand : IRequest<UserViewModel>
+    public class UserCreateCommand : IRequest<UserResult>
     {
         public UserCreateViewModel User { get; set; }
 
@@ -21,7 +22,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
     }
 
-    public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, UserViewModel>
+    public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, UserResult>
     {
         IUserService _userService;
         public UserCreateCommandHandler(IUserService userService)
@@ -30,7 +31,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<UserViewModel> Handle(UserCreateCommand request, CancellationToken cancellationToken)
+        public async Task<UserResult> Handle(UserCreateCommand request, CancellationToken cancellationToken)
         {
             return await _userService.CreateUser(request.User);
         }

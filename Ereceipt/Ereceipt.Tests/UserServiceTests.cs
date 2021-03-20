@@ -29,8 +29,8 @@ namespace Ereceipt.Tests
             });
 
             Assert.NotNull(userCreated);
-            Assert.Equal("Nikita Medko", userCreated.Name);
-            Assert.Equal(1, userCreated.Id);
+            Assert.Equal("Nikita Medko", userCreated.Data.Name);
+            Assert.Equal(1, userCreated.Data.Id);
         }
 
         [Fact]

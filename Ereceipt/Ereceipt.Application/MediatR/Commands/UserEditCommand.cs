@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results;
 using Ereceipt.Application.ViewModels;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
@@ -11,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class UserEditCommand : IRequest<UserViewModel>
+    public class UserEditCommand : IRequest<UserResult>
     {
         public UserEditViewModel User { get; set; }
         public UserEditCommand(UserEditViewModel user)
@@ -20,7 +21,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
     }
 
-    public class UserEditCommandHandler : IRequestHandler<UserEditCommand, UserViewModel>
+    public class UserEditCommandHandler : IRequestHandler<UserEditCommand, UserResult>
     {
         IUserService _userService;
         public UserEditCommandHandler(IUserService userService)
@@ -29,7 +30,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<UserViewModel> Handle(UserEditCommand request, CancellationToken cancellationToken)
+        public async Task<UserResult> Handle(UserEditCommand request, CancellationToken cancellationToken)
         {
             return await _userService.EditUser(request.User);
         }

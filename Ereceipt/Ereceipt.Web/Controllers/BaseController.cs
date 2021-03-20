@@ -1,4 +1,5 @@
-﻿using Ereceipt.Web.Responses;
+﻿using Ereceipt.Application.Results;
+using Ereceipt.Web.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;

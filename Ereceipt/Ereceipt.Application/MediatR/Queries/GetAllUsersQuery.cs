@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class GetAllUsersQuery : IRequest<List<UserViewModel>>
+    public class GetAllUsersQuery : IRequest<ListUsersResult>
     {
         public int AvfterId { get; set; }
 
@@ -20,7 +21,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
     }
 
-    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserViewModel>>
+    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, ListUsersResult>
     {
         IUserService _userService;
         public GetAllUsersQueryHandler(IUserService userService)
@@ -29,7 +30,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
 
 
-        public async Task<List<UserViewModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<ListUsersResult> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             return await _userService.GetAllUsers(request.AvfterId);
         }

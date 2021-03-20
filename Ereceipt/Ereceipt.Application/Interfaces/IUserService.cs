@@ -11,10 +11,10 @@ namespace Ereceipt.Application.Interfaces
     public interface IUserService
     {
         Task<User> LoginUser(UserLoginViewModel model);
-        Task<UserVMResult> CreateUser(UserCreateViewModel model);
-        Task<UserVMResult> EditUser(UserEditViewModel model);
-        Task<UserVMResult> GetUserById(int id);
-        Task<ListUsersVMResult> SearchUsers(string user, int afterId);
-        Task<ListUsersVMResult> GetAllUsers(int afterId);
+        Task<UserResult> CreateUser(UserCreateViewModel model);
+        Task<UserResult> EditUser(UserEditViewModel model);
+        Task<UserResult> GetUserById(int id);
+        Task<ListUsersResult> SearchUsers(string user, int afterId);
+        Task<ListUsersResult> GetAllUsers(int afterId);
     }
 }

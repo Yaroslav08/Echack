@@ -30,6 +30,12 @@ namespace Ereceipt.Web.Responses
         { }
     }
 
+    public class APIBadRequestResponse : APIResponse
+    {
+        public APIBadRequestResponse(string error): base(false, 400,null, error,null)
+        { }
+    }
+
     public class APINotFoundResponse : APIResponse
     {
         public APINotFoundResponse(string errormessage = "Resource not found") : base(false, 404, null, errormessage, null)

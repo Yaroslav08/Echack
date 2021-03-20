@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Application.Results
 {
-    public class UserVMResult : Result<UserViewModel>
+    public class ListUsersResult : Result<List<UserViewModel>>
     {
-        public UserVMResult(UserViewModel user) : base(user) { }
+        public ListUsersResult(List<UserViewModel> users) : base(users) { }
     }
 }

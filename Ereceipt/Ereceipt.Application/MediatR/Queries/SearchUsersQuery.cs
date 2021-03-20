@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class SearchUsersQuery : IRequest<List<UserViewModel>>
+    public class SearchUsersQuery : IRequest<ListUsersResult>
     {
         public SearchUsersQuery(string name, int afterId)
         {
@@ -21,7 +22,7 @@ namespace Ereceipt.Application.MediatR.Queries
         public int AfterId { get; set; }
     }
 
-    public class SearchUsersHandler : IRequestHandler<SearchUsersQuery, List<UserViewModel>>
+    public class SearchUsersHandler : IRequestHandler<SearchUsersQuery, ListUsersResult>
     {
         IUserService _userService;
         public SearchUsersHandler(IUserService userService)
@@ -29,7 +30,7 @@ namespace Ereceipt.Application.MediatR.Queries
             _userService = userService;
         }
 
-        public async Task<List<UserViewModel>> Handle(SearchUsersQuery request, CancellationToken cancellationToken)
+        public async Task<ListUsersResult> Handle(SearchUsersQuery request, CancellationToken cancellationToken)
         {
             return await _userService.SearchUsers(request.Name, request.AfterId);
         }
