@@ -24,7 +24,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, SAdmin")]
+        //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllUsers(int afterId = 0)
         {
             var result = await _mediator.Send(new GetAllUsersQuery(afterId));
@@ -40,7 +40,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("search")]
-        [Authorize(Roles = "Admin, SAdmin")]
+        //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> SearchUsers(string name, int afterId = 0)
         {
             var result = await _mediator.Send(new SearchUsersQuery(name, afterId));
