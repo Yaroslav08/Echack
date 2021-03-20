@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Groups;
 using Ereceipt.Application.ViewModels.Group;
 using MediatR;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class GroupEditCommand : IRequest<GroupViewModel>
+    public class GroupEditCommand : IRequest<GroupResult>
     {
         public GroupEditViewModel Group { get; }
         public GroupEditCommand(GroupEditViewModel group)
@@ -19,7 +20,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
     }
 
-    public class GroupEditCommandHandler : IRequestHandler<GroupEditCommand, GroupViewModel>
+    public class GroupEditCommandHandler : IRequestHandler<GroupEditCommand, GroupResult>
     {
         IGroupService _groupService;
         public GroupEditCommandHandler(IGroupService groupService)
@@ -28,7 +29,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<GroupViewModel> Handle(GroupEditCommand request, CancellationToken cancellationToken)
+        public async Task<GroupResult> Handle(GroupEditCommand request, CancellationToken cancellationToken)
         {
             if (await _groupService.CanEditGroup(request.Group.Id, request.Group.UserId))
                 return await _groupService.EditGroup(request.Group);

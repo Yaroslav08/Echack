@@ -37,7 +37,15 @@ namespace Ereceipt.Application.Results
 
         public Result(T data, string error, Exception ex)
         {
-            if (data == null || !string.IsNullOrEmpty(error) || ex != null)
+            if (data == null)
+            {
+                OK = false;
+                Error = "Resourse not found";
+                Exception = ex;
+                CountOfData = 0;
+                return;
+            }
+            if (!string.IsNullOrEmpty(error) || ex != null)
             {
                 OK = false;
                 Error = error;

@@ -22,42 +22,54 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetMyGroups()
         {
             var result = await _mediatr.Send(new GetUserGroupsQuery(GetId()));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupById(Guid id)
         {
             var result = await _mediatr.Send(new GetGroupByIdQuery(id));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet("{groupId}/receipts")]
         public async Task<IActionResult> GetReceiptsByGroupId(Guid groupId, int skip)
         {
             var result = await _mediatr.Send(new GetReceiptsByGroupIdQuery(groupId, skip));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
         {
             var result = await _mediatr.Send(new GroupCreateCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpPut]
         public async Task<IActionResult> EditGroup([FromBody] GroupEditViewModel model)
         {
             var result = await _mediatr.Send(new GroupEditCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpDelete]
         public async Task<IActionResult> RemoveGroup(Guid id)
         {
             var result = await _mediatr.Send(new GroupRemoveCommand(id, GetId()));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
 
@@ -65,7 +77,9 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> AddMember([FromBody] GroupMemberCreateViewModel model)
         {
             var result = await _mediatr.Send(new AddUserToGroupCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
 
@@ -74,14 +88,18 @@ namespace Ereceipt.Web.Controllers
         {
             model.UserId = GetId();
             var result = await _mediatr.Send(new RemoveUserFromGroupCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet("{groupId}/members")]
         public async Task<IActionResult> GetGroupMembers(Guid groupId)
         {
             var result = await _mediatr.Send(new GetGroupMembersQuery(groupId));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
     }
 }

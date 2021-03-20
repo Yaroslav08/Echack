@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Groups;
 using Ereceipt.Application.ViewModels.Group;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class GetUserGroupsQuery : IRequest<List<GroupViewModel>>
+    public class GetUserGroupsQuery : IRequest<ListGroupResult>
     {
         public int Id { get; set; }
         public GetUserGroupsQuery(int id)
@@ -18,7 +19,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
     }
 
-    public class GetUserGroupsQueryHandler : IRequestHandler<GetUserGroupsQuery, List<GroupViewModel>>
+    public class GetUserGroupsQueryHandler : IRequestHandler<GetUserGroupsQuery, ListGroupResult>
     {
         IGroupService _groupService;
         public GetUserGroupsQueryHandler(IGroupService groupService)
@@ -27,7 +28,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
 
 
-        public async Task<List<GroupViewModel>> Handle(GetUserGroupsQuery request, CancellationToken cancellationToken)
+        public async Task<ListGroupResult> Handle(GetUserGroupsQuery request, CancellationToken cancellationToken)
         {
             return await _groupService.GetGroupsByUserId(request.Id);
         }

@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Groups;
 using Ereceipt.Application.ViewModels.GroupMember;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class RemoveUserFromGroupCommand : IRequest<GroupMemberViewModel>
+    public class RemoveUserFromGroupCommand : IRequest<GroupMemberResult>
     {
         public GroupMemberCreateViewModel Member { get; }
 
@@ -19,7 +20,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
     }
 
-    public class RemoveUserFromGroupCommandHandler : IRequestHandler<RemoveUserFromGroupCommand, GroupMemberViewModel>
+    public class RemoveUserFromGroupCommandHandler : IRequestHandler<RemoveUserFromGroupCommand, GroupMemberResult>
     {
         IGroupService _groupService;
         public RemoveUserFromGroupCommandHandler(IGroupService groupService)
@@ -27,7 +28,7 @@ namespace Ereceipt.Application.MediatR.Commands
             _groupService = groupService;
         }
 
-        public async Task<GroupMemberViewModel> Handle(RemoveUserFromGroupCommand request, CancellationToken cancellationToken)
+        public async Task<GroupMemberResult> Handle(RemoveUserFromGroupCommand request, CancellationToken cancellationToken)
         {
             return await _groupService.RemoveUserFromGroup(request.Member);
         }

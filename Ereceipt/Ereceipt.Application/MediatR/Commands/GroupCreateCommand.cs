@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Groups;
 using Ereceipt.Application.ViewModels.Group;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class GroupCreateCommand : IRequest<GroupViewModel>
+    public class GroupCreateCommand : IRequest<GroupResult>
     {
         public GroupCreateViewModel Group { get; set; }
         public GroupCreateCommand(GroupCreateViewModel group)
@@ -18,7 +19,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
     }
 
-    public class GroupCreateCommandHandler : IRequestHandler<GroupCreateCommand, GroupViewModel>
+    public class GroupCreateCommandHandler : IRequestHandler<GroupCreateCommand, GroupResult>
     {
         IGroupService _groupService;
 
@@ -27,7 +28,7 @@ namespace Ereceipt.Application.MediatR.Commands
             _groupService = groupService;
         }
 
-        public async Task<GroupViewModel> Handle(GroupCreateCommand request, CancellationToken cancellationToken)
+        public async Task<GroupResult> Handle(GroupCreateCommand request, CancellationToken cancellationToken)
         {
             return await _groupService.CreateGroup(request.Group);
         }
