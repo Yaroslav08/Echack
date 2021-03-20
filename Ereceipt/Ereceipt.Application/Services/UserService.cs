@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
@@ -23,7 +24,7 @@ namespace Ereceipt.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<UserViewModel> CreateUser(UserCreateViewModel model)
+        public async Task<UserVMResult> CreateUser(UserCreateViewModel model)
         {
             var user = new User
             {
@@ -33,10 +34,10 @@ namespace Ereceipt.Application.Services
                 CreatedBy = "0",
                 Role = "User"
             };
-            return _mapper.Map<UserViewModel>(await _userRepository.CreateAsync(user));
+            return new UserVMResult(_mapper.Map<UserViewModel>(await _userRepository.CreateAsync(user)));
         }
 
-        public async Task<UserViewModel> EditUser(UserEditViewModel model)
+        public async Task<UserVMResult> EditUser(UserEditViewModel model)
         {
             var user = await _userRepository.GetByIdAsTrackingAsync(model.UserId);
             if (user == null)
@@ -44,17 +45,17 @@ namespace Ereceipt.Application.Services
             user.Name = model.Name;
             user.UpdatedAt = DateTime.UtcNow;
             user.UpdatedBy = user.Id.ToString();
-            return _mapper.Map<UserViewModel>(await _userRepository.UpdateAsync(user));
+            return new UserVMResult(_mapper.Map<UserViewModel>(await _userRepository.UpdateAsync(user)));
         }
 
-        public async Task<List<UserViewModel>> GetAllUsers(int afterId)
+        public async Task<ListUsersVMResult> GetAllUsers(int afterId)
         {
-            return _mapper.Map<List<UserViewModel>>(await _userRepository.GetAllAsync(afterId));
+            return new ListUsersVMResult(_mapper.Map<List<UserViewModel>>(await _userRepository.GetAllAsync(afterId)));
         }
 
-        public async Task<UserViewModel> GetUserById(int id)
+        public async Task<UserVMResult> GetUserById(int id)
         {
-            return _mapper.Map<UserViewModel>(await _userRepository.FindAsync(d => d.Id == id));
+            return new UserVMResult(_mapper.Map<UserViewModel>(await _userRepository.FindAsync(d => d.Id == id)));
         }
 
         public async Task<User> LoginUser(UserLoginViewModel model)
@@ -69,9 +70,9 @@ namespace Ereceipt.Application.Services
             return user;
         }
 
-        public async Task<List<UserViewModel>> SearchUsers(string user, int afterId)
+        public async Task<ListUsersVMResult> SearchUsers(string user, int afterId)
         {
-            return _mapper.Map<List<UserViewModel>>(await _userRepository.SearchUsersAsync(user, afterId));
+            return new ListUsersVMResult(_mapper.Map<List<UserViewModel>>(await _userRepository.SearchUsersAsync(user, afterId)));
         }
     }
 }

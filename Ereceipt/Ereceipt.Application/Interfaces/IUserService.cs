@@ -1,4 +1,5 @@
-﻿using Ereceipt.Application.ViewModels.User;
+﻿using Ereceipt.Application.Results;
+using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace Ereceipt.Application.Interfaces
     public interface IUserService
     {
         Task<User> LoginUser(UserLoginViewModel model);
-        Task<UserViewModel> CreateUser(UserCreateViewModel model);
-        Task<UserViewModel> EditUser(UserEditViewModel model);
-        Task<UserViewModel> GetUserById(int id);
-        Task<List<UserViewModel>> SearchUsers(string user, int afterId);
-        Task<List<UserViewModel>> GetAllUsers(int afterId);
+        Task<UserVMResult> CreateUser(UserCreateViewModel model);
+        Task<UserVMResult> EditUser(UserEditViewModel model);
+        Task<UserVMResult> GetUserById(int id);
+        Task<ListUsersVMResult> SearchUsers(string user, int afterId);
+        Task<ListUsersVMResult> GetAllUsers(int afterId);
     }
 }
