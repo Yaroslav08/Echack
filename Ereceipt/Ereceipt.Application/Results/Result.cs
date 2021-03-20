@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace Ereceipt.Application.Results
         public Exception Exception { get; }
 
         public T Data { get; }
+
+        public int CountOfData { get; }
 
         public Result(T data) : this(data,null,null)
         {
@@ -39,10 +42,17 @@ namespace Ereceipt.Application.Results
                 OK = false;
                 Error = error;
                 Exception = ex;
+                CountOfData = 0;
                 return;
             }
             OK = true;
             Data = data;
+            if(Data is ICollection)
+            {
+                CountOfData = (Data as ICollection).Count;
+                return;
+            }
+            CountOfData = 1;
         }
     }
 }
