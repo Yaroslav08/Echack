@@ -10,15 +10,15 @@ namespace Ereceipt.Infrastructure.IoC
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddSingleton<IReceiptRepository, ReceiptRepository>();
-            services.AddSingleton<IReceiptService, ReceiptService>();
-            services.AddSingleton<IProductService, ProductService>();
-            services.AddSingleton<ICommentRepository, CommentRepository>();
-            services.AddSingleton<IGroupRepository, GroupRepository>();
-            services.AddSingleton<IGroupService, GroupService>();
-            services.AddSingleton<IGroupMemberRepository, GroupMemberRepository>();
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IUserService, UserService>();
+            services.AddScoped<IReceiptRepository, ReceiptRepository>();
+            services.AddScoped<IReceiptService, ReceiptService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IGroupMemberRepository, GroupMemberRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITestDataService, TestDataService>();
         }
 
