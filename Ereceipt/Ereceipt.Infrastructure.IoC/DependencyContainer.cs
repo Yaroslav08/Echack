@@ -19,6 +19,7 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddSingleton<IGroupMemberRepository, GroupMemberRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddScoped<ITestDataService, TestDataService>();
         }
 
         public static void AddEreceiptAutoMapper(this IServiceCollection services)
