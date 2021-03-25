@@ -8,7 +8,6 @@ namespace Ereceipt.Domain.Models
     {
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        [Required]
         public string CreatedBy { get; set; }
 
 

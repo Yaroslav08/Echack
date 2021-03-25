@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ereceipt.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(EreceiptContext))]
-    [Migration("20210314095056_Init")]
+    [Migration("20210325202202_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
@@ -72,7 +71,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Desc")
@@ -107,7 +105,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("GroupId")
@@ -151,7 +148,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("GroupId")
@@ -171,9 +167,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -189,7 +182,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("ReceiptType", "ShopName", "CreatedAt", "TotalPrice");
+                    b.HasIndex("ReceiptType", "ShopName", "CreatedAt");
 
                     b.ToTable("Receipts");
                 });
@@ -209,7 +202,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")

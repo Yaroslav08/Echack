@@ -12,8 +12,7 @@ namespace Ereceipt.Infrastructure.Data.Configurations
             {
                 d.ReceiptType,
                 d.ShopName,
-                d.CreatedAt,
-                d.TotalPrice
+                d.CreatedAt
             });
         }
     }

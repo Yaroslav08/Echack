@@ -46,7 +46,6 @@ namespace Ereceipt.Application.Services
                 GroupId = model.GroupId,
                 ReceiptType = ReceiptType.Internal,
                 Products = JsonSerializer.Serialize(model.Products),
-                TotalPrice = _productService.GetSum(model.Products),
                 CreatedBy = model.UserId.ToString()
             };
             return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.CreateAsync(Receipt));
@@ -63,7 +62,6 @@ namespace Ereceipt.Application.Services
                 return null;
             Receipt.ShopName = model.ShopName;
             Receipt.IsImportant = model.IsImportant;
-            Receipt.TotalPrice = _productService.GetSum(model.Products);
             Receipt.Products = JsonSerializer.Serialize(model.Products);
             Receipt.UpdatedAt = DateTime.Now;
             Receipt.UpdatedBy = model.UserId.ToString();

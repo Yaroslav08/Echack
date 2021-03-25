@@ -6,6 +6,7 @@ using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 namespace Ereceipt.Application
@@ -15,12 +16,12 @@ namespace Ereceipt.Application
         public Mapper()
         {
             CreateMap<Receipt, ReceiptViewModel>()
-                .ForMember(d=>d.TotalPrice, s=>s.MapFrom(d=>Math.Round(d.TotalPrice,2)))
+                .ForMember(d=>d.TotalPrice, s=>s.MapFrom(d=>Math.Round(GetProducts(d.Products).Sum(d=>d.Price), 2)))
                 .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)))
                 .ForMember(d => d.Group, s => s.MapFrom(d => d.Group))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
             CreateMap<Receipt, ReceiptGroupViewModel>()
-                .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(d.TotalPrice, 2)))
+                .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(GetProducts(d.Products).Sum(d => d.Price), 2)))
                 .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
 

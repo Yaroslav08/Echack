@@ -16,7 +16,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Desc = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -37,7 +37,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: true),
                     Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -55,7 +55,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     Text = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -79,7 +79,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -106,7 +106,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ShopName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TotalPrice = table.Column<double>(type: "float", nullable: false),
                     Products = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsImportant = table.Column<bool>(type: "bit", nullable: false),
                     CanEdit = table.Column<bool>(type: "bit", nullable: false),
@@ -114,7 +113,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -171,9 +170,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Receipts_ReceiptType_ShopName_CreatedAt_TotalPrice",
+                name: "IX_Receipts_ReceiptType_ShopName_CreatedAt",
                 table: "Receipts",
-                columns: new[] { "ReceiptType", "ShopName", "CreatedAt", "TotalPrice" });
+                columns: new[] { "ReceiptType", "ShopName", "CreatedAt" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receipts_UserId",

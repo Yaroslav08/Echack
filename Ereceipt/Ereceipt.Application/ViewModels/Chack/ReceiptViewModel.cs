@@ -18,16 +18,5 @@ namespace Ereceipt.Application.ViewModels.Receipt
         public ReceiptType ReceiptType { get; set; }
         public UserReceiptViewModel User { get; set; }
         public GroupReceiptViewModel Group { get; set; }
-        public double GetTotalPrice()
-        {
-            if (Products == null || Products.Count == 0)
-            {
-                TotalPrice = 0;
-                return 0;
-            }
-            var tPrice = Products.Sum(d => d.Price);
-            TotalPrice = tPrice;
-            return tPrice;
-        }
     }
 }

@@ -25,5 +25,13 @@ namespace Ereceipt.Infrastructure.Data.Context
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=EreceiptDb;Trusted_Connection=True;");
             //optionsBuilder.UseInMemoryDatabase(Guid.NewGuid().ToString());
         }
+
+        public bool HasAnyData()
+        {
+            var users = Users.AsNoTracking().ToArrayAsync().Result;
+            if (users == null || users.Length == 0)
+                return false;
+            return true;
+        }
     }
 }

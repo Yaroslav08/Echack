@@ -30,7 +30,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
@@ -70,7 +69,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Desc")
@@ -105,7 +103,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("GroupId")
@@ -149,7 +146,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("GroupId")
@@ -169,9 +165,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -187,7 +180,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("ReceiptType", "ShopName", "CreatedAt", "TotalPrice");
+                    b.HasIndex("ReceiptType", "ShopName", "CreatedAt");
 
                     b.ToTable("Receipts");
                 });
@@ -207,7 +200,6 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
