@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Ereceipt.Web.Controllers
 {
@@ -23,6 +24,8 @@ namespace Ereceipt.Web.Controllers
                 return Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
             return 1;
         }
+
+        protected string Role() => User.Identity.IsAuthenticated ? User.Claims.FirstOrDefault(d => d.Type == ClaimTypes.Role).Value : null;
 
         protected IActionResult ResultOk(object data, string errorMessage = "")
         {
