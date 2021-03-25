@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Users;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.Results.Users;
-using Ereceipt.Application.ViewModels.User;
-using MediatR;
 namespace Ereceipt.Application.MediatR.Queries
 {
     public class SearchUsersQuery : IRequest<ListUsersResult>

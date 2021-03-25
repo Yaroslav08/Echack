@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
-using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Application.ViewModels.Group;
+using Ereceipt.Application.ViewModels.GroupMember;
+using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Ereceipt.Application.ViewModels.GroupMember;
 
 namespace Ereceipt.Application
 {

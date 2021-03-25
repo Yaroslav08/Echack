@@ -1,10 +1,8 @@
-﻿using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.MediatR.Commands;
+﻿using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Group;
 using Ereceipt.Application.ViewModels.GroupMember;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

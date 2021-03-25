@@ -3,11 +3,8 @@ using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
-using Ereceipt.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Services

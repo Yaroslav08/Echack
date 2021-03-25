@@ -1,9 +1,7 @@
 ﻿using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.User;
-using Ereceipt.Web.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

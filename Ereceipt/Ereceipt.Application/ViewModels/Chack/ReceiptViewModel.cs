@@ -1,11 +1,7 @@
-﻿using Ereceipt.Application.ViewModels.Group;
-using Ereceipt.Application.ViewModels.User;
-using Ereceipt.Domain.Models;
+﻿using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Ereceipt.Application.ViewModels.Receipt
 {
     public class ReceiptViewModel

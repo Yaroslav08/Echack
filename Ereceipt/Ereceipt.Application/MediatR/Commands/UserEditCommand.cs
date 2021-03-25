@@ -1,13 +1,7 @@
 ﻿using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Users;
-using Ereceipt.Application.ViewModels;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands

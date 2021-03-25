@@ -1,7 +1,5 @@
 ﻿using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
-using Ereceipt.Infrastructure.Data.Context;
-using EFRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

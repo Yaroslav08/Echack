@@ -4,12 +4,9 @@ using Ereceipt.Application.Results.Users;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
-using Ereceipt.Infrastructure.Data;
 using Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Services
 {

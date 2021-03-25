@@ -2,12 +2,8 @@
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Services;
 using Ereceipt.Domain.Interfaces;
-using Ereceipt.Infrastructure.Data;
 using Ereceipt.Infrastructure.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 namespace Ereceipt.Infrastructure.IoC
 {
     public static class DependencyContainer

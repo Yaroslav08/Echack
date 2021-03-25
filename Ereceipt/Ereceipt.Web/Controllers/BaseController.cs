@@ -1,10 +1,7 @@
-﻿using Ereceipt.Application.Results;
-using Ereceipt.Web.Responses;
-using Microsoft.AspNetCore.Authorization;
+﻿using Ereceipt.Web.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
