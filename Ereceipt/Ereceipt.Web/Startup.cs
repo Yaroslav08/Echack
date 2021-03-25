@@ -92,6 +92,7 @@ namespace Ereceipt.Web
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ereceipt.Web v1"));
             }
+            app.UseMiddleware<RoutesMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
 
