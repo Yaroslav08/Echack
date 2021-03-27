@@ -31,12 +31,20 @@ namespace Ereceipt.Web.Controllers
             return ResultOk(result);
         }
 
-        [HttpDelete("fromgroup")]
+        [HttpPost("fromgroup")]
         public async Task<IActionResult> RemoveReceiptFromGroup([FromBody] ReceiptGroupCreateModel model)
         {
             var result = await _mediator.Send(new RemoveReceiptFromGroupCommand(model));
             return ResultOk(result);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveReceipt(Guid id)
+        {
+            var result = await _mediator.Send(new RemoveReceiptCommand(GetId(), id));
+            return ResultOk(result);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReceiptById(Guid id)

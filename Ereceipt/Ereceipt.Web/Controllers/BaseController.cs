@@ -18,7 +18,13 @@ namespace Ereceipt.Web.Controllers
         protected int GetId()
         {
             if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return 0;
+                }
                 return Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
+            }
             return 1;
         }
 

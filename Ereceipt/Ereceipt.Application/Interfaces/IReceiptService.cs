@@ -15,5 +15,6 @@ namespace Ereceipt.Application.Interfaces
         Task<ReceiptViewModel> RemoveReceiptFromGroup(ReceiptGroupCreateModel model);
         Task<List<ReceiptViewModel>> GetAllReceipts(int skip);
         Task<int> GetAllReceiptsCount();
+        Task<ReceiptViewModel> RemoveReceipt(Guid id, int userId);
     }
 }

@@ -93,6 +93,21 @@ namespace Ereceipt.Application.Services
             return await _ReceiptRepos.CountAsync(d => d.UserId == ownerId);
         }
 
+        public async Task<ReceiptViewModel> RemoveReceipt(Guid id, int userId)
+        {
+            var receiptToDelete = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == id);
+            if (receiptToDelete == null)
+                return null;
+            if (userId == 0)
+            {
+                return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.RemoveAsync(receiptToDelete));
+            }
+            if (receiptToDelete.UserId != userId)
+                return null;
+            return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.RemoveAsync(receiptToDelete));
+
+        }
+
         public async Task<ReceiptViewModel> RemoveReceiptFromGroup(ReceiptGroupCreateModel model)
         {
             var Receipt = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == model.ReceiptId);
