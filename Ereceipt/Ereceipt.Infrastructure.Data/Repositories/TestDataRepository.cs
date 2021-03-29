@@ -26,8 +26,8 @@ namespace Ereceipt.Infrastructure.Data.Repositories
                 {
                     var user1 = await db.Users.AddAsync(new User
                     {
-                        Login = "Yaroslav_Mudryk@epam.com",
-                        PasswordHash = PasswordManager.GeneratePasswordHash("Yarik266210"),
+                        Login = "yaroslav.mudryk@gmail.com",
+                        PasswordHash = PasswordManager.GeneratePasswordHash("SomePassword"),
                         Name = "Yaroslav Mudryk",
                         Role = "Admin",
                         CreatedAt = DateTime.UtcNow
