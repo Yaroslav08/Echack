@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
@@ -21,6 +22,8 @@ namespace Ereceipt.Domain.Models
 
         public Guid? GroupId { get; set; }
         public Group Group { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 
     public enum ReceiptType

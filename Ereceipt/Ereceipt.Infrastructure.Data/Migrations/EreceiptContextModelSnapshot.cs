@@ -32,6 +32,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ReceiptId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -47,6 +50,8 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReceiptId");
 
                     b.HasIndex("UserId");
 
@@ -238,11 +243,19 @@ namespace Ereceipt.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Ereceipt.Domain.Models.Comment", b =>
                 {
+                    b.HasOne("Ereceipt.Domain.Models.Receipt", "Receipt")
+                        .WithMany("Comments")
+                        .HasForeignKey("ReceiptId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Ereceipt.Domain.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Receipt");
 
                     b.Navigation("User");
                 });
@@ -286,6 +299,11 @@ namespace Ereceipt.Infrastructure.Data.Migrations
             modelBuilder.Entity("Ereceipt.Domain.Models.Group", b =>
                 {
                     b.Navigation("GroupMembers");
+                });
+
+            modelBuilder.Entity("Ereceipt.Domain.Models.Receipt", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Ereceipt.Domain.Models.User", b =>

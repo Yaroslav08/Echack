@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 namespace Ereceipt.Application.ViewModels.Group
 {
-    public class ReceiptGroupViewModel
+    public class ReceiptGroupViewModel : ReceiptComments
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

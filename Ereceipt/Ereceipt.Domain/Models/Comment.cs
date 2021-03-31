@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
     public class Comment : BaseModelWithIdentityGen<long>
@@ -7,5 +8,8 @@ namespace Ereceipt.Domain.Models
         public string Text { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+
+        public Guid ReceiptId { get; set; }
+        public Receipt Receipt { get; set; }
     }
 }

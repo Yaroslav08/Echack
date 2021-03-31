@@ -13,6 +13,8 @@ namespace Ereceipt.Infrastructure.Data.Configurations
                 d.Text,
                 d.CreatedAt
             });
+            builder.HasOne(x => x.Receipt).WithMany(x => x.Comments).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.User).WithMany(x => x.Comments).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

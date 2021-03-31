@@ -71,7 +71,12 @@ namespace Ereceipt.Application.Services
 
         public async Task<ListReceiptGroupResult> GetReceiptsByGroupId(Guid groupId, int skip = 0)
         {
-            return new ListReceiptGroupResult(_mapper.Map<List<ReceiptGroupViewModel>>(await _ReceiptRepository.GetReceiptsByGroupIdAsync(groupId, skip)));
+            var receipts = _mapper.Map<List<ReceiptGroupViewModel>>(await _ReceiptRepository.GetReceiptsByGroupIdAsync(groupId, skip));
+            receipts.ForEach(async x =>
+            {
+                x.CommentsCount = await _ReceiptRepository.GetCountCommentsByReceiptIdAsync(x.Id);
+            });
+            return new ListReceiptGroupResult(receipts);
         }
 
         public async Task<GroupResult> GetGroupById(Guid id)

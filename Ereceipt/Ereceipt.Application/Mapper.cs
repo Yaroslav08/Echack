@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ereceipt.Application.ViewModels.Comment;
 using Ereceipt.Application.ViewModels.Group;
 using Ereceipt.Application.ViewModels.GroupMember;
 using Ereceipt.Application.ViewModels.Receipt;
@@ -27,6 +28,9 @@ namespace Ereceipt.Application
 
             CreateMap<User, UserViewModel>();
             CreateMap<User, UserReceiptViewModel>();
+
+            CreateMap<Comment, CommentViewModel>()
+                .ForMember(d => d.User, d => d.MapFrom(s => s.User));
 
 
             CreateMap<Group, GroupViewModel>();

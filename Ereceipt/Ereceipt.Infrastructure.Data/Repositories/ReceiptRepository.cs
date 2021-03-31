@@ -9,6 +9,11 @@ namespace Ereceipt.Infrastructure.Data.Repositories
 {
     public class ReceiptRepository : Repository<Receipt>, IReceiptRepository
     {
+        public async Task<int> GetCountCommentsByReceiptIdAsync(Guid id)
+        {
+            return await db.Comments.CountAsync(d => d.ReceiptId == id);
+        }
+
         public async Task<Receipt> GetReceiptByIdAsync(Guid id)
         {
             return await db.Receipts

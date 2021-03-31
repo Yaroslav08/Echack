@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Ereceipt.Application.ViewModels.Receipt
 {
-    public class ReceiptViewModel
+    public class ReceiptViewModel : ReceiptComments
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

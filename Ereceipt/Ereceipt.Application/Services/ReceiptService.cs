@@ -84,7 +84,9 @@ namespace Ereceipt.Application.Services
 
         public async Task<ReceiptResult> GetReceipt(Guid id)
         {
-            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.GetReceiptByIdAsync(id)));
+            var receipt = _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.GetReceiptByIdAsync(id));
+            receipt.CommentsCount = await _ReceiptRepos.GetCountCommentsByReceiptIdAsync(id);
+            return new ReceiptResult(receipt);
         }
 
         public async Task<ListReceiptResult> GetUserReceiptsByUserId(int ownerId, int skip)
