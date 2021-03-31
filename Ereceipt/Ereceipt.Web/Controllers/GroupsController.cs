@@ -16,6 +16,16 @@ namespace Ereceipt.Web.Controllers
             _mediatr = mediatr;
         }
 
+        [HttpGet]
+        //[Authorize(Roles = "Admin, SAdmin")]
+        public async Task<IActionResult> GetAllGroups(int skip = 0)
+        {
+            var result = await _mediatr.Send(new GetAllGroupsQuery(skip));
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
+        }
+
         [HttpGet("my")]
         public async Task<IActionResult> GetMyGroups()
         {

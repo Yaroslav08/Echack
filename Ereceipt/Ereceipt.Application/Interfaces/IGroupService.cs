@@ -15,6 +15,7 @@ namespace Ereceipt.Application.Interfaces
         Task<GroupResult> RemoveGroup(Guid id, int userId);
         Task<ListReceiptGroupResult> GetReceiptsByGroupId(Guid groupId, int skip);
         Task<ListGroupMemberResult> GetGroupMembers(Guid id);
+        Task<ListGroupResult> GetAllGroups(int skip);
         Task<ListGroupResult> GetGroupsByUserId(int id);
         Task<bool> CanEditGroup(Guid groupId, int userId);
     }

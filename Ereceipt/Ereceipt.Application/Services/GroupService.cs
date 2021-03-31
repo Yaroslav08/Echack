@@ -146,5 +146,10 @@ namespace Ereceipt.Application.Services
                 return new GroupMemberResult(null);
             return new GroupMemberResult(_mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.RemoveAsync(groupMember)));
         }
+
+        public async Task<ListGroupResult> GetAllGroups(int skip)
+        {
+            return new ListGroupResult(_mapper.Map<List<GroupViewModel>>(await _groupRepository.GetAllAsync(20, skip)));
+        }
     }
 }
