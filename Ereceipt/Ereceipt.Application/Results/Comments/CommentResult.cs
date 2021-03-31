@@ -9,5 +9,6 @@ namespace Ereceipt.Application.Results.Comments
     public class CommentResult : Result<CommentViewModel>
     {
         public CommentResult(CommentViewModel comment) : base(comment) { }
+        public CommentResult(string error) : base(error) { }
     }
 }
