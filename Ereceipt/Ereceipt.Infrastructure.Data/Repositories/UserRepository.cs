@@ -1,5 +1,6 @@
 ﻿using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
+using Ereceipt.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Ereceipt.Infrastructure.Data.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
+        public UserRepository(EreceiptContext db) : base(db) { }
+
+
         public async Task<List<User>> GetAllAsync(int afterId)
         {
             if (afterId == 0)

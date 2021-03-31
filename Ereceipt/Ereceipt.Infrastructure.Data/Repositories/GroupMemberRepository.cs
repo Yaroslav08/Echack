@@ -1,5 +1,6 @@
 ﻿using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
+using Ereceipt.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace Ereceipt.Infrastructure.Data.Repositories
 {
     public class GroupMemberRepository : Repository<GroupMember>, IGroupMemberRepository
     {
+        public GroupMemberRepository(EreceiptContext db) : base(db) { }
+
         public async Task<List<GroupMember>> GetGroupMembersAsync(Guid id)
         {
             return await db.GroupMembers

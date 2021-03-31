@@ -13,9 +13,9 @@ namespace Ereceipt.Infrastructure.Data.Repositories
     public class TestDataRepository : ITestDataRepository
     {
         private readonly EreceiptContext db;
-        public TestDataRepository()
+        public TestDataRepository(EreceiptContext _db)
         {
-            db = new EreceiptContext();
+            db = _db;
         }
 
         public async Task<string> LoadTestDataAsync(string[] products)

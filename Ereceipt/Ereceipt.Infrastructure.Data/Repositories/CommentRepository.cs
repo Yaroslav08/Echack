@@ -1,5 +1,6 @@
 ﻿using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
+using Ereceipt.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,9 @@ namespace Ereceipt.Infrastructure.Data.Repositories
 {
     public class CommentRepository : Repository<Comment>, ICommentRepository
     {
+        public CommentRepository(EreceiptContext db) : base(db) { }
+
+
         public async Task<List<Comment>> GetReceiptCommentsAsync(Guid id)
         {
             return await db.Comments

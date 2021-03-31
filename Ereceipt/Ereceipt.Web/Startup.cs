@@ -1,4 +1,5 @@
 using Ereceipt.Application;
+using Ereceipt.Infrastructure.Data.Context;
 using Ereceipt.Infrastructure.IoC;
 using Ereceipt.Web.AppSetting;
 using Ereceipt.Web.Middlewares;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,9 @@ namespace Ereceipt.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<EreceiptContext>(option => option.UseSqlServer(connection), ServiceLifetime.Transient);
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

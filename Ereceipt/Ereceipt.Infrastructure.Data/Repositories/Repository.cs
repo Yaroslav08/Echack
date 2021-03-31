@@ -14,9 +14,9 @@ namespace Ereceipt.Infrastructure.Data.Repositories
         protected EreceiptContext db;
         protected DbSet<TEntity> dbSet;
 
-        public Repository()
+        public Repository(EreceiptContext _db)
         {
-            db = new EreceiptContext();
+            db = _db;
             dbSet = db.Set<TEntity>();
         }
 
