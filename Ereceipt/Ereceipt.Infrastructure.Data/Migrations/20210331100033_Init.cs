@@ -106,6 +106,7 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ShopName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    TotalPrice = table.Column<double>(type: "float", nullable: false),
                     Products = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsImportant = table.Column<bool>(type: "bit", nullable: false),
                     CanEdit = table.Column<bool>(type: "bit", nullable: false),

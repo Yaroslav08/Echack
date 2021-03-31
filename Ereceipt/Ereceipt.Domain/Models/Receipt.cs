@@ -6,6 +6,8 @@ namespace Ereceipt.Domain.Models
     {
         [Required, MinLength(1), MaxLength(100)]
         public string ShopName { get; set; }
+        [Required, Range(0.1, 999999)]
+        public double TotalPrice { get; set; }
         public string Products { get; set; }
         [Required]
         public bool IsImportant { get; set; } = false;

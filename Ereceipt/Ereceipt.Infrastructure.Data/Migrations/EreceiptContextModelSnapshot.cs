@@ -165,6 +165,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 

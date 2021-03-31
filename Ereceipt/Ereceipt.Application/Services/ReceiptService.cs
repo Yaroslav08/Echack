@@ -6,6 +6,7 @@ using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Services
@@ -46,6 +47,7 @@ namespace Ereceipt.Application.Services
                 UserId = model.UserId,
                 GroupId = model.GroupId,
                 ReceiptType = ReceiptType.Internal,
+                TotalPrice = model.TotalPrice == default ? model.Products.Sum(x=>x.Price) : default,
                 Products = JsonSerializer.Serialize(model.Products),
                 CreatedBy = model.UserId.ToString()
             };
@@ -64,6 +66,7 @@ namespace Ereceipt.Application.Services
             Receipt.ShopName = model.ShopName;
             Receipt.IsImportant = model.IsImportant;
             Receipt.Products = JsonSerializer.Serialize(model.Products);
+            Receipt.TotalPrice = model.Products != null ? model.Products.Sum(x => x.Price) : Receipt.TotalPrice;
             Receipt.UpdatedAt = DateTime.Now;
             Receipt.UpdatedBy = model.UserId.ToString();
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt)));

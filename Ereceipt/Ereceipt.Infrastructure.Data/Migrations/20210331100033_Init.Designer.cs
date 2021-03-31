@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ereceipt.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(EreceiptContext))]
-    [Migration("20210327195929_Init")]
+    [Migration("20210331100033_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,6 +166,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");

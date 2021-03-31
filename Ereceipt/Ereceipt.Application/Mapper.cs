@@ -16,7 +16,7 @@ namespace Ereceipt.Application
         public Mapper()
         {
             CreateMap<Receipt, ReceiptViewModel>()
-                .ForMember(d=>d.TotalPrice, s=>s.MapFrom(d=>Math.Round(GetProducts(d.Products).Sum(d=>d.Price), 2)))
+                .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(GetProducts(d.Products).Sum(d => d.Price), 2)))
                 .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)))
                 .ForMember(d => d.Group, s => s.MapFrom(d => d.Group))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
