@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Receipts;
 using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
@@ -21,22 +22,22 @@ namespace Ereceipt.Application.Services
             _productService = productService;
         }
 
-        public async Task<ReceiptViewModel> AddReceiptToGroup(ReceiptGroupCreateModel model)
+        public async Task<ReceiptResult> AddReceiptToGroup(ReceiptGroupCreateModel model)
         {
             var Receipt = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == model.ReceiptId);
             if (Receipt == null)
-                return null;
+                return new ReceiptResult("Receipt not found");
             if (Receipt.UserId != model.UserId)
-                return null;
+                return new ReceiptResult("Access Denited");
             if (Receipt.GroupId != null)
-                return null;
+                return new ReceiptResult("Already in group");
             Receipt.GroupId = model.GroupId;
             Receipt.UpdatedAt = DateTime.UtcNow;
             Receipt.UpdatedBy = model.UserId.ToString();
-            return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt));
+            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt)));
         }
 
-        public async Task<ReceiptViewModel> CreateReceipt(ReceiptCreateViewModel model)
+        public async Task<ReceiptResult> CreateReceipt(ReceiptCreateViewModel model)
         {
             var Receipt = new Receipt
             {
@@ -48,29 +49,29 @@ namespace Ereceipt.Application.Services
                 Products = JsonSerializer.Serialize(model.Products),
                 CreatedBy = model.UserId.ToString()
             };
-            return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.CreateAsync(Receipt));
+            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.CreateAsync(Receipt)));
         }
 
-        public async Task<ReceiptViewModel> EditReceipt(ReceiptEditViewModel model)
+        public async Task<ReceiptResult> EditReceipt(ReceiptEditViewModel model)
         {
             var Receipt = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == model.Id);
             if (Receipt == null)
-                return null;
+                return new ReceiptResult("Receipt not found");
             if (Receipt.UserId != model.UserId)
-                return null;
+                return new ReceiptResult("Access Denited");
             if (!Receipt.CanEdit)
-                return null;
+                return new ReceiptResult("This receipt can`t be edit");
             Receipt.ShopName = model.ShopName;
             Receipt.IsImportant = model.IsImportant;
             Receipt.Products = JsonSerializer.Serialize(model.Products);
             Receipt.UpdatedAt = DateTime.Now;
             Receipt.UpdatedBy = model.UserId.ToString();
-            return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt));
+            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt)));
         }
 
-        public async Task<List<ReceiptViewModel>> GetAllReceipts(int skip)
+        public async Task<ListReceiptResult> GetAllReceipts(int skip)
         {
-            return _mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetAllAsync(20, skip));
+            return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetAllAsync(20, skip)));
         }
 
         public async Task<int> GetAllReceiptsCount()
@@ -78,14 +79,14 @@ namespace Ereceipt.Application.Services
             return await _ReceiptRepos.CountAsync();
         }
 
-        public async Task<ReceiptViewModel> GetReceipt(Guid id)
+        public async Task<ReceiptResult> GetReceipt(Guid id)
         {
-            return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.GetReceiptByIdAsync(id));
+            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.GetReceiptByIdAsync(id)));
         }
 
-        public async Task<List<ReceiptViewModel>> GetUserReceiptsByUserId(int ownerId, int skip)
+        public async Task<ListReceiptResult> GetUserReceiptsByUserId(int ownerId, int skip)
         {
-            return _mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetReceiptsByUserIdAsync(ownerId, skip));
+            return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetReceiptsByUserIdAsync(ownerId, skip)));
         }
 
         public async Task<int> GetUserReceiptsCount(int ownerId)
@@ -93,34 +94,33 @@ namespace Ereceipt.Application.Services
             return await _ReceiptRepos.CountAsync(d => d.UserId == ownerId);
         }
 
-        public async Task<ReceiptViewModel> RemoveReceipt(Guid id, int userId)
+        public async Task<ReceiptResult> RemoveReceipt(Guid id, int userId)
         {
             var receiptToDelete = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == id);
             if (receiptToDelete == null)
-                return null;
+                return new ReceiptResult("Receipt not found");
             if (userId == 0)
             {
-                return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.RemoveAsync(receiptToDelete));
+                return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.RemoveAsync(receiptToDelete)));
             }
             if (receiptToDelete.UserId != userId)
                 return null;
-            return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.RemoveAsync(receiptToDelete));
-
+            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.RemoveAsync(receiptToDelete)));
         }
 
-        public async Task<ReceiptViewModel> RemoveReceiptFromGroup(ReceiptGroupCreateModel model)
+        public async Task<ReceiptResult> RemoveReceiptFromGroup(ReceiptGroupCreateModel model)
         {
             var Receipt = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == model.ReceiptId);
             if (Receipt == null)
-                return null;
+                return new ReceiptResult("Receipt not found");
             if (Receipt.UserId != model.UserId)
-                return null;
+                return new ReceiptResult("Access Denited");
             if (Receipt.GroupId != model.GroupId)
-                return null;
+                return new ReceiptResult("GroupId not valid");
             Receipt.GroupId = null;
             Receipt.UpdatedAt = DateTime.Now;
             Receipt.UpdatedBy = model.UserId.ToString();
-            return _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt));
+            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt)));
         }
     }
 }

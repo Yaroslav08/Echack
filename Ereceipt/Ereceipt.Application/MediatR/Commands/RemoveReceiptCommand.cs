@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Receipts;
 using Ereceipt.Application.ViewModels.Receipt;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class RemoveReceiptCommand : IRequest<ReceiptViewModel>
+    public class RemoveReceiptCommand : IRequest<ReceiptResult>
     {
         public RemoveReceiptCommand(int userId, Guid receiptId)
         {
@@ -21,7 +22,7 @@ namespace Ereceipt.Application.MediatR.Commands
         public Guid ReceiptId { get; }
     }
 
-    public class RemoveReceiptCommandHandler : IRequestHandler<RemoveReceiptCommand, ReceiptViewModel>
+    public class RemoveReceiptCommandHandler : IRequestHandler<RemoveReceiptCommand, ReceiptResult>
     {
         IReceiptService _ReceiptService;
         public RemoveReceiptCommandHandler(IReceiptService receiptService)
@@ -30,7 +31,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<ReceiptViewModel> Handle(RemoveReceiptCommand request, CancellationToken cancellationToken)
+        public async Task<ReceiptResult> Handle(RemoveReceiptCommand request, CancellationToken cancellationToken)
         {
             return await _ReceiptService.RemoveReceipt(request.ReceiptId, request.UserId);
         }

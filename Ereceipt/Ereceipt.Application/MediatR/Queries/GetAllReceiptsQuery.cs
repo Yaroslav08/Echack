@@ -1,12 +1,11 @@
 ﻿using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.ViewModels.Receipt;
+using Ereceipt.Application.Results.Receipts;
 using MediatR;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class GetAllReceiptsQuery : IRequest<List<ReceiptViewModel>>
+    public class GetAllReceiptsQuery : IRequest<ListReceiptResult>
     {
         public int Skip { get; set; }
 
@@ -16,7 +15,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
     }
 
-    public class GetAllReceiptQueryHandler : IRequestHandler<GetAllReceiptsQuery, List<ReceiptViewModel>>
+    public class GetAllReceiptQueryHandler : IRequestHandler<GetAllReceiptsQuery, ListReceiptResult>
     {
         IReceiptService _ReceiptService;
         public GetAllReceiptQueryHandler(IReceiptService ReceiptService)
@@ -25,7 +24,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
 
 
-        public async Task<List<ReceiptViewModel>> Handle(GetAllReceiptsQuery request, CancellationToken cancellationToken)
+        public async Task<ListReceiptResult> Handle(GetAllReceiptsQuery request, CancellationToken cancellationToken)
         {
             return await _ReceiptService.GetAllReceipts(request.Skip);
         }

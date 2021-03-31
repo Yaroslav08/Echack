@@ -1,11 +1,12 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results.Receipts;
 using Ereceipt.Application.ViewModels.Receipt;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class ReceiptCreateCommand : IRequest<ReceiptViewModel>
+    public class ReceiptCreateCommand : IRequest<ReceiptResult>
     {
         public ReceiptCreateViewModel Receipt { get; set; }
 
@@ -15,7 +16,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
     }
 
-    public class ReceiptCreateCommandHandler : IRequestHandler<ReceiptCreateCommand, ReceiptViewModel>
+    public class ReceiptCreateCommandHandler : IRequestHandler<ReceiptCreateCommand, ReceiptResult>
     {
         IReceiptService _ReceiptService;
         public ReceiptCreateCommandHandler(IReceiptService ReceiptService)
@@ -24,7 +25,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<ReceiptViewModel> Handle(ReceiptCreateCommand request, CancellationToken cancellationToken)
+        public async Task<ReceiptResult> Handle(ReceiptCreateCommand request, CancellationToken cancellationToken)
         {
             return await _ReceiptService.CreateReceipt(request.Receipt);
         }

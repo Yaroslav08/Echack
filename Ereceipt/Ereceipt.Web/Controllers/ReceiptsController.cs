@@ -21,28 +21,36 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateViewModel model)
         {
             var result = await _mediator.Send(new ReceiptCreateCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpPost("togroup")]
         public async Task<IActionResult> AddReceiptToGroup([FromBody] ReceiptGroupCreateModel model)
         {
             var result = await _mediator.Send(new AddReceiptToGroupCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpPost("fromgroup")]
         public async Task<IActionResult> RemoveReceiptFromGroup([FromBody] ReceiptGroupCreateModel model)
         {
             var result = await _mediator.Send(new RemoveReceiptFromGroupCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveReceipt(Guid id)
         {
             var result = await _mediator.Send(new RemoveReceiptCommand(GetId(), id));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
 
@@ -50,38 +58,44 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetReceiptById(Guid id)
         {
             var result = await _mediator.Send(new GetReceiptByIdQuery(id));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet]
         //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllReceipts(int skip = 0)
         {
-            var chaks = await _mediator.Send(new GetAllReceiptsQuery(skip));
-            return ResultOk(chaks);
+            var result = await _mediator.Send(new GetAllReceiptsQuery(skip));
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet("count")]
         //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllReceiptsCount()
         {
-            var chaks = await _mediator.Send(new GetAllReceiptsCountQuery());
-            return ResultOk(chaks);
+            var result = await _mediator.Send(new GetAllReceiptsCountQuery());
+            return ResultOk(result);
         }
 
 
         [HttpGet("my")]
         public async Task<IActionResult> GetMyReceipts(int skip = 0)
         {
-            var chaks = await _mediator.Send(new GetMyReceiptsQuery(GetId(), skip));
-            return ResultOk(chaks);
+            var result = await _mediator.Send(new GetMyReceiptsQuery(GetId(), skip));
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
         [HttpGet("my/count")]
         public async Task<IActionResult> GetMyReceiptsCount()
         {
-            var chaks = await _mediator.Send(new GetUserReceiptsCountQuery(GetId()));
-            return ResultOk(chaks);
+            var result = await _mediator.Send(new GetUserReceiptsCountQuery(GetId()));
+            return ResultOk(result);
         }
     }
 }

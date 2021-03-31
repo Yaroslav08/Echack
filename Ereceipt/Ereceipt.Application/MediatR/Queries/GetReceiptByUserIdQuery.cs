@@ -1,12 +1,12 @@
 ﻿using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.ViewModels.Receipt;
+using Ereceipt.Application.Results.Receipts;
 using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class GetReceiptByIdQuery : IRequest<ReceiptViewModel>
+    public class GetReceiptByIdQuery : IRequest<ReceiptResult>
     {
         public Guid Id { get; set; }
 
@@ -16,7 +16,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
     }
 
-    public class GetReceiptByIdQueryHandler : IRequestHandler<GetReceiptByIdQuery, ReceiptViewModel>
+    public class GetReceiptByIdQueryHandler : IRequestHandler<GetReceiptByIdQuery, ReceiptResult>
     {
         IReceiptService _ReceiptService;
         public GetReceiptByIdQueryHandler(IReceiptService ReceiptService)
@@ -25,7 +25,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
 
 
-        public async Task<ReceiptViewModel> Handle(GetReceiptByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ReceiptResult> Handle(GetReceiptByIdQuery request, CancellationToken cancellationToken)
         {
             return await _ReceiptService.GetReceipt(request.Id);
         }
