@@ -63,6 +63,15 @@ namespace Ereceipt.Web.Controllers
             return ResultBadRequest(result.Error);
         }
 
+        [HttpGet("{id}/comments")]
+        public async Task<IActionResult> GetCommentsOfReceipt(Guid id)
+        {
+            var result = await _mediator.Send(new GetCommentsOfReceiptQuery(id));
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
+        }
+
         [HttpGet]
         //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllReceipts(int skip = 0)

@@ -1,4 +1,5 @@
-﻿using Ereceipt.Application.ViewModels.User;
+﻿using Ereceipt.Application.ViewModels.Receipt;
+using Ereceipt.Application.ViewModels.User;
 using System;
 
 namespace Ereceipt.Application.ViewModels.Comment
@@ -8,6 +9,6 @@ namespace Ereceipt.Application.ViewModels.Comment
         public long Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Text { get; set; }
-        public UserViewModel User { get; set; }
+        public UserReceiptViewModel User { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddScoped<IReceiptService, ReceiptService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IGroupMemberRepository, GroupMemberRepository>();
