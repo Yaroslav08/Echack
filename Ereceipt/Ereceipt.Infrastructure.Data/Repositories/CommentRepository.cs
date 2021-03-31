@@ -13,6 +13,14 @@ namespace Ereceipt.Infrastructure.Data.Repositories
     {
         public CommentRepository(EreceiptContext db) : base(db) { }
 
+        public async Task<Comment> GetCommentWithDetailsAsync(long id)
+        {
+            return await db.Comments
+                .AsNoTracking()
+                .Include(x => x.User)
+                .Include(x => x.Receipt)
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
 
         public async Task<List<Comment>> GetReceiptCommentsAsync(Guid id)
         {

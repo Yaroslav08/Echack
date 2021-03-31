@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.MediatR.Commands;
+using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Comment;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +21,14 @@ namespace Ereceipt.Web.Controllers
             _logger = logger;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCommentWithDetails(long id)
+        {
+            var result = await _mediator.Send(new GetCommentWithDetailsQuery(id));
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateComment([FromBody] CommentCreateViewModel model)

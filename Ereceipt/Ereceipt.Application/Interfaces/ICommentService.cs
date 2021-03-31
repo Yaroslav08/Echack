@@ -10,6 +10,7 @@ namespace Ereceipt.Application.Interfaces
     public interface ICommentService
     {
         Task<ListCommentResult> GetCommentsByReceiptId(Guid id);
+        Task<CommentResult> GetCommentWithDetails(long id);
         Task<CommentResult> CreateComment(CommentCreateViewModel model);
         Task<CommentResult> EditComment(CommentEditViewModel model);
         Task<CommentResult> RemoveComment(int userId, long commentId);

@@ -10,5 +10,6 @@ namespace Ereceipt.Application.ViewModels.Comment
         public DateTime CreatedAt { get; set; }
         public string Text { get; set; }
         public UserReceiptViewModel User { get; set; }
+        public ReceiptViewModel Receipt { get; set; }
     }
 }

@@ -30,8 +30,8 @@ namespace Ereceipt.Application
             CreateMap<User, UserReceiptViewModel>();
 
             CreateMap<Comment, CommentViewModel>()
-                .ForMember(d => d.User, d => d.MapFrom(s => s.User));
-
+                .ForMember(d => d.User, d => d.MapFrom(s => s.User))
+                .ForMember(d => d.Receipt, d => d.MapFrom(s => s.Receipt));
 
             CreateMap<Group, GroupViewModel>();
             CreateMap<Group, GroupReceiptViewModel>();

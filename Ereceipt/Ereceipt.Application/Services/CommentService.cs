@@ -52,6 +52,11 @@ namespace Ereceipt.Application.Services
             return new ListCommentResult(_mapper.Map<List<CommentViewModel>>(await _commentRepository.GetReceiptCommentsAsync(id)));
         }
 
+        public async Task<CommentResult> GetCommentWithDetails(long id)
+        {
+            return new CommentResult(_mapper.Map<CommentViewModel>(await _commentRepository.GetCommentWithDetailsAsync(id)));
+        }
+
         public async Task<CommentResult> RemoveComment(int userId, long commentId)
         {
             var comment = await _commentRepository.FindAsTrackingAsync(x => x.Id == commentId);
