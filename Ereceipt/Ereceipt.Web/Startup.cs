@@ -87,6 +87,7 @@ namespace Ereceipt.Web
                 });
             });
             services.AddMediatR(typeof(Mapper));
+            services.AddHealthChecks();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -107,6 +108,7 @@ namespace Ereceipt.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
         }
     }
