@@ -5,17 +5,12 @@ namespace Ereceipt.Web.Responses
     public abstract class APIResponse
     {
         public bool OK { get; set; }
-        public int StatusCode { get; set; }
-        public string Message { get; set; }
         public string ErrorMessage { get; set; }
-        public DateTime TimeSpan { get; set; } = DateTime.Now;
         public object Data { get; set; }
 
-        public APIResponse(bool ok, int statuscode, string message, string errormessage, object data)
+        public APIResponse(bool ok, string errormessage, object data)
         {
             OK = ok;
-            StatusCode = statuscode;
-            Message = message;
             ErrorMessage = errormessage;
             Data = data;
         }
@@ -23,25 +18,25 @@ namespace Ereceipt.Web.Responses
 
     public class APIOKResponse : APIResponse
     {
-        public APIOKResponse(object Data = null, string Message = "Success") : base(true, 200, Message, null, Data)
+        public APIOKResponse(object Data = null) : base(true, null, Data)
         { }
     }
 
     public class APIBadRequestResponse : APIResponse
     {
-        public APIBadRequestResponse(string error): base(false, 400,null, error,null)
+        public APIBadRequestResponse(string error): base(false, error,null)
         { }
     }
 
     public class APINotFoundResponse : APIResponse
     {
-        public APINotFoundResponse(string errormessage = "Resource not found") : base(false, 404, null, errormessage, null)
+        public APINotFoundResponse(string errormessage = "Resource not found") : base(false, errormessage, null)
         { }
     }
 
     public class APIInternalServerErrorResponse : APIResponse
     {
-        public APIInternalServerErrorResponse() : base(false, 500, null, "Internal erver error", null)
+        public APIInternalServerErrorResponse() : base(false, "Internal erver error", null)
         { }
     }
 }
