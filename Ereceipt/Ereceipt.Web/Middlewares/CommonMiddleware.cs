@@ -47,6 +47,15 @@ namespace Ereceipt.Web.Middlewares
                     httpContext.Response.StatusCode = StatusCodes.Status200OK;
                     await httpContext.Response.WriteAsJsonAsync(result);
                 }
+                else if (httpContext.Request.Path.Value == "/version")
+                {
+                    httpContext.Response.StatusCode = StatusCodes.Status200OK;
+                    await httpContext.Response.WriteAsJsonAsync(new
+                    {
+                        AppName = "Ereceipt",
+                        Version = "1.0.0"
+                    });
+                }
                 else
                 {
                     await _next(httpContext);
