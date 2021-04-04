@@ -8,7 +8,7 @@ using System;
 using System.Threading.Tasks;
 namespace Ereceipt.Web.Controllers
 {
-    public class GroupsController : BaseController
+    public class GroupsController : ApiController
     {
         private IMediator _mediatr;
         public GroupsController(IMediator mediatr)

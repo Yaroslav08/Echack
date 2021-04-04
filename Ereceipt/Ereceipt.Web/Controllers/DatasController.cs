@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Web.Controllers
 {
-    public class DatasController : BaseController
+    public class DatasController : ApiController
     {
         private readonly ITestDataService _testDataService;
 

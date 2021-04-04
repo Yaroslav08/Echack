@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Web.Controllers
 {
-    public class IdentityController : BaseController
+    public class IdentityController : ApiController
     {
         IMediator _mediator;
         public IdentityController(IMediator mediator)

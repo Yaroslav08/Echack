@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Ereceipt.Web.Controllers
 {
-    public class CommentsController : BaseController
+    public class CommentsController : ApiController
     {
         IMediator _mediator;
         ILogger<CommentsController> _logger;

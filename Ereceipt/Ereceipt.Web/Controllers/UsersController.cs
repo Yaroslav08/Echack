@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Web.Controllers
 {
-    public class UsersController : BaseController
+    public class UsersController : ApiController
     {
         IMediator _mediator;
         public UsersController(IMediator mediator)
