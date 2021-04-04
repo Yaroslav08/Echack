@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
+using System.Collections.Generic;
 
 namespace Ereceipt.Web.Responses
 {
@@ -25,6 +27,9 @@ namespace Ereceipt.Web.Responses
     public class APIBadRequestResponse : APIResponse
     {
         public APIBadRequestResponse(string error): base(false, error,null)
+        { }
+
+        public APIBadRequestResponse(string error, ModelStateDictionary dictionary) : base(false, error, dictionary)
         { }
     }
 

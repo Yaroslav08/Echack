@@ -2,6 +2,7 @@ using Ereceipt.Application;
 using Ereceipt.Infrastructure.Data.Context;
 using Ereceipt.Infrastructure.IoC;
 using Ereceipt.Web.AppSetting;
+using Ereceipt.Web.Filters;
 using Ereceipt.Web.Middlewares;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,7 +32,10 @@ namespace Ereceipt.Web
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<EreceiptContext>(option => option.UseSqlServer(connection), ServiceLifetime.Transient);
-
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -49,7 +53,10 @@ namespace Ereceipt.Web
                 });
             services.AddServices();
             services.AddEreceiptAutoMapper();
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ModelStateValidatorAttribute());
+            });
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);

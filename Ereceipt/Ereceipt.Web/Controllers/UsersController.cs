@@ -48,6 +48,8 @@ namespace Ereceipt.Web.Controllers
         //[Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> SearchUsers(string name, int afterId = 0)
         {
+            if (name.Length <= 2)
+                return ResultBadRequest("\"Name\" must be more than 2 characters");
             var result = await _mediator.Send(new SearchUsersQuery(name, afterId));
             if (result.OK)
                 return ResultOk(result.Data);
