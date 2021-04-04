@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Ereceipt.Infrastructure.IoC\Ereceipt.Infrastructure.IoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Images\Photo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

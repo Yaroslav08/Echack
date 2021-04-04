@@ -2,7 +2,10 @@
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Ereceipt.Web.Controllers
@@ -10,14 +13,17 @@ namespace Ereceipt.Web.Controllers
     public class UsersController : ApiController
     {
         IMediator _mediator;
-        public UsersController(IMediator mediator)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UsersController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
         {
             _mediator = mediator;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] UserCreateViewModel model)
         {
+            model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
             var result = await _mediator.Send(new UserCreateCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);

@@ -29,7 +29,8 @@ namespace Ereceipt.Application.Services
                 Login = model.Login,
                 PasswordHash = PasswordManager.GeneratePasswordHash(model.Password),
                 CreatedBy = "0",
-                Role = "User"
+                Role = "User",
+                Avatar = model.Photo
             };
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.CreateAsync(user)));
         }

@@ -9,5 +9,7 @@ namespace Ereceipt.Application.ViewModels.User
         public string Login { get; set; }
         [MinLength(8), MaxLength(25)]
         public string Password { get; set; }
+
+        public string Photo { get; set; }
     }
 }
