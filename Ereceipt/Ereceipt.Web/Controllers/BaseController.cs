@@ -28,6 +28,8 @@ namespace Ereceipt.Web.Controllers
             return 1;
         }
 
+        protected string GetIpAddress() => HttpContext.Connection.RemoteIpAddress.ToString();
+
         protected string Role() => User.Identity.IsAuthenticated ? User.Claims.FirstOrDefault(d => d.Type == ClaimTypes.Role).Value : null;
 
         protected IActionResult ResultOk(object data, string errorMessage = "")
