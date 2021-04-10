@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Text;
 
 namespace Ereceipt.Web
 {
@@ -7,6 +9,7 @@ namespace Ereceipt.Web
     {
         public static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using DeviceDetectorNET;
 
 namespace Ereceipt.Web.Middlewares
 {
@@ -25,6 +26,11 @@ namespace Ereceipt.Web.Middlewares
         }
         public async Task InvokeAsync(HttpContext httpContext)
         {
+            var dd = new DeviceDetector(httpContext.Request.Headers["User-Agent"].ToString());
+            dd.SkipBotDetection();
+            dd.Parse();
+            _logger.LogInformation($"User [{httpContext.Connection.RemoteIpAddress}] from [{dd.GetDeviceName()} - {dd.GetBrandName()} {dd.GetModel()}] to [{httpContext.Request.Path.Value}] at [{DateTime.Now.ToString("f")}]");
+
             try
             {
                 if (httpContext.Request.Path.Value == "/api/routes")
