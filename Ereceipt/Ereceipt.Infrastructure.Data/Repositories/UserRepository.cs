@@ -16,8 +16,8 @@ namespace Ereceipt.Infrastructure.Data.Repositories
         public async Task<List<User>> GetAllAsync(int afterId)
         {
             if (afterId == 0)
-                return await db.Users.AsNoTracking().Take(20).OrderByDescending(d => d.CreatedAt).ToListAsync();
-            return await db.Users.AsNoTracking().Where(d => d.Id > afterId).Take(20).OrderByDescending(d => d.CreatedAt).ToListAsync();
+                return await db.Users.AsNoTracking().OrderByDescending(d => d.CreatedAt).Take(20).ToListAsync();
+            return await db.Users.AsNoTracking().Where(d => d.Id > afterId).OrderByDescending(d => d.CreatedAt).Take(20).ToListAsync();
         }
 
         public async Task<List<User>> SearchUsersAsync(string name, int afterId)

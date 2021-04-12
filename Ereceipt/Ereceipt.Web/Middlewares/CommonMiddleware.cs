@@ -10,6 +10,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using DeviceDetectorNET;
+using System.IO;
+using System.Text;
 
 namespace Ereceipt.Web.Middlewares
 {
@@ -26,10 +28,8 @@ namespace Ereceipt.Web.Middlewares
         }
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            var dd = new DeviceDetector(httpContext.Request.Headers["User-Agent"].ToString());
-            dd.SkipBotDetection();
-            dd.Parse();
-            _logger.LogInformation($"User [{httpContext.Connection.RemoteIpAddress}] from [{dd.GetDeviceName()} - {dd.GetBrandName()} {dd.GetModel()}] to [{httpContext.Request.Path.Value}] at [{DateTime.Now.ToString("f")}]");
+            //_logger.LogInformation($"User [{httpContext.Connection.RemoteIpAddress}] from [{dd.GetDeviceName()} - {dd.GetBrandName()} {dd.GetModel()}] to [{httpContext.Request.Path.Value}]");
+            _logger.LogInformation(GetLogString(httpContext));
 
             try
             {
@@ -43,7 +43,7 @@ namespace Ereceipt.Web.Middlewares
                             Type = ((ad.EndpointMetadata[6]) as HttpMethodMetadata).HttpMethods[0],
                             Template = ad.AttributeRouteInfo.Template
                         })
-                        .OrderBy(x => x.Type)
+                        .OrderBy(x => x.Template)
                         .ToList();
                     if (routes != null && routes.Any())
                     {
@@ -60,7 +60,7 @@ namespace Ereceipt.Web.Middlewares
                     await httpContext.Response.WriteAsJsonAsync(new
                     {
                         AppName = "Ereceipt",
-                        Version = "1.0.0"
+                        Version = "1.0.1"
                     });
                 }
                 else
@@ -79,6 +79,39 @@ namespace Ereceipt.Web.Middlewares
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             return context.Response.WriteAsJsonAsync(new APIInternalServerErrorResponse());
+        }
+
+        private string GetLogString(HttpContext context)
+        {
+            var device = GetDevice(context);
+            var requestId = context.TraceIdentifier;
+            var connId = context.Connection.Id;
+            var ip = context.Connection.RemoteIpAddress.ToString();
+            var path = context.Request.Path.Value;
+            var protocol = context.Request.Protocol;
+            var method = context.Request.Method;
+            var userName = context.User.Identity.Name;
+            var isUserAuth = context.User.Identity.IsAuthenticated;
+            var authType = context.User.Identity.AuthenticationType;
+            return device;
+        }
+
+        private string GetDevice(HttpContext context)
+        {
+            var dd = new DeviceDetector(context.Request.Headers["User-Agent"].ToString());
+            dd.SkipBotDetection();
+            dd.Parse();
+            var deviceName = dd.GetDeviceName();
+            var brandName = dd.GetBrandName();
+            var model = dd.GetModel();
+            var stringBuilder = new StringBuilder();
+            if (!string.IsNullOrEmpty(deviceName))
+                stringBuilder.Append($"{deviceName}");
+            if (!string.IsNullOrEmpty(brandName))
+                stringBuilder.Append($" {brandName} ");
+            if (!string.IsNullOrEmpty(model))
+                stringBuilder.Append($"{model}");
+            return stringBuilder.ToString();
         }
     }
 }
