@@ -93,7 +93,7 @@ namespace Ereceipt.Web.Middlewares
             var userName = context.User.Identity.Name;
             var isUserAuth = context.User.Identity.IsAuthenticated;
             var authType = context.User.Identity.AuthenticationType;
-            return device;
+            return $"User {userName} at IP [{ip}] by [{method}:{protocol}] to [{path}] with [{connId}] from [{device}]";
         }
 
         private string GetDevice(HttpContext context)
