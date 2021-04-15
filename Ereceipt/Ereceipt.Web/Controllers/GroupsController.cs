@@ -56,6 +56,8 @@ namespace Ereceipt.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
         {
+            model.UserId = GetId();
+            model.IP = GetIpAddress();
             var result = await _mediatr.Send(new GroupCreateCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);
@@ -65,6 +67,8 @@ namespace Ereceipt.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> EditGroup([FromBody] GroupEditViewModel model)
         {
+            model.UserId = GetId();
+            model.IP = GetIpAddress();
             var result = await _mediatr.Send(new GroupEditCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);
@@ -84,6 +88,8 @@ namespace Ereceipt.Web.Controllers
         [HttpPost("members")]
         public async Task<IActionResult> AddMember([FromBody] GroupMemberCreateViewModel model)
         {
+            model.UserId = GetId();
+            model.IP = GetIpAddress();
             var result = await _mediatr.Send(new AddUserToGroupCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);
@@ -95,6 +101,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> RemoveMember([FromBody] GroupMemberCreateViewModel model)
         {
             model.UserId = GetId();
+            model.IP = GetIpAddress();
             var result = await _mediatr.Send(new RemoveUserFromGroupCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);

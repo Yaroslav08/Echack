@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-
 namespace Ereceipt.Web.Controllers
 {
     public class ReceiptsController : ApiController
@@ -20,7 +19,20 @@ namespace Ereceipt.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateViewModel model)
         {
+            model.UserId = GetId();
+            model.IP = GetIpAddress();
             var result = await _mediator.Send(new ReceiptCreateCommand(model));
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditReceipt([FromBody] ReceiptEditViewModel model)
+        {
+            model.UserId = GetId();
+            model.IP = GetIpAddress();
+            var result = await _mediator.Send(new ReceiptEditCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);
             return ResultBadRequest(result.Error);
@@ -29,6 +41,8 @@ namespace Ereceipt.Web.Controllers
         [HttpPost("togroup")]
         public async Task<IActionResult> AddReceiptToGroup([FromBody] ReceiptGroupCreateModel model)
         {
+            model.UserId = GetId();
+            model.IP = GetIpAddress();
             var result = await _mediator.Send(new AddReceiptToGroupCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);
@@ -38,6 +52,8 @@ namespace Ereceipt.Web.Controllers
         [HttpPost("fromgroup")]
         public async Task<IActionResult> RemoveReceiptFromGroup([FromBody] ReceiptGroupCreateModel model)
         {
+            model.UserId = GetId();
+            model.IP = GetIpAddress();
             var result = await _mediator.Send(new RemoveReceiptFromGroupCommand(model));
             if (result.OK)
                 return ResultOk(result.Data);

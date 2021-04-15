@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
 namespace Ereceipt.Web.Controllers
 {
     public class IdentityController : ApiController

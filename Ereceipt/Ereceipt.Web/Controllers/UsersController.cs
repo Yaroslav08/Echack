@@ -4,10 +4,7 @@ using Ereceipt.Application.ViewModels.User;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
 using System.Threading.Tasks;
-
 namespace Ereceipt.Web.Controllers
 {
     public class UsersController : ApiController
@@ -43,6 +40,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditUser(int id, [FromBody] UserEditViewModel model)
         {
+            model.IP = GetIpAddress();
             model.UserId = id;
             var result = await _mediator.Send(new UserEditCommand(model));
             if (result.OK)

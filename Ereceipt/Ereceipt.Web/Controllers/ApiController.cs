@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Security.Claims;
-
 namespace Ereceipt.Web.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
