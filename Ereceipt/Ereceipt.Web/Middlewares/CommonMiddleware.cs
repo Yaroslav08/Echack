@@ -30,7 +30,11 @@ namespace Ereceipt.Web.Middlewares
         {
             //_logger.LogInformation($"User [{httpContext.Connection.RemoteIpAddress}] from [{dd.GetDeviceName()} - {dd.GetBrandName()} {dd.GetModel()}] to [{httpContext.Request.Path.Value}]");
             _logger.LogInformation(GetLogString(httpContext));
-
+            var token = httpContext.Request.Query["token"].ToString();
+            if (string.IsNullOrEmpty(httpContext.Request.Headers["Authorization"]) && !string.IsNullOrEmpty(token))
+            {
+                httpContext.Request.Headers["Authorization"] = $"Bearer {token}";
+            }
             try
             {
                 if (httpContext.Request.Path.Value == "/api/routes")
