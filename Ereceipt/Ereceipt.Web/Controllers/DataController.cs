@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 namespace Ereceipt.Web.Controllers
 {
-    public class DatasController : ApiController
+    public class DataController : ApiController
     {
         private readonly ITestDataService _testDataService;
 
-        public DatasController(ITestDataService testDataService)
+        public DataController(ITestDataService testDataService)
         {
             _testDataService = testDataService;
         }

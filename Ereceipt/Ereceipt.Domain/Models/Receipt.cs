@@ -16,16 +16,13 @@ namespace Ereceipt.Domain.Models
         public bool CanEdit { get; set; } = true;
         [Required]
         public ReceiptType ReceiptType { get; set; } = ReceiptType.Internal;
-
         public int UserId { get; set; }
         public User User { get; set; }
-
         public Guid? GroupId { get; set; }
         public Group Group { get; set; }
 
         public List<Comment> Comments { get; set; }
     }
-
     public enum ReceiptType
     {
         Paymant,
