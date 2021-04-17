@@ -4,6 +4,7 @@ using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
 using Ereceipt.Web.AppSetting;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -16,9 +17,11 @@ namespace Ereceipt.Web.Controllers
     public class IdentityController : ApiController
     {
         IMediator _mediator;
-        public IdentityController(IMediator mediator)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public IdentityController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
         {
             _mediator = mediator;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpPost("login")]
@@ -32,8 +35,11 @@ namespace Ereceipt.Web.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserCreateViewModel model)
         {
+            model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
             var result = await _mediator.Send(new UserCreateCommand(model));
-            return ResultOk(result);
+            if (result.OK)
+                return ResultOk(result.Data);
+            return ResultBadRequest(result.Error);
         }
 
 

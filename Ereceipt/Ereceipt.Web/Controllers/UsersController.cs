@@ -10,21 +10,9 @@ namespace Ereceipt.Web.Controllers
     public class UsersController : ApiController
     {
         IMediator _mediator;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        public UsersController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
+        public UsersController(IMediator mediator)
         {
             _mediator = mediator;
-            _webHostEnvironment = webHostEnvironment;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserCreateViewModel model)
-        {
-            model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
-            var result = await _mediator.Send(new UserCreateCommand(model));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
         }
 
         [HttpGet]
