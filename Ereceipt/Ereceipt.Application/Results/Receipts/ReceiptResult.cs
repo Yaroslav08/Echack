@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Results.Receipts
 {
-    public class ReceiptResult : Result<ReceiptViewModel>
+    public class ReceiptResult : Result
     {
         public ReceiptResult(ReceiptViewModel receipt) : base(receipt) { }
         public ReceiptResult(string error) : base(error){}

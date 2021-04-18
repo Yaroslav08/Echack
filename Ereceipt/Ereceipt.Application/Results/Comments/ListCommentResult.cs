@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Application.Results.Comments
 {
-    public class ListCommentResult : Result<List<CommentViewModel>>
+    public class ListCommentResult : Result
     {
         public ListCommentResult(List<CommentViewModel> comments) : base(comments) { }
     }

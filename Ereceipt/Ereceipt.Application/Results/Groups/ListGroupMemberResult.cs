@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ereceipt.Application.Results.Groups
 {
-    public class ListGroupMemberResult : Result<List<GroupMemberViewModel>>
+    public class ListGroupMemberResult : Result
     {
         public ListGroupMemberResult(List<GroupMemberViewModel> members) : base(members) { }
     }

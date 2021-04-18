@@ -2,7 +2,7 @@
 using System.Collections;
 namespace Ereceipt.Application.Results
 {
-    public class Result<T> where T : class
+    public class Result
     {
         public bool OK { get; }
 
@@ -10,16 +10,16 @@ namespace Ereceipt.Application.Results
 
         public Exception Exception { get; }
 
-        public T Data { get; }
+        public object Data { get; }
 
         public int CountOfData { get; }
 
-        public Result(T data) : this(data,null,null)
+        public Result(object data) : this(data, null, null)
         {
 
         }
 
-        public Result(string error, Exception ex = null) : this(null,error, ex)
+        public Result(string error, Exception ex = null) : this(null, error, ex)
         {
             OK = false;
             Error = error;
@@ -31,7 +31,7 @@ namespace Ereceipt.Application.Results
             Exception = ex;
         }
 
-        public Result(T data, string error, Exception ex)
+        public Result(object data, string error, Exception ex)
         {
             if (data == null)
             {
@@ -51,7 +51,7 @@ namespace Ereceipt.Application.Results
             }
             OK = true;
             Data = data;
-            if(Data is ICollection)
+            if (Data is ICollection)
             {
                 CountOfData = (Data as ICollection).Count;
                 return;

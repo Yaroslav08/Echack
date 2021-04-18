@@ -2,7 +2,7 @@
 
 namespace Ereceipt.Application.Results.Users
 {
-    public class UserResult : Result<UserViewModel>
+    public class UserResult : Result
     {
         public UserResult(UserViewModel user) : base(user) { }
     }

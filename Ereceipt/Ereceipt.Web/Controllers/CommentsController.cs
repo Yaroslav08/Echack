@@ -21,9 +21,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetCommentWithDetails(long id)
         {
             var result = await _mediator.Send(new GetCommentWithDetailsQuery(id));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
 
         [HttpPost]
@@ -32,9 +30,7 @@ namespace Ereceipt.Web.Controllers
             model.UserId = GetId();
             model.IP = GetIpAddress();
             var result = await _mediator.Send(new CreateCommentCommand(model));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
 
         [HttpPut]
@@ -43,18 +39,14 @@ namespace Ereceipt.Web.Controllers
             model.UserId = GetId();
             model.IP = GetIpAddress();
             var result = await _mediator.Send(new EditCommentCommand(model));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveComment(long id)
         {
             var result = await _mediator.Send(new RemoveCommentCommand(GetId(), id));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
     }
 }

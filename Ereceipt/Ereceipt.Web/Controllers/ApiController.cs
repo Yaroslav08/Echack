@@ -1,4 +1,5 @@
-﻿using Ereceipt.Web.Responses;
+﻿using Ereceipt.Application.Results;
+using Ereceipt.Web.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
@@ -30,6 +31,14 @@ namespace Ereceipt.Web.Controllers
         protected string GetIpAddress() => HttpContext.Connection.RemoteIpAddress.ToString();
 
         protected string Role() => User.Identity.IsAuthenticated ? User.Claims.FirstOrDefault(d => d.Type == ClaimTypes.Role).Value : null;
+
+        protected IActionResult Result(object result, string error = "")
+        {
+            var data = result as Result;
+            if (data.OK)
+                return ResultOk(data.Data);
+            return ResultBadRequest(data.Error);
+        }
 
         protected IActionResult ResultOk(object data, string errorMessage = "")
         {

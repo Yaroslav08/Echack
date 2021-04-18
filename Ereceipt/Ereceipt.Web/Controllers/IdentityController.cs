@@ -28,7 +28,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> Login([FromBody] UserLoginViewModel model)
         {
             var result = GetToken(await _mediator.Send(new UserLoginQuery(model)));
-            return ResultOk(result, "Login or password is incorrect");
+            return Result(result, "Login or password is incorrect");
         }
 
 
@@ -37,9 +37,7 @@ namespace Ereceipt.Web.Controllers
         {
             model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
             var result = await _mediator.Send(new UserCreateCommand(model));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
 
 

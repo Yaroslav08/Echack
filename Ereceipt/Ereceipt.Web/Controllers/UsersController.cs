@@ -20,9 +20,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetAllUsers(int afterId = 0)
         {
             var result = await _mediator.Send(new GetAllUsersQuery(afterId));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
 
         [HttpPut("{id}")]
@@ -31,9 +29,7 @@ namespace Ereceipt.Web.Controllers
             model.IP = GetIpAddress();
             model.UserId = id;
             var result = await _mediator.Send(new UserEditCommand(model));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
 
         [HttpGet("search")]
@@ -43,18 +39,14 @@ namespace Ereceipt.Web.Controllers
             if (name.Length <= 2)
                 return ResultBadRequest("\"Name\" must be more than 2 characters");
             var result = await _mediator.Send(new SearchUsersQuery(name, afterId));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
         
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
-            if (result.OK)
-                return ResultOk(result.Data);
-            return ResultBadRequest(result.Error);
+            return Result(result);
         }
     }
 }
