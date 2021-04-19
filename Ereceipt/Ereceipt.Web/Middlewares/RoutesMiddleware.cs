@@ -50,7 +50,7 @@ namespace Ereceipt.Web.Middlewares
                 await httpContext.Response.WriteAsJsonAsync(new
                 {
                     AppName = "Ereceipt",
-                    Version = "1.0.1"
+                    Version = "1.1.0"
                 });
                 return;
             }
