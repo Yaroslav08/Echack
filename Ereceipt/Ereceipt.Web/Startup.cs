@@ -101,19 +101,20 @@ namespace Ereceipt.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddFile("Logs/Ereceipt-{Date}.txt");
+            app.UseMiddleware<ErrorMiddleware>();
+            app.UseMiddleware<RoutesMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ereceipt.Web v1"));
             }
-            app.UseMiddleware<CommonMiddleware>();
+            app.UseMiddleware<AuthMiddleware>();
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseMiddleware<LoggingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

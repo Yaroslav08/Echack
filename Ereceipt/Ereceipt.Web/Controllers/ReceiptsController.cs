@@ -2,6 +2,7 @@
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Receipt;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -75,7 +76,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin, SAdmin")]
+        [Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllReceipts(int skip = 0)
         {
             var result = await _mediator.Send(new GetAllReceiptsQuery(skip));
@@ -83,7 +84,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("count")]
-        //[Authorize(Roles = "Admin, SAdmin")]
+        [Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllReceiptsCount()
         {
             var result = await _mediator.Send(new GetAllReceiptsCountQuery());

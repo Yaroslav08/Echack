@@ -36,7 +36,7 @@ namespace Ereceipt.Application.Results
             if (data == null)
             {
                 OK = false;
-                Error = "Resourse not found";
+                Error = error?? "Resourse not found";
                 Exception = ex;
                 CountOfData = 0;
                 return;

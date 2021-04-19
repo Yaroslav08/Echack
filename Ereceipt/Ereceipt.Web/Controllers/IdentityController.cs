@@ -4,6 +4,7 @@ using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
 using Ereceipt.Web.AppSetting;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -25,6 +26,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserLoginViewModel model)
         {
             var result = GetToken(await _mediator.Send(new UserLoginQuery(model)));
@@ -33,6 +35,7 @@ namespace Ereceipt.Web.Controllers
 
 
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] UserCreateViewModel model)
         {
             model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
@@ -42,10 +45,10 @@ namespace Ereceipt.Web.Controllers
 
 
         [NonAction]
-        private TokenResponse GetToken(User user)
+        private TokenResult GetToken(User user)
         {
             if (user == null)
-                return null;
+                return new TokenResult("Login or password is incorrect");
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
@@ -64,12 +67,13 @@ namespace Ereceipt.Web.Controllers
                     expires: now.Add(TimeSpan.FromDays(AuthOption.LIFETIMEDays)),
                     signingCredentials: new SigningCredentials(AuthOption.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            return new TokenResponse
+            var token = new TokenResponse
             {
                 AccessToken = encodedJwt,
                 ExpiredAt = DateTime.UtcNow.Add(TimeSpan.FromDays(AuthOption.LIFETIMEDays)),
                 Name = user.Name
             };
+            return new TokenResult(token);
         }
     }
 }

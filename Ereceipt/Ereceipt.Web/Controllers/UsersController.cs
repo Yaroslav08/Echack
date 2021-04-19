@@ -2,6 +2,7 @@
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin, SAdmin")]
+        [Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllUsers(int afterId = 0)
         {
             var result = await _mediator.Send(new GetAllUsersQuery(afterId));
@@ -33,7 +34,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("search")]
-        //[Authorize(Roles = "Admin, SAdmin")]
+        [Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> SearchUsers(string name, int afterId = 0)
         {
             if (name.Length <= 2)

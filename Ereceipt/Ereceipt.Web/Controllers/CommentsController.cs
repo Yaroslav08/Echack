@@ -2,6 +2,7 @@
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Comment;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetCommentWithDetails(long id)
         {
             var result = await _mediator.Send(new GetCommentWithDetailsQuery(id));

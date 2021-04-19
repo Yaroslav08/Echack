@@ -1,5 +1,6 @@
 ﻿using Ereceipt.Application.Results;
 using Ereceipt.Web.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
@@ -10,7 +11,7 @@ namespace Ereceipt.Web.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    //[Authorize]
+    [Authorize]
     public class ApiController : ControllerBase
     {
         protected string GetIdentityName() => User.Identity.IsAuthenticated ? User.Identity.Name : null;
@@ -19,13 +20,22 @@ namespace Ereceipt.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (User.IsInRole("Admin"))
+                return Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
+            }
+            return 0;
+        }
+
+        protected int GetAdminId()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                if(User.IsInRole("Admin") || User.IsInRole("SAdmin"))
                 {
                     return 0;
                 }
                 return Convert.ToInt32(User.Claims.FirstOrDefault(d => d.Type == "Id").Value);
             }
-            return 1;
+            return -1;
         }
 
         protected string GetIpAddress() => HttpContext.Connection.RemoteIpAddress.ToString();

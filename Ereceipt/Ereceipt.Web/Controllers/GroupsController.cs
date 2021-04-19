@@ -3,6 +3,7 @@ using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Group;
 using Ereceipt.Application.ViewModels.GroupMember;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin, SAdmin")]
+        [Authorize(Roles = "Admin, SAdmin")]
         public async Task<IActionResult> GetAllGroups(int skip = 0)
         {
             var result = await _mediatr.Send(new GetAllGroupsQuery(skip));
