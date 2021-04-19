@@ -7,15 +7,15 @@ namespace Ereceipt.Application.Interfaces
 {
     public interface IReceiptService
     {
-        Task<ReceiptResult> CreateReceipt(ReceiptCreateViewModel model);
-        Task<ReceiptResult> EditReceipt(ReceiptEditViewModel model);
-        Task<ReceiptResult> GetReceipt(Guid id);
-        Task<ListReceiptResult> GetUserReceiptsByUserId(int ownerId, int skip);
-        Task<int> GetUserReceiptsCount(int ownerId);
-        Task<ReceiptResult> AddReceiptToGroup(ReceiptGroupCreateModel model);
-        Task<ReceiptResult> RemoveReceiptFromGroup(ReceiptGroupCreateModel model);
-        Task<ListReceiptResult> GetAllReceipts(int skip);
-        Task<int> GetAllReceiptsCount();
-        Task<ReceiptResult> RemoveReceipt(Guid id, int userId);
+        Task<ReceiptResult> CreateReceiptAsync(ReceiptCreateViewModel model);
+        Task<ReceiptResult> EditReceiptAsync(ReceiptEditViewModel model);
+        Task<ReceiptResult> GetReceiptAsync(Guid id);
+        Task<ListReceiptResult> GetUserReceiptsByUserIdAsync(int ownerId, int skip);
+        Task<int> GetUserReceiptsCountAsync(int ownerId);
+        Task<ReceiptResult> AddReceiptToGroupAsync(ReceiptGroupCreateModel model);
+        Task<ReceiptResult> RemoveReceiptFromGroupAsync(ReceiptGroupCreateModel model);
+        Task<ListReceiptResult> GetAllReceiptsAsync(int skip);
+        Task<int> GetAllReceiptsCountAsync();
+        Task<ReceiptResult> RemoveReceiptAsync(Guid id, int userId);
     }
 }

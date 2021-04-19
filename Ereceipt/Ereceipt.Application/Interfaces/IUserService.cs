@@ -6,11 +6,11 @@ namespace Ereceipt.Application.Interfaces
 {
     public interface IUserService
     {
-        Task<User> LoginUser(UserLoginViewModel model);
-        Task<UserResult> CreateUser(UserCreateViewModel model);
-        Task<UserResult> EditUser(UserEditViewModel model);
-        Task<UserResult> GetUserById(int id);
-        Task<ListUsersResult> SearchUsers(string user, int afterId);
-        Task<ListUsersResult> GetAllUsers(int afterId);
+        Task<User> LoginUserAsync(UserLoginViewModel model);
+        Task<UserResult> CreateUserAsync(UserCreateViewModel model);
+        Task<UserResult> EditUserAsync(UserEditViewModel model);
+        Task<UserResult> GetUserByIdAsync(int id);
+        Task<ListUsersResult> SearchUsersAsync(string user, int afterId);
+        Task<ListUsersResult> GetAllUsersAsync(int afterId);
     }
 }

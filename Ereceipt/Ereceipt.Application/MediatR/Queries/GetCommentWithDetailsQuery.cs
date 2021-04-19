@@ -29,7 +29,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<CommentResult> Handle(GetCommentWithDetailsQuery request, CancellationToken cancellationToken)
         {
-            return await _commentService.GetCommentWithDetails(request.Id);
+            return await _commentService.GetCommentWithDetailsAsync(request.Id);
         }
     }
 }

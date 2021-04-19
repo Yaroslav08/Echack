@@ -26,7 +26,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<User> Handle(UserLoginQuery request, CancellationToken cancellationToken)
         {
-            return await _userService.LoginUser(request.Login);
+            return await _userService.LoginUserAsync(request.Login);
         }
     }
 }

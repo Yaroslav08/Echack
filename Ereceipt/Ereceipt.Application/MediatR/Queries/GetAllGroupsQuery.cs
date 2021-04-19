@@ -30,7 +30,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<ListGroupResult> Handle(GetAllGroupsQuery request, CancellationToken cancellationToken)
         {
-            return await _groupService.GetAllGroups(request.Skip);
+            return await _groupService.GetAllGroupsAsync(request.Skip);
         }
     }
 }

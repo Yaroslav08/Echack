@@ -26,7 +26,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<UserResult> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _userService.GetUserById(request.Id);
+            return await _userService.GetUserByIdAsync(request.Id);
         }
     }
 }

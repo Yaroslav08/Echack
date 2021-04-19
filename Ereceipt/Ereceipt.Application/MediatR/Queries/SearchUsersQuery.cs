@@ -27,7 +27,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<ListUsersResult> Handle(SearchUsersQuery request, CancellationToken cancellationToken)
         {
-            return await _userService.SearchUsers(request.Name, request.AfterId);
+            return await _userService.SearchUsersAsync(request.Name, request.AfterId);
         }
     }
 }

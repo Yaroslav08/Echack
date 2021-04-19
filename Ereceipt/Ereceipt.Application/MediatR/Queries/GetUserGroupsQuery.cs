@@ -25,7 +25,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<ListGroupResult> Handle(GetUserGroupsQuery request, CancellationToken cancellationToken)
         {
-            return await _groupService.GetGroupsByUserId(request.Id);
+            return await _groupService.GetGroupsByUserIdAsync(request.Id);
         }
     }
 }

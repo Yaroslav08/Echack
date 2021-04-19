@@ -29,7 +29,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<ListReceiptResult> Handle(GetMyReceiptsQuery request, CancellationToken cancellationToken)
         {
-            return await _ReceiptService.GetUserReceiptsByUserId(request.UserId, request.Skip);
+            return await _ReceiptService.GetUserReceiptsByUserIdAsync(request.UserId, request.Skip);
         }
     }
 }

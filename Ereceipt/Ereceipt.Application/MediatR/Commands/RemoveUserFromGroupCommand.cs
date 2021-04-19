@@ -26,7 +26,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<GroupMemberResult> Handle(RemoveUserFromGroupCommand request, CancellationToken cancellationToken)
         {
-            return await _groupService.RemoveUserFromGroup(request.Member);
+            return await _groupService.RemoveUserFromGroupAsync(request.Member);
         }
     }
 }

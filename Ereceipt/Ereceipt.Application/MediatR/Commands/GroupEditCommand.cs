@@ -27,8 +27,8 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<GroupResult> Handle(GroupEditCommand request, CancellationToken cancellationToken)
         {
-            if (await _groupService.CanEditGroup(request.Group.Id, request.Group.UserId))
-                return await _groupService.EditGroup(request.Group);
+            if (await _groupService.CanEditGroupAsync(request.Group.Id, request.Group.UserId))
+                return await _groupService.EditGroupAsync(request.Group);
             return null;
         }
     }

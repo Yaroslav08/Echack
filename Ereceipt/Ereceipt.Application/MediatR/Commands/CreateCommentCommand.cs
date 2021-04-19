@@ -30,7 +30,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<CommentResult> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
-            return await _commentService.CreateComment(request.Model);
+            return await _commentService.CreateCommentAsync(request.Model);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Ereceipt.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<UserResult> CreateUser(UserCreateViewModel model)
+        public async Task<UserResult> CreateUserAsync(UserCreateViewModel model)
         {
             var user = new User
             {
@@ -35,7 +35,7 @@ namespace Ereceipt.Application.Services
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.CreateAsync(user)));
         }
 
-        public async Task<UserResult> EditUser(UserEditViewModel model)
+        public async Task<UserResult> EditUserAsync(UserEditViewModel model)
         {
             var user = await _userRepository.GetByIdAsTrackingAsync(model.UserId);
             if (user == null)
@@ -46,17 +46,17 @@ namespace Ereceipt.Application.Services
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.UpdateAsync(user)));
         }
 
-        public async Task<ListUsersResult> GetAllUsers(int afterId)
+        public async Task<ListUsersResult> GetAllUsersAsync(int afterId)
         {
             return new ListUsersResult(_mapper.Map<List<UserViewModel>>(await _userRepository.GetAllAsync(afterId)));
         }
 
-        public async Task<UserResult> GetUserById(int id)
+        public async Task<UserResult> GetUserByIdAsync(int id)
         {
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.FindAsync(d => d.Id == id)));
         }
 
-        public async Task<User> LoginUser(UserLoginViewModel model)
+        public async Task<User> LoginUserAsync(UserLoginViewModel model)
         {
             var user = await _userRepository.FindAsync(d => d.Login == model.Login);
             if (user == null)
@@ -68,7 +68,7 @@ namespace Ereceipt.Application.Services
             return user;
         }
 
-        public async Task<ListUsersResult> SearchUsers(string user, int afterId)
+        public async Task<ListUsersResult> SearchUsersAsync(string user, int afterId)
         {
             return new ListUsersResult(_mapper.Map<List<UserViewModel>>(await _userRepository.SearchUsersAsync(user, afterId)));
         }

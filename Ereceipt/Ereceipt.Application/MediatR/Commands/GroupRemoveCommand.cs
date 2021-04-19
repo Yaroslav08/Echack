@@ -29,7 +29,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<GroupResult> Handle(GroupRemoveCommand request, CancellationToken cancellationToken)
         {
-            return await _groupService.RemoveGroup(request.Id, request.UserId);
+            return await _groupService.RemoveGroupAsync(request.Id, request.UserId);
         }
     }
 }

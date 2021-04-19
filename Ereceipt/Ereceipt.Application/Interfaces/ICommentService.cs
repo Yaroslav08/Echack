@@ -9,10 +9,10 @@ namespace Ereceipt.Application.Interfaces
 {
     public interface ICommentService
     {
-        Task<ListCommentResult> GetCommentsByReceiptId(Guid id);
-        Task<CommentResult> GetCommentWithDetails(long id);
-        Task<CommentResult> CreateComment(CommentCreateViewModel model);
-        Task<CommentResult> EditComment(CommentEditViewModel model);
-        Task<CommentResult> RemoveComment(int userId, long commentId);
+        Task<ListCommentResult> GetCommentsByReceiptIdAsync(Guid id);
+        Task<CommentResult> GetCommentWithDetailsAsync(long id);
+        Task<CommentResult> CreateCommentAsync(CommentCreateViewModel model);
+        Task<CommentResult> EditCommentAsync(CommentEditViewModel model);
+        Task<CommentResult> RemoveCommentAsync(int userId, long commentId);
     }
 }

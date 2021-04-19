@@ -21,7 +21,7 @@ namespace Ereceipt.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<CommentResult> CreateComment(CommentCreateViewModel model)
+        public async Task<CommentResult> CreateCommentAsync(CommentCreateViewModel model)
         {
             var comment = new Comment
             {
@@ -34,7 +34,7 @@ namespace Ereceipt.Application.Services
             return new CommentResult(_mapper.Map<CommentViewModel>(await _commentRepository.CreateAsync(comment)));
         }
 
-        public async Task<CommentResult> EditComment(CommentEditViewModel model)
+        public async Task<CommentResult> EditCommentAsync(CommentEditViewModel model)
         {
             var commentToEdit = await _commentRepository.FindAsTrackingAsync(x => x.Id == model.Id);
             if (commentToEdit == null)
@@ -47,17 +47,17 @@ namespace Ereceipt.Application.Services
             return new CommentResult(_mapper.Map<CommentViewModel>(await _commentRepository.UpdateAsync(commentToEdit)));
         }
 
-        public async Task<ListCommentResult> GetCommentsByReceiptId(Guid id)
+        public async Task<ListCommentResult> GetCommentsByReceiptIdAsync(Guid id)
         {
             return new ListCommentResult(_mapper.Map<List<CommentViewModel>>(await _commentRepository.GetReceiptCommentsAsync(id)));
         }
 
-        public async Task<CommentResult> GetCommentWithDetails(long id)
+        public async Task<CommentResult> GetCommentWithDetailsAsync(long id)
         {
             return new CommentResult(_mapper.Map<CommentViewModel>(await _commentRepository.GetCommentWithDetailsAsync(id)));
         }
 
-        public async Task<CommentResult> RemoveComment(int userId, long commentId)
+        public async Task<CommentResult> RemoveCommentAsync(int userId, long commentId)
         {
             var comment = await _commentRepository.FindAsTrackingAsync(x => x.Id == commentId);
             if (comment == null)

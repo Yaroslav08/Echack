@@ -31,7 +31,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<CommentResult> Handle(EditCommentCommand request, CancellationToken cancellationToken)
         {
-            return await _commentService.EditComment(request.Model);
+            return await _commentService.EditCommentAsync(request.Model);
         }
     }
 }

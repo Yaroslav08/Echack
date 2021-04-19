@@ -27,7 +27,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<ListUsersResult> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            return await _userService.GetAllUsers(request.AvfterId);
+            return await _userService.GetAllUsersAsync(request.AvfterId);
         }
     }
 }

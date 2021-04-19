@@ -33,7 +33,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<ReceiptResult> Handle(RemoveReceiptCommand request, CancellationToken cancellationToken)
         {
-            return await _ReceiptService.RemoveReceipt(request.ReceiptId, request.UserId);
+            return await _ReceiptService.RemoveReceiptAsync(request.ReceiptId, request.UserId);
         }
     }
 }

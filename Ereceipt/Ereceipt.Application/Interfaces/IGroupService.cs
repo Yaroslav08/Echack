@@ -7,16 +7,16 @@ namespace Ereceipt.Application.Interfaces
 {
     public interface IGroupService
     {
-        Task<GroupResult> GetGroupById(Guid id);
-        Task<GroupResult> CreateGroup(GroupCreateViewModel model);
-        Task<GroupMemberResult> AddUserToGroup(GroupMemberCreateViewModel model);
-        Task<GroupMemberResult> RemoveUserFromGroup(GroupMemberCreateViewModel model);
-        Task<GroupResult> EditGroup(GroupEditViewModel model);
-        Task<GroupResult> RemoveGroup(Guid id, int userId);
-        Task<ListReceiptGroupResult> GetReceiptsByGroupId(Guid groupId, int skip);
-        Task<ListGroupMemberResult> GetGroupMembers(Guid id);
-        Task<ListGroupResult> GetAllGroups(int skip);
-        Task<ListGroupResult> GetGroupsByUserId(int id);
-        Task<bool> CanEditGroup(Guid groupId, int userId);
+        Task<GroupResult> GetGroupByIdAsync(Guid id);
+        Task<GroupResult> CreateGroupAsync(GroupCreateViewModel model);
+        Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateViewModel model);
+        Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateViewModel model);
+        Task<GroupResult> EditGroupAsync(GroupEditViewModel model);
+        Task<GroupResult> RemoveGroupAsync(Guid id, int userId);
+        Task<ListReceiptGroupResult> GetReceiptsByGroupIdAsync(Guid groupId, int skip);
+        Task<ListGroupMemberResult> GetGroupMembersAsync(Guid id);
+        Task<ListGroupResult> GetAllGroupsAsync(int skip);
+        Task<ListGroupResult> GetGroupsByUserIdAsync(int id);
+        Task<bool> CanEditGroupAsync(Guid groupId, int userId);
     }
 }

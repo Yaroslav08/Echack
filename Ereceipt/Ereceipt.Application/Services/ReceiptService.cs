@@ -23,7 +23,7 @@ namespace Ereceipt.Application.Services
             _productService = productService;
         }
 
-        public async Task<ReceiptResult> AddReceiptToGroup(ReceiptGroupCreateModel model)
+        public async Task<ReceiptResult> AddReceiptToGroupAsync(ReceiptGroupCreateModel model)
         {
             var Receipt = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == model.ReceiptId);
             if (Receipt == null)
@@ -38,7 +38,7 @@ namespace Ereceipt.Application.Services
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt)));
         }
 
-        public async Task<ReceiptResult> CreateReceipt(ReceiptCreateViewModel model)
+        public async Task<ReceiptResult> CreateReceiptAsync(ReceiptCreateViewModel model)
         {
             var Receipt = new Receipt
             {
@@ -54,7 +54,7 @@ namespace Ereceipt.Application.Services
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.CreateAsync(Receipt)));
         }
 
-        public async Task<ReceiptResult> EditReceipt(ReceiptEditViewModel model)
+        public async Task<ReceiptResult> EditReceiptAsync(ReceiptEditViewModel model)
         {
             var Receipt = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == model.Id);
             if (Receipt == null)
@@ -72,34 +72,34 @@ namespace Ereceipt.Application.Services
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.UpdateAsync(Receipt)));
         }
 
-        public async Task<ListReceiptResult> GetAllReceipts(int skip)
+        public async Task<ListReceiptResult> GetAllReceiptsAsync(int skip)
         {
             return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetAllAsync(20, skip)));
         }
 
-        public async Task<int> GetAllReceiptsCount()
+        public async Task<int> GetAllReceiptsCountAsync()
         {
             return await _ReceiptRepos.CountAsync();
         }
 
-        public async Task<ReceiptResult> GetReceipt(Guid id)
+        public async Task<ReceiptResult> GetReceiptAsync(Guid id)
         {
             var receipt = _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.GetReceiptByIdAsync(id));
             receipt.CommentsCount = await _ReceiptRepos.GetCountCommentsByReceiptIdAsync(id);
             return new ReceiptResult(receipt);
         }
 
-        public async Task<ListReceiptResult> GetUserReceiptsByUserId(int ownerId, int skip)
+        public async Task<ListReceiptResult> GetUserReceiptsByUserIdAsync(int ownerId, int skip)
         {
             return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetReceiptsByUserIdAsync(ownerId, skip)));
         }
 
-        public async Task<int> GetUserReceiptsCount(int ownerId)
+        public async Task<int> GetUserReceiptsCountAsync(int ownerId)
         {
             return await _ReceiptRepos.CountAsync(d => d.UserId == ownerId);
         }
 
-        public async Task<ReceiptResult> RemoveReceipt(Guid id, int userId)
+        public async Task<ReceiptResult> RemoveReceiptAsync(Guid id, int userId)
         {
             var receiptToDelete = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == id);
             if (receiptToDelete == null)
@@ -113,7 +113,7 @@ namespace Ereceipt.Application.Services
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _ReceiptRepos.RemoveAsync(receiptToDelete)));
         }
 
-        public async Task<ReceiptResult> RemoveReceiptFromGroup(ReceiptGroupCreateModel model)
+        public async Task<ReceiptResult> RemoveReceiptFromGroupAsync(ReceiptGroupCreateModel model)
         {
             var Receipt = await _ReceiptRepos.FindAsTrackingAsync(d => d.Id == model.ReceiptId);
             if (Receipt == null)

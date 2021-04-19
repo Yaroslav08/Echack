@@ -24,7 +24,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<int> Handle(GetUserReceiptsCountQuery request, CancellationToken cancellationToken)
         {
-            return await _ReceiptService.GetUserReceiptsCount(request.UserId);
+            return await _ReceiptService.GetUserReceiptsCountAsync(request.UserId);
         }
     }
 }

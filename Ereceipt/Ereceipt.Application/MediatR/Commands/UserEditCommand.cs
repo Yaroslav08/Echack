@@ -26,7 +26,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<UserResult> Handle(UserEditCommand request, CancellationToken cancellationToken)
         {
-            return await _userService.EditUser(request.User);
+            return await _userService.EditUserAsync(request.User);
         }
     }
 }

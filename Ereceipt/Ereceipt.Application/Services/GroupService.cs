@@ -24,7 +24,7 @@ namespace Ereceipt.Application.Services
             _ReceiptRepository = ReceiptRepository;
         }
 
-        public async Task<bool> CanEditGroup(Guid groupId, int userId)
+        public async Task<bool> CanEditGroupAsync(Guid groupId, int userId)
         {
             var member = await _groupMemberRepository.FindAsync(d => d.UserId == userId && d.GroupId == groupId);
             if (member == null)
@@ -34,7 +34,7 @@ namespace Ereceipt.Application.Services
             return false;
         }
 
-        public async Task<GroupResult> CreateGroup(GroupCreateViewModel model)
+        public async Task<GroupResult> CreateGroupAsync(GroupCreateViewModel model)
         {
             var group = new Group
             {
@@ -54,9 +54,9 @@ namespace Ereceipt.Application.Services
             return new GroupResult(_mapper.Map<GroupViewModel>(groupToResult));
         }
 
-        public async Task<GroupResult> EditGroup(GroupEditViewModel model)
+        public async Task<GroupResult> EditGroupAsync(GroupEditViewModel model)
         {
-            if (!await CanEditGroup(model.Id, model.UserId))
+            if (!await CanEditGroupAsync(model.Id, model.UserId))
                 return null;
             var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == model.Id);
             if (group == null)
@@ -69,7 +69,7 @@ namespace Ereceipt.Application.Services
             return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.UpdateAsync(group)));
         }
 
-        public async Task<ListReceiptGroupResult> GetReceiptsByGroupId(Guid groupId, int skip = 0)
+        public async Task<ListReceiptGroupResult> GetReceiptsByGroupIdAsync(Guid groupId, int skip = 0)
         {
             var receipts = _mapper.Map<List<ReceiptGroupViewModel>>(await _ReceiptRepository.GetReceiptsByGroupIdAsync(groupId, skip));
             receipts.ForEach(x =>
@@ -79,22 +79,22 @@ namespace Ereceipt.Application.Services
             return new ListReceiptGroupResult(receipts);
         }
 
-        public async Task<GroupResult> GetGroupById(Guid id)
+        public async Task<GroupResult> GetGroupByIdAsync(Guid id)
         {
             return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.FindAsync(d => d.Id == id)));
         }
 
-        public async Task<ListGroupResult> GetGroupsByUserId(int id)
+        public async Task<ListGroupResult> GetGroupsByUserIdAsync(int id)
         {
             return new ListGroupResult(_mapper.Map<List<GroupViewModel>>(await _groupRepository.GetGroupsByUserIdAsync(id)));
         }
 
-        public async Task<GroupResult> RemoveGroup(Guid id, int userId)
+        public async Task<GroupResult> RemoveGroupAsync(Guid id, int userId)
         {
             var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == id);
             if (group == null)
                 return null;
-            if (!await CanEditGroup(id, userId))
+            if (!await CanEditGroupAsync(id, userId))
                 return null;
 
             var groupMembersForRemove = await _groupMemberRepository.FindListAsTrackingAsync(d => d.GroupId == id);
@@ -120,9 +120,9 @@ namespace Ereceipt.Application.Services
             return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.RemoveAsync(group)));
         }
 
-        public async Task<GroupMemberResult> AddUserToGroup(GroupMemberCreateViewModel model)
+        public async Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateViewModel model)
         {
-            if (!await CanEditGroup(model.GroupId, model.UserId))
+            if (!await CanEditGroupAsync(model.GroupId, model.UserId))
                 return null;
 
             var member = new GroupMember()
@@ -137,22 +137,22 @@ namespace Ereceipt.Application.Services
             return new GroupMemberResult(_mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.GetWithDataById(id)));
         }
 
-        public async Task<ListGroupMemberResult> GetGroupMembers(Guid id)
+        public async Task<ListGroupMemberResult> GetGroupMembersAsync(Guid id)
         {
             return new ListGroupMemberResult(_mapper.Map<List<GroupMemberViewModel>>(await _groupMemberRepository.GetGroupMembersAsync(id)));
         }
 
-        public async Task<GroupMemberResult> RemoveUserFromGroup(GroupMemberCreateViewModel model)
+        public async Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateViewModel model)
         {
             var groupMember = await _groupMemberRepository.FindAsTrackingAsync(d => d.GroupId == model.GroupId && d.UserId == model.Id);
             if (groupMember == null)
                 return new GroupMemberResult(null);
-            if (!await CanEditGroup(model.GroupId, model.UserId))
+            if (!await CanEditGroupAsync(model.GroupId, model.UserId))
                 return new GroupMemberResult(null);
             return new GroupMemberResult(_mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.RemoveAsync(groupMember)));
         }
 
-        public async Task<ListGroupResult> GetAllGroups(int skip)
+        public async Task<ListGroupResult> GetAllGroupsAsync(int skip)
         {
             return new ListGroupResult(_mapper.Map<List<GroupViewModel>>(await _groupRepository.GetAllAsync(20, skip)));
         }

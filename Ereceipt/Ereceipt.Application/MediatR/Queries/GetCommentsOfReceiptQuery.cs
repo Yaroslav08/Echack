@@ -31,7 +31,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
         public async Task<ListCommentResult> Handle(GetCommentsOfReceiptQuery request, CancellationToken cancellationToken)
         {
-            return await _commentService.GetCommentsByReceiptId(request.Id);
+            return await _commentService.GetCommentsByReceiptIdAsync(request.Id);
         }
     }
 }

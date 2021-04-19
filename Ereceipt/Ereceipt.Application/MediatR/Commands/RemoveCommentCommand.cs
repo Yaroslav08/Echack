@@ -33,7 +33,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<CommentResult> Handle(RemoveCommentCommand request, CancellationToken cancellationToken)
         {
-            return await commentService.RemoveComment(request.UserId, request.CommentId);
+            return await commentService.RemoveCommentAsync(request.UserId, request.CommentId);
         }
     }
 }

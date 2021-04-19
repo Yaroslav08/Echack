@@ -25,7 +25,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<GroupMemberResult> Handle(AddUserToGroupCommand request, CancellationToken cancellationToken)
         {
-            return await _groupService.AddUserToGroup(request.GroupData);
+            return await _groupService.AddUserToGroupAsync(request.GroupData);
         }
     }
 }

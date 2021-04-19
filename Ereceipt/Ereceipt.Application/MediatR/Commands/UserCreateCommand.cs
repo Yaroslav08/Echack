@@ -27,7 +27,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
         public async Task<UserResult> Handle(UserCreateCommand request, CancellationToken cancellationToken)
         {
-            return await _userService.CreateUser(request.User);
+            return await _userService.CreateUserAsync(request.User);
         }
     }
 }
