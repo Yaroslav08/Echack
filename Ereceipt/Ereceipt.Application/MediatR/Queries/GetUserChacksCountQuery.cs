@@ -1,10 +1,11 @@
 ﻿using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Queries
 {
-    public class GetUserReceiptsCountQuery : IRequest<int>
+    public class GetUserReceiptsCountQuery : IRequest<CountResult>
     {
         public int UserId { get; set; }
         public GetUserReceiptsCountQuery(int userId)
@@ -13,7 +14,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
     }
 
-    public class GetUserReceiptsCountQueryHandler : IRequestHandler<GetUserReceiptsCountQuery, int>
+    public class GetUserReceiptsCountQueryHandler : IRequestHandler<GetUserReceiptsCountQuery, CountResult>
     {
         IReceiptService _ReceiptService;
         public GetUserReceiptsCountQueryHandler(IReceiptService ReceiptService)
@@ -22,7 +23,7 @@ namespace Ereceipt.Application.MediatR.Queries
         }
 
 
-        public async Task<int> Handle(GetUserReceiptsCountQuery request, CancellationToken cancellationToken)
+        public async Task<CountResult> Handle(GetUserReceiptsCountQuery request, CancellationToken cancellationToken)
         {
             return await _ReceiptService.GetUserReceiptsCountAsync(request.UserId);
         }

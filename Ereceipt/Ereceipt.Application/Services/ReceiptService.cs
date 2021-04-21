@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Results;
 using Ereceipt.Application.Results.Receipts;
 using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Domain.Interfaces;
@@ -77,9 +78,9 @@ namespace Ereceipt.Application.Services
             return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetAllAsync(20, skip)));
         }
 
-        public async Task<int> GetAllReceiptsCountAsync()
+        public async Task<CountResult> GetAllReceiptsCountAsync()
         {
-            return await _ReceiptRepos.CountAsync();
+            return new CountResult(await _ReceiptRepos.CountAsync());
         }
 
         public async Task<ReceiptResult> GetReceiptAsync(Guid id)
@@ -94,9 +95,9 @@ namespace Ereceipt.Application.Services
             return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _ReceiptRepos.GetReceiptsByUserIdAsync(ownerId, skip)));
         }
 
-        public async Task<int> GetUserReceiptsCountAsync(int ownerId)
+        public async Task<CountResult> GetUserReceiptsCountAsync(int ownerId)
         {
-            return await _ReceiptRepos.CountAsync(d => d.UserId == ownerId);
+            return new CountResult(await _ReceiptRepos.CountAsync(d => d.UserId == ownerId));
         }
 
         public async Task<ReceiptResult> RemoveReceiptAsync(Guid id, int userId)
