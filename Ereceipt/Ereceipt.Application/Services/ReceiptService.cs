@@ -86,7 +86,8 @@ namespace Ereceipt.Application.Services
         public async Task<ReceiptResult> GetReceiptAsync(Guid id)
         {
             var receipt = _mapper.Map<ReceiptViewModel>(await _ReceiptRepos.GetReceiptByIdAsync(id));
-            receipt.CommentsCount = await _ReceiptRepos.GetCountCommentsByReceiptIdAsync(id);
+            if (receipt != null)
+                receipt.CommentsCount = await _ReceiptRepos.GetCountCommentsByReceiptIdAsync(id);
             return new ReceiptResult(receipt);
         }
 
