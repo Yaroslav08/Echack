@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.ViewModels.Comment;
+using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Application.ViewModels.Group;
 using Ereceipt.Application.ViewModels.GroupMember;
 using Ereceipt.Application.ViewModels.Receipt;
@@ -39,12 +40,14 @@ namespace Ereceipt.Application
             CreateMap<GroupMember, GroupMemberViewModel>()
                 .ForMember(d => d.Group, s => s.MapFrom(d => d.Group))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
+
+            CreateMap<Currency, CurrencyViewModel>();
+            CreateMap<Currency, CurrencyRootViewModel>();
+            CreateMap<CurrencyCreateModel, Currency>().ReverseMap();
+            CreateMap<CurrencyEditModel, Currency>().ReverseMap();
         }
 
 
-        private List<ProductViewModel> GetProducts(string value)
-        {
-            return JsonSerializer.Deserialize<List<ProductViewModel>>(value);
-        }
+        private List<ProductViewModel> GetProducts(string value) => JsonSerializer.Deserialize<List<ProductViewModel>>(value);
     }
 }

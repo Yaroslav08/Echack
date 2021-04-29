@@ -27,5 +27,6 @@ namespace Ereceipt.Domain.Interfaces
         Task<List<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> match);
         Task<List<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> match, int count, int skip);
         Task<List<TEntity>> FindListAsTrackingAsync(Expression<Func<TEntity, bool>> match);
+        void Dispose();
     }
 }

@@ -36,10 +36,22 @@ namespace Ereceipt.Application.Results
             if (data == null)
             {
                 OK = false;
-                Error = error?? "Resourse not found";
+                Error = error ?? "Resourse not found";
                 Exception = ex;
                 CountOfData = 0;
                 return;
+            }
+            if(data is ICollection)
+            {
+                var collection = data as ICollection;
+                if (collection.Count == 0)
+                {
+                    OK = false;
+                    Error = error ?? "Resourse not found";
+                    Exception = ex;
+                    CountOfData = 0;
+                    return;
+                }
             }
             if (!string.IsNullOrEmpty(error) || ex != null)
             {

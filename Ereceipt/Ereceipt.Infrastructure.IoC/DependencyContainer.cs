@@ -20,8 +20,11 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddScoped<IGroupMemberRepository, GroupMemberRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<ITestDataRepository, TestDataRepository>();
             services.AddScoped<ITestDataService, TestDataService>();
+
         }
 
         public static void AddEreceiptAutoMapper(this IServiceCollection services)

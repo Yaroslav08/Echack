@@ -53,6 +53,11 @@ namespace Ereceipt.Infrastructure.Data.Repositories
             await db.SaveChangesAsync();
         }
 
+        public void Dispose()
+        {
+            db.Dispose();
+        }
+
         public async Task<TEntity> FindAsTrackingAsync(Expression<Func<TEntity, bool>> match)
         {
             return await db.Set<TEntity>().FirstOrDefaultAsync(match);
