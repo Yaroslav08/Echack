@@ -35,7 +35,7 @@ namespace Ereceipt.Application.Services
         {
             var currencyForEdit = await _currencyRepository.FindAsTrackingAsync(d => d.Id == model.Id);
             if (currencyForEdit is null)
-                return new CurrencyResult(null);
+                return new CurrencyResult("Currency for edit not found");
             currencyForEdit = _mapper.Map(model, currencyForEdit);
             currencyForEdit.UpdatedAt = DateTime.UtcNow;
             currencyForEdit.UpdatedBy = model.UserId.ToString();
@@ -71,7 +71,7 @@ namespace Ereceipt.Application.Services
         {
             var currencyForDelete = await _currencyRepository.FindAsTrackingAsync(d => d.Id == id);
             if (currencyForDelete is null)
-                return new CurrencyResult(null);
+                return new CurrencyResult("Currency for delete not found");
             var currencyDeleted = _mapper.Map<CurrencyRootViewModel>(await _currencyRepository.RemoveAsync(currencyForDelete));
             return new CurrencyResult(currencyDeleted);
         }
