@@ -57,7 +57,7 @@ namespace Ereceipt.Application.Services
 
         public async Task<ListCurrenciesResult> GetCurrenciesByCodeAsync(string code)
         {
-            var currencies = _mapper.Map<List<CurrencyViewModel>>(await _currencyRepository.GetAllCurrenciesAsync());
+            var currencies = _mapper.Map<List<CurrencyViewModel>>(await _currencyRepository.GetByCodeAsync(code));
             return new ListCurrenciesResult(currencies);
         }
 

@@ -12,5 +12,6 @@ namespace Ereceipt.Application.ViewModels.Receipt
         public string ShopName { get; set; }
         public bool IsImportant { get; set; }
         public List<ProductCreateViewModel> Products { get; set; }
+        public int? CurrencyId { get; set; }
     }
 }

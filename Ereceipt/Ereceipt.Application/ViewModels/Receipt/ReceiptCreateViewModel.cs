@@ -11,5 +11,6 @@ namespace Ereceipt.Application.ViewModels.Receipt
         public double TotalPrice { get; set; }
         public Guid? GroupId { get; set; }
         public List<ProductCreateViewModel> Products { get; set; }
+        public int? CurrencyId { get; set; }
     }
 }

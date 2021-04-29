@@ -1,4 +1,5 @@
-﻿using Ereceipt.Domain.Models;
+﻿using Ereceipt.Application.ViewModels.Currency;
+using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Ereceipt.Application.ViewModels.Receipt
         public string ShopName { get; set; }
         public double TotalPrice { get; set; }
         public List<ProductViewModel> Products { get; set; }
+        public CurrencyViewModel Currency { get; set; }
         public bool IsImportant { get; set; }
         public bool CanEdit { get; set; }
         public ReceiptType ReceiptType { get; set; }

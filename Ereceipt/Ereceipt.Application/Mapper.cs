@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.ViewModels.Comment;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Application.ViewModels.Group;
@@ -15,16 +16,19 @@ namespace Ereceipt.Application
 {
     public class Mapper : Profile
     {
-        public Mapper()
+        private readonly IJsonConverter _jsonConverter;
+
+        public Mapper(IJsonConverter jsonConverter)
         {
+            _jsonConverter = jsonConverter;
             CreateMap<Receipt, ReceiptViewModel>()
-                .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(GetProducts(d.Products).Sum(d => d.Price), 2)))
-                .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)))
+                .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(_jsonConverter.GetModelFromJson<List<ProductViewModel>>(d.Products).Sum(d => d.Price), 2)))
+                .ForMember(d => d.Products, s => s.MapFrom(d => _jsonConverter.GetModelFromJson<List<ProductViewModel>>(d.Products)))
                 .ForMember(d => d.Group, s => s.MapFrom(d => d.Group))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
             CreateMap<Receipt, ReceiptGroupViewModel>()
-                .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(GetProducts(d.Products).Sum(d => d.Price), 2)))
-                .ForMember(d => d.Products, s => s.MapFrom(d => GetProducts(d.Products)))
+                .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(_jsonConverter.GetModelFromJson<List<ProductViewModel>>(d.Products).Sum(d => d.Price), 2)))
+                .ForMember(d => d.Products, s => s.MapFrom(d => _jsonConverter.GetModelFromJson<List<ProductViewModel>>(d.Products)))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
 
             CreateMap<User, UserViewModel>();
@@ -46,8 +50,5 @@ namespace Ereceipt.Application
             CreateMap<CurrencyCreateModel, Currency>().ReverseMap();
             CreateMap<CurrencyEditModel, Currency>().ReverseMap();
         }
-
-
-        private List<ProductViewModel> GetProducts(string value) => JsonSerializer.Deserialize<List<ProductViewModel>>(value);
     }
 }

@@ -24,6 +24,7 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<ITestDataRepository, TestDataRepository>();
             services.AddScoped<ITestDataService, TestDataService>();
+            services.AddScoped<IJsonConverter, JsonConverter>();
 
         }
 
@@ -31,7 +32,7 @@ namespace Ereceipt.Infrastructure.IoC
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new Ereceipt.Application.Mapper());
+                mc.AddProfile(new Ereceipt.Application.Mapper(new JsonConverter()));
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
