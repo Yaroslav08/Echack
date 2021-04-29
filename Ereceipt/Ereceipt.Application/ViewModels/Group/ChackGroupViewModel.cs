@@ -12,6 +12,7 @@ namespace Ereceipt.Application.ViewModels.Group
         public string ShopName { get; set; }
         public double TotalPrice { get; set; }
         public List<ProductViewModel> Products { get; set; }
+        public CurrencyViewModel Currency { get; set; }
         public bool IsImportant { get; set; }
         public UserReceiptViewModel User { get; set; }
     }
