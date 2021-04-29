@@ -31,6 +31,7 @@ namespace Ereceipt.Application
             CreateMap<Receipt, ReceiptGroupViewModel>()
                 .ForMember(d => d.TotalPrice, s => s.MapFrom(d => Math.Round(_jsonConverter.GetModelFromJson<List<ProductViewModel>>(d.Products).Sum(d => d.Price), 2)))
                 .ForMember(d => d.Products, s => s.MapFrom(d => _jsonConverter.GetModelFromJson<List<ProductViewModel>>(d.Products)))
+                .ForMember(d => d.Currency, s => s.MapFrom(d => _jsonConverter.GetModelFromJson<CurrencyViewModel>(d.Currency)))
                 .ForMember(d => d.User, s => s.MapFrom(d => d.User));
 
             CreateMap<User, UserViewModel>();
