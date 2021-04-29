@@ -23,6 +23,8 @@ namespace Ereceipt.Application.Services
 
         public async Task<CurrencyResult> CreateCurrencyAsync(CurrencyCreateModel model)
         {
+            if (await _currencyRepository.CountAsync(d => d.Code == model.Code && d.ISOFormat == model.ISOFormat) >= 0)
+                return new CurrencyResult("This currency is already exist");
             var currencyForCreate = _mapper.Map<Currency>(model);
             currencyForCreate.CreatedAt = DateTime.UtcNow;
             currencyForCreate.CreatedBy = model.UserId.ToString();

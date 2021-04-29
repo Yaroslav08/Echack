@@ -10,5 +10,6 @@ namespace Ereceipt.Application.Results.Currencies
     {
         public CurrencyResult(CurrencyViewModel model) : base(model) { }
         public CurrencyResult(CurrencyRootViewModel model) : base(model) { }
+        public CurrencyResult(string error) : base(error) { }
     }
 }
