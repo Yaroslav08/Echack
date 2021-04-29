@@ -1,4 +1,5 @@
 ﻿using Ereceipt.Application.ViewModels.Receipt;
+using Ereceipt.Application.ViewModels.Currency;
 using System;
 using System.Collections.Generic;
 namespace Ereceipt.Application.ViewModels.Group
