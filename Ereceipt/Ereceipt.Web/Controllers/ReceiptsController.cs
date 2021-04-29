@@ -1,4 +1,5 @@
-﻿using Ereceipt.Application.MediatR.Commands;
+﻿using Ereceipt.Application.Extensions;
+using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Receipt;
 using MediatR;
@@ -20,8 +21,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateViewModel model)
         {
-            model.UserId = GetId();
-            model.IP = GetIpAddress();
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _mediator.Send(new ReceiptCreateCommand(model));
             return Result(result);
         }
@@ -29,8 +29,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> EditReceipt([FromBody] ReceiptEditViewModel model)
         {
-            model.UserId = GetId();
-            model.IP = GetIpAddress();
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _mediator.Send(new ReceiptEditCommand(model));
             return Result(result);
         }
@@ -38,8 +37,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPost("togroup")]
         public async Task<IActionResult> AddReceiptToGroup([FromBody] ReceiptGroupCreateModel model)
         {
-            model.UserId = GetId();
-            model.IP = GetIpAddress();
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _mediator.Send(new AddReceiptToGroupCommand(model));
             return Result(result);
         }
@@ -47,8 +45,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPost("fromgroup")]
         public async Task<IActionResult> RemoveReceiptFromGroup([FromBody] ReceiptGroupCreateModel model)
         {
-            model.UserId = GetId();
-            model.IP = GetIpAddress();
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _mediator.Send(new RemoveReceiptFromGroupCommand(model));
             return Result(result);
         }

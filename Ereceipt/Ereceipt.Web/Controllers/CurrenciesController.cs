@@ -1,4 +1,5 @@
-﻿using Ereceipt.Application.Interfaces;
+﻿using Ereceipt.Application.Extensions;
+using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.ViewModels.Currency;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,8 +44,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCurrency([FromBody] CurrencyCreateModel model)
         {
-            model.UserId = GetId();
-            model.IP = GetIpAddress();
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _currencyService.CreateCurrencyAsync(model);
             return Result(result);
         }
@@ -53,6 +53,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> EditCurrency([FromBody] CurrencyEditModel model)
         {
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _currencyService.EditCurrencyAsync(model);
             return Result(result);
         }

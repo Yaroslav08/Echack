@@ -1,4 +1,5 @@
-﻿using Ereceipt.Application.MediatR.Commands;
+﻿using Ereceipt.Application.Extensions;
+using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Comment;
 using MediatR;
@@ -29,8 +30,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateComment([FromBody] CommentCreateViewModel model)
         {
-            model.UserId = GetId();
-            model.IP = GetIpAddress();
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _mediator.Send(new CreateCommentCommand(model));
             return Result(result);
         }
@@ -38,8 +38,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> EditComment([FromBody] CommentEditViewModel model)
         {
-            model.UserId = GetId();
-            model.IP = GetIpAddress();
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _mediator.Send(new EditCommentCommand(model));
             return Result(result);
         }

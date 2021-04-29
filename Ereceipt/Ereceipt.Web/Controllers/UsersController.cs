@@ -1,4 +1,5 @@
-﻿using Ereceipt.Application.MediatR.Commands;
+﻿using Ereceipt.Application.Extensions;
+using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.User;
 using MediatR;
@@ -27,8 +28,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditUser(int id, [FromBody] UserEditViewModel model)
         {
-            model.IP = GetIpAddress();
-            model.UserId = id;
+            model.InitDataRequest(GetId(), GetIpAddress());
             var result = await _mediator.Send(new UserEditCommand(model));
             return Result(result);
         }
