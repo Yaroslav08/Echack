@@ -28,7 +28,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditUser(int id, [FromBody] UserEditViewModel model)
         {
-            model.InitDataRequest(GetId(), GetIpAddress());
+            model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediator.Send(new UserEditCommand(model));
             return Result(result);
         }

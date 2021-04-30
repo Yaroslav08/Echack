@@ -1,9 +1,9 @@
 ﻿using Ereceipt.Application.ViewModels;
 namespace Ereceipt.Application.Extensions
 {
-    public static class RequestModelHandler
+    public static class RequestHandler
     {
-        public static void InitDataRequest(this RequestModel model, int id, string ip)
+        public static void IncomeRequestInit(this RequestModel model, int id, string ip)
         {
             model.UserId = id;
             model.IP = ip;

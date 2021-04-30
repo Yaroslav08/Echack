@@ -44,7 +44,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCurrency([FromBody] CurrencyCreateModel model)
         {
-            model.InitDataRequest(GetId(), GetIpAddress());
+            model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _currencyService.CreateCurrencyAsync(model);
             return Result(result);
         }
@@ -53,7 +53,7 @@ namespace Ereceipt.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> EditCurrency([FromBody] CurrencyEditModel model)
         {
-            model.InitDataRequest(GetId(), GetIpAddress());
+            model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _currencyService.EditCurrencyAsync(model);
             return Result(result);
         }
