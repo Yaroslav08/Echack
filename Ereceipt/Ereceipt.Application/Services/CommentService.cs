@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Comments;
 using Ereceipt.Application.ViewModels.Comment;
@@ -42,8 +43,7 @@ namespace Ereceipt.Application.Services
             if (commentToEdit.UserId != model.UserId)
                 return new CommentResult("Access Denited");
             commentToEdit.Text = model.Text;
-            commentToEdit.UpdatedAt = DateTime.UtcNow;
-            commentToEdit.UpdatedBy = model.UserId.ToString();
+            commentToEdit.SetUpdateData(model);
             return new CommentResult(_mapper.Map<CommentViewModel>(await _commentRepository.UpdateAsync(commentToEdit)));
         }
 

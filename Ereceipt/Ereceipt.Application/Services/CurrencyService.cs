@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Currencies;
 using Ereceipt.Application.ViewModels.Currency;
@@ -37,8 +38,7 @@ namespace Ereceipt.Application.Services
             if (currencyForEdit is null)
                 return new CurrencyResult("Currency for edit not found");
             currencyForEdit = _mapper.Map(model, currencyForEdit);
-            currencyForEdit.UpdatedAt = DateTime.UtcNow;
-            currencyForEdit.UpdatedBy = model.UserId.ToString();
+            currencyForEdit.SetUpdateData(model);
             var currencyEdited = _mapper.Map<CurrencyRootViewModel>(await _currencyRepository.UpdateAsync(currencyForEdit));
             return new CurrencyResult(currencyEdited);
         }

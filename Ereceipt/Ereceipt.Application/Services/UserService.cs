@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Users;
 using Ereceipt.Application.ViewModels.User;
@@ -41,8 +42,7 @@ namespace Ereceipt.Application.Services
             if (user == null)
                 return null;
             user.Name = model.Name;
-            user.UpdatedAt = DateTime.UtcNow;
-            user.UpdatedBy = user.Id.ToString();
+            user.SetUpdateData(model);
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.UpdateAsync(user)));
         }
 

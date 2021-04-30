@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Groups;
 using Ereceipt.Application.ViewModels.Group;
@@ -64,8 +65,7 @@ namespace Ereceipt.Application.Services
             group.Name = model.Name;
             group.Desc = model.Desc;
             group.Color = model.Color;
-            group.UpdatedAt = DateTime.Now;
-            group.UpdatedBy = model.UserId.ToString();
+            group.SetUpdateData(model);
             return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.UpdateAsync(group)));
         }
 

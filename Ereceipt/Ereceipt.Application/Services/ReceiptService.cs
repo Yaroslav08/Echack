@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results;
 using Ereceipt.Application.Results.Receipts;
@@ -9,7 +10,6 @@ using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Services
 {
@@ -88,8 +88,7 @@ namespace Ereceipt.Application.Services
             receiptForEdit.IsImportant = model.IsImportant;
             receiptForEdit.Products = _jsonConverter.GetStringAsJson(model.Products);
             receiptForEdit.TotalPrice = model.Products != null ? model.Products.Sum(x => x.Price) : receiptForEdit.TotalPrice;
-            receiptForEdit.UpdatedAt = DateTime.Now;
-            receiptForEdit.UpdatedBy = model.UserId.ToString();
+            receiptForEdit.SetUpdateData(model);
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.UpdateAsync(receiptForEdit)));
         }
 
