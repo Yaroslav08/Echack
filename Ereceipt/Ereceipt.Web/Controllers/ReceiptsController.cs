@@ -34,7 +34,7 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
-        [HttpPost("togroup")]
+        [HttpPost("to-group")]
         public async Task<IActionResult> AddReceiptToGroup([FromBody] ReceiptGroupCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
@@ -42,7 +42,7 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
-        [HttpPost("fromgroup")]
+        [HttpPost("from-group")]
         public async Task<IActionResult> RemoveReceiptFromGroup([FromBody] ReceiptGroupCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());

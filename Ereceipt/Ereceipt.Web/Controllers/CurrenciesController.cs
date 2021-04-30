@@ -33,7 +33,7 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
-        [HttpGet("bycode/{code}")]
+        [HttpGet("by-code/{code}")]
         public async Task<IActionResult> GetCurrenciesByCode(string code)
         {
             var result = await _currencyService.GetCurrenciesByCodeAsync(code);
