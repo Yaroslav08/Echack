@@ -98,6 +98,25 @@ namespace Ereceipt.Infrastructure.Data.Repositories
                             Products = products[i],
                             GroupId = i % 2 == 0 ? group1.Entity.Id : null,
                             CreatedAt = DateTime.UtcNow,
+                            Comments = i % 2 == 0 ? new List<Comment>
+                            {
+                                new Comment
+                                {
+                                    UserId = new Random().Next(0,2),
+                                    CreatedAt = DateTime.UtcNow,
+                                    CreatedBy = "1",
+                                    CreatedFromIP = "::1",
+                                    Text = $"Hello {i}"
+                                },
+                                new Comment
+                                {
+                                    UserId = new Random().Next(0,2),
+                                    CreatedAt = DateTime.UtcNow,
+                                    CreatedBy = "1",
+                                    CreatedFromIP = "::1",
+                                    Text = $"Hello {i}"
+                                }
+                            } : null
                         });
                     }
                     await db.Receipts.AddRangeAsync(receipts);

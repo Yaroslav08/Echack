@@ -1,6 +1,7 @@
 ﻿using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results;
 using Ereceipt.Application.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Ereceipt.Web.Controllers
 
 
         [HttpGet("load")]
+        [AllowAnonymous]
         public async Task<IActionResult> LoadTestData()
         {
             var res = await _testDataService.LoadAllTestData();

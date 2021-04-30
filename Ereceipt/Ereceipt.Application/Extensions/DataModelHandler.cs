@@ -9,12 +9,14 @@ namespace Ereceipt.Application.Extensions
         {
             model.UpdatedAt = DateTime.UtcNow;
             model.UpdatedBy = requestModel.UserId.ToString();
+            model.UpdatedFromIP = requestModel.IP;
         }
 
         public static void SetInitData(this BaseModel model, RequestModel requestModel)
         {
             model.CreatedAt = DateTime.UtcNow;
             model.CreatedBy = requestModel.UserId.ToString();
+            model.CreatedFromIP = requestModel.IP;
         }
     }
 }

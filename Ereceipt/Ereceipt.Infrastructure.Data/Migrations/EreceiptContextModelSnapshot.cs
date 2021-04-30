@@ -32,6 +32,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedFromIP")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("ReceiptId")
                         .HasColumnType("uniqueidentifier");
 
@@ -44,6 +47,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedFromIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
@@ -80,6 +86,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedFromIP")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ISOFormat")
                         .HasColumnType("int");
 
@@ -94,6 +103,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedFromIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -119,6 +131,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedFromIP")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Desc")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -132,6 +147,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedFromIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -153,6 +171,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedFromIP")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
@@ -165,6 +186,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedFromIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
@@ -196,6 +220,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedFromIP")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
 
@@ -223,6 +250,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedFromIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
@@ -256,6 +286,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedFromIP")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Login")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -278,6 +311,9 @@ namespace Ereceipt.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedFromIP")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
