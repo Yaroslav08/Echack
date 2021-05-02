@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,10 @@ namespace Ereceipt.Web
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
+            });
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
             });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -103,6 +108,7 @@ namespace Ereceipt.Web
             loggerFactory.AddFile("Logs/Ereceipt-{Date}.txt");
             app.UseMiddleware<ErrorMiddleware>();
             app.UseMiddleware<RoutesMiddleware>();
+            app.UseStaticFiles();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -115,6 +121,11 @@ namespace Ereceipt.Web
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<LoggingMiddleware>();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+                spa.UseAngularCliServer(npmScript: "start");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
