@@ -9,6 +9,15 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.component.ts" />
     <None Remove="ClientApp\src\app\app.module.ts" />
+    <None Remove="ClientApp\src\app\comment\comment.ts" />
+    <None Remove="ClientApp\src\app\currency\currency.ts" />
+    <None Remove="ClientApp\src\app\group\group.ts" />
+    <None Remove="ClientApp\src\app\group\groupmember.ts" />
+    <None Remove="ClientApp\src\app\product\product.ts" />
+    <None Remove="ClientApp\src\app\receipt\receipt.service.ts" />
+    <None Remove="ClientApp\src\app\receipt\receipt.ts" />
+    <None Remove="ClientApp\src\app\user\user.service.ts" />
+    <None Remove="ClientApp\src\app\user\user.ts" />
     <None Remove="ClientApp\src\main.ts" />
     <None Remove="ClientApp\src\polyfills.ts" />
   </ItemGroup>
@@ -38,6 +47,15 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\app.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\comment\comment.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\currency\currency.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\group\group.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\group\groupmember.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\product\product.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\receipt\receipt.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\receipt\receipt.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\user\user.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.ts" />
     <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
   </ItemGroup>

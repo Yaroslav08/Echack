@@ -38,10 +38,6 @@ namespace Ereceipt.Web
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -62,6 +58,10 @@ namespace Ereceipt.Web
             services.AddControllers(options =>
             {
                 options.Filters.Add(new ModelStateValidatorAttribute());
+            });
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
             });
             services.AddApiVersioning(config =>
             {
@@ -121,15 +121,15 @@ namespace Ereceipt.Web
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<LoggingMiddleware>();
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-                spa.UseAngularCliServer(npmScript: "start");
-            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
+            });
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+                spa.UseAngularCliServer(npmScript: "start");
             });
         }
     }
