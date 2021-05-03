@@ -13,9 +13,23 @@ namespace Ereceipt.Domain.Models
         public string Title { get; set; }
         [MinLength(4), MaxLength(10000)]
         public string Content { get; set; }
+        public NotificationType NotificationType { get; set; }
         public bool IsRead { get; set; }
         public DateTime? ReadedAt { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+    }
+
+    public enum NotificationType
+    {
+        System,
+        Login,
+        AddReceiptToGroup,
+        RemoveReceiptFromGroup,
+        NewReceiptInGroup,
+        EditReceiptInGroup,
+        AddMemberToGroup,
+        RemoveMemberFromGroup,
+        NewCommentInReceipt
     }
 }
