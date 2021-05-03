@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
-    public class Notification
+    public class Notification : BaseModelWithIdentityGen<long>
     {
-        [Key]
-        public long Id { get; set; }
-        [Required]
-        public DateTime CreatedAt { get; set; }
         [Required, MinLength(3), MaxLength(100)]
         public string Title { get; set; }
         [MinLength(4), MaxLength(10000)]
