@@ -59,10 +59,6 @@ namespace Ereceipt.Web
             {
                 options.Filters.Add(new ModelStateValidatorAttribute());
             });
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
@@ -125,11 +121,6 @@ namespace Ereceipt.Web
             {
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
-            });
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-                spa.UseAngularCliServer(npmScript: "start");
             });
         }
     }
