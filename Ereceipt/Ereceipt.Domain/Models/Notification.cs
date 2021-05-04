@@ -21,7 +21,10 @@ namespace Ereceipt.Domain.Models
         System,
         Login,
         NewReceiptInGroup,
+        RemoveReceiptFromGroup,
         AddMemberToGroup,
-        NewCommentInReceipt
+        RemoveMemberFromGroup,
+        NewCommentInReceipt,
+        RemoveCommentInReceipt,
     }
 }

@@ -68,14 +68,6 @@ namespace Ereceipt.Application.Services
             {
                 return null;
             }
-            await _notificationService.CreateLoginNotificationAsync(new NotificationViewModel
-            {
-                IsRead = false,
-                CreatedAt = DateTime.UtcNow,
-                NotificationType = NotificationType.Login,
-                Title = "You have one log in",
-                UserId = user.Id
-            });
             return user;
         }
 
