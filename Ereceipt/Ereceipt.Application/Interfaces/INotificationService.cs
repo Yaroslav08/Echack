@@ -11,7 +11,8 @@ namespace Ereceipt.Application.Interfaces
     {
         Task<NotificationResult> GetNotificationByIdAsync(long id, int userId);
         Task<ListNotificationResult> GetUnreadNotificationsAsync(int userId);
-        Task<NotificationResult> CreateNotificationAsync(NotificationViewModel model);
+        Task<ListNotificationResult> GetAllNotificationsAsync(int userId, int afterId);
+        Task CreateNotificationAsync(NotificationViewModel model);
         Task MarkNotificationAsReadAsync(long id, int userId);
         Task MarkAllNotificationsAsReadAsync(int userId);
     }

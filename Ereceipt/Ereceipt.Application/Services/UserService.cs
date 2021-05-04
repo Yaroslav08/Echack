@@ -2,6 +2,7 @@
 using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Users;
+using Ereceipt.Application.ViewModels.Notification;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
@@ -13,13 +14,15 @@ namespace Ereceipt.Application.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository;
-        private IMapper _mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        private readonly INotificationService _notificationService;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, INotificationService notificationService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _notificationService = notificationService;
         }
 
         public async Task<UserResult> CreateUserAsync(UserCreateViewModel model)
@@ -65,6 +68,14 @@ namespace Ereceipt.Application.Services
             {
                 return null;
             }
+            await _notificationService.CreateNotificationAsync(new NotificationViewModel
+            {
+                IsRead = false,
+                CreatedAt = DateTime.UtcNow,
+                NotificationType = NotificationType.Login,
+                Title = "You have one log in",
+                UserId = user.Id
+            });
             return user;
         }
 

@@ -3,6 +3,7 @@ using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Notifications;
 using Ereceipt.Application.ViewModels.Notification;
 using Ereceipt.Application.ViewModels.Notification.Types;
+using Ereceipt.Application.Wrappers;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using System;
@@ -13,19 +14,38 @@ namespace Ereceipt.Application.Services
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository;
-        private IMapper _mapper;
-        private IJsonConverter _jsonConverter;
+        private readonly IMapper _mapper;
+        private readonly INotificationWrapper _notificationWrapper;
+        private readonly IJsonConverter _jsonConverter;
 
-        public NotificationService(INotificationRepository notificationRepository, IMapper mapper, IJsonConverter jsonConverter)
+        public NotificationService(INotificationRepository notificationRepository, IMapper mapper, INotificationWrapper notificationWrapper, IJsonConverter jsonConverter)
         {
             _notificationRepository = notificationRepository;
             _mapper = mapper;
+            _notificationWrapper = notificationWrapper;
             _jsonConverter = jsonConverter;
         }
 
-        public async Task<NotificationResult> CreateNotificationAsync(NotificationViewModel model)
+        public async Task CreateNotificationAsync(NotificationViewModel model)
         {
-            throw new NotImplementedException();
+            var notify = _mapper.Map<Notification>(model);
+            notify.Content = _jsonConverter.GetStringAsJson(new NotificationLoginViewModel
+            {
+                Id = Guid.NewGuid().ToString("N"),
+                AppType = "Web",
+                CreatedAt = DateTime.UtcNow,
+                Device = "Lenovo IdeaPad 320",
+                IPAddress = "34.43.119.37",
+                OS = "Windows 10"
+            });
+            await _notificationRepository.CreateAsync(notify);
+        }
+
+        public async Task<ListNotificationResult> GetAllNotificationsAsync(int userId, int afterId)
+        {
+            var notificationsFromDb = await _notificationRepository.GetAllNotificationsAsync(userId, afterId);
+            var notificationsToView = _notificationWrapper.MapNotificationsToView(notificationsFromDb);
+            return new ListNotificationResult(notificationsToView);
         }
 
         public async Task<NotificationResult> GetNotificationByIdAsync(long id, int userId)
@@ -35,18 +55,7 @@ namespace Ereceipt.Application.Services
                 return new NotificationResult(model: null);
             if (notifyById.UserId != userId || userId != 0)
                 return new NotificationResult("Access denited");
-            NotificationViewModel notifyToReturn = null;
-            notifyToReturn = notifyById.NotificationType switch
-            {
-                NotificationType.System => new NotificationViewModel<string>(notifyById.Content),
-                NotificationType.Login => new NotificationViewModel<NotificationLoginViewModel>(_jsonConverter.GetModelFromJson<NotificationLoginViewModel>(notifyById.Content)),
-                NotificationType.NewReceiptInGroup => new NotificationViewModel<NotificationReceiptInGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationReceiptInGroupViewModel>(notifyById.Content)),
-                NotificationType.RemoveReceiptFromGroup => new NotificationViewModel<NotificationReceiptInGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationReceiptInGroupViewModel>(notifyById.Content)),
-                NotificationType.AddMemberToGroup => new NotificationViewModel<NotificationMemberGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationMemberGroupViewModel>(notifyById.Content)),
-                NotificationType.RemoveMemberFromGroup => new NotificationViewModel<NotificationMemberGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationMemberGroupViewModel>(notifyById.Content)),
-                NotificationType.NewCommentInReceipt => new NotificationViewModel<NotificationCommentReceiptViewModel>(_jsonConverter.GetModelFromJson<NotificationCommentReceiptViewModel>(notifyById.Content)),
-                NotificationType.RemoveCommentInReceipt => new NotificationViewModel<NotificationCommentReceiptViewModel>(_jsonConverter.GetModelFromJson<NotificationCommentReceiptViewModel>(notifyById.Content)),
-            };
+            NotificationViewModel notifyToReturn = _notificationWrapper.MapNotificationToView(notifyById);
             notifyToReturn = _mapper.Map<NotificationViewModel>(notifyById);
             return new NotificationResult(notifyToReturn);
         }
@@ -62,17 +71,7 @@ namespace Ereceipt.Application.Services
             foreach (var notify in notificationsFromDb)
             {
                 NotificationViewModel notifyToReturn = null;
-                notifyToReturn = notify.NotificationType switch
-                {
-                    NotificationType.System => new NotificationViewModel<string>(notify.Content),
-                    NotificationType.Login => new NotificationViewModel<NotificationLoginViewModel>(_jsonConverter.GetModelFromJson<NotificationLoginViewModel>(notify.Content)),
-                    NotificationType.NewReceiptInGroup => new NotificationViewModel<NotificationReceiptInGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationReceiptInGroupViewModel>(notify.Content)),
-                    NotificationType.RemoveReceiptFromGroup => new NotificationViewModel<NotificationReceiptInGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationReceiptInGroupViewModel>(notify.Content)),
-                    NotificationType.AddMemberToGroup => new NotificationViewModel<NotificationMemberGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationMemberGroupViewModel>(notify.Content)),
-                    NotificationType.RemoveMemberFromGroup => new NotificationViewModel<NotificationMemberGroupViewModel>(_jsonConverter.GetModelFromJson<NotificationMemberGroupViewModel>(notify.Content)),
-                    NotificationType.NewCommentInReceipt => new NotificationViewModel<NotificationCommentReceiptViewModel>(_jsonConverter.GetModelFromJson<NotificationCommentReceiptViewModel>(notify.Content)),
-                    NotificationType.RemoveCommentInReceipt => new NotificationViewModel<NotificationCommentReceiptViewModel>(_jsonConverter.GetModelFromJson<NotificationCommentReceiptViewModel>(notify.Content)),
-                };
+                notifyToReturn = _notificationWrapper.MapNotificationToView(notify);
                 notifyToReturn = _mapper.Map<NotificationViewModel>(notify);
                 notificationsToView.Add(notifyToReturn);
             }
@@ -96,6 +95,8 @@ namespace Ereceipt.Application.Services
         {
             var notifyForRead = await _notificationRepository.FindAsTrackingAsync(x => x.Id == id);
             if (notifyForRead is null)
+                return;
+            if (notifyForRead.UserId != userId || notifyForRead.UserId != 0)
                 return;
             notifyForRead.IsRead = true;
             notifyForRead.ReadedAt = DateTime.UtcNow;

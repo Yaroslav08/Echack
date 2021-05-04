@@ -12,6 +12,7 @@ namespace Ereceipt.Application.ViewModels.Notification
         public NotificationType NotificationType { get; set; }
         public bool IsRead { get; set; }
         public DateTime? ReadedAt { get; set; }
+        public int UserId { get; set; }
         public UserViewModel User { get; set; }
     }
     public class NotificationViewModel<T> : NotificationViewModel

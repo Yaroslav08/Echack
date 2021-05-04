@@ -12,6 +12,16 @@ namespace Ereceipt.Infrastructure.Data.Repositories
     {
         public NotificationRepository(EreceiptContext db) : base(db) { }
 
+        public async Task<List<Notification>> GetAllNotificationsAsync(int userId, int afterId)
+        {
+            return await db.Notifications
+                .AsNoTracking()
+                .Where(d => d.UserId == userId && d.Id > afterId)
+                .Take(20)
+                .OrderByDescending(d => d.CreatedAt)
+                .ToListAsync();
+        }
+
         public async Task<List<Notification>> GetUnreadNotificationsAsync(int userId)
         {
             return await db.Notifications
