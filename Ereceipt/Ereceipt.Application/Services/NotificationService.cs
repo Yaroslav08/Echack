@@ -26,18 +26,38 @@ namespace Ereceipt.Application.Services
             _jsonConverter = jsonConverter;
         }
 
-        public async Task CreateNotificationAsync(NotificationViewModel model)
+        public async Task CreateNotificationAsync(NotificationViewModel model, string content)
         {
             var notify = _mapper.Map<Notification>(model);
-            notify.Content = _jsonConverter.GetStringAsJson(new NotificationLoginViewModel
-            {
-                Id = Guid.NewGuid().ToString("N"),
-                AppType = "Web",
-                CreatedAt = DateTime.UtcNow,
-                Device = "Lenovo IdeaPad 320",
-                IPAddress = "34.43.119.37",
-                OS = "Windows 10"
-            });
+            notify.Content = content;
+            await _notificationRepository.CreateAsync(notify);
+        }
+
+        public async Task CreateNotificationAsync(NotificationViewModel model, NotificationLoginViewModel content)
+        {
+            var notify = _mapper.Map<Notification>(model);
+            notify.Content = _jsonConverter.GetStringAsJson(content);
+            await _notificationRepository.CreateAsync(notify);
+        }
+
+        public async Task CreateNotificationAsync(NotificationViewModel model, NotificationReceiptInGroupViewModel content)
+        {
+            var notify = _mapper.Map<Notification>(model);
+            notify.Content = _jsonConverter.GetStringAsJson(content);
+            await _notificationRepository.CreateAsync(notify);
+        }
+
+        public async Task CreateNotificationAsync(NotificationViewModel model, NotificationMemberGroupViewModel content)
+        {
+            var notify = _mapper.Map<Notification>(model);
+            notify.Content = _jsonConverter.GetStringAsJson(content);
+            await _notificationRepository.CreateAsync(notify);
+        }
+
+        public async Task CreateNotificationAsync(NotificationViewModel model, NotificationCommentReceiptViewModel content)
+        {
+            var notify = _mapper.Map<Notification>(model);
+            notify.Content = _jsonConverter.GetStringAsJson(content);
             await _notificationRepository.CreateAsync(notify);
         }
 

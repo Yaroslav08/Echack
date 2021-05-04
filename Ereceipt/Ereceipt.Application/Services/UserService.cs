@@ -68,7 +68,7 @@ namespace Ereceipt.Application.Services
             {
                 return null;
             }
-            await _notificationService.CreateNotificationAsync(new NotificationViewModel
+            await _notificationService.CreateLoginNotificationAsync(new NotificationViewModel
             {
                 IsRead = false,
                 CreatedAt = DateTime.UtcNow,
