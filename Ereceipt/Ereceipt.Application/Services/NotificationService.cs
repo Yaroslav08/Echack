@@ -53,28 +53,19 @@ namespace Ereceipt.Application.Services
             var notifyById = await _notificationRepository.FindAsync(d => d.Id == id);
             if (notifyById is null)
                 return new NotificationResult(model: null);
-            if (notifyById.UserId != userId || userId != 0)
-                return new NotificationResult("Access denited");
-            NotificationViewModel notifyToReturn = _notificationWrapper.MapNotificationToView(notifyById);
-            notifyToReturn = _mapper.Map<NotificationViewModel>(notifyById);
+            if (notifyById.UserId != userId)
+            {
+                if (userId != 0)
+                    return new NotificationResult("Access denited");
+            }
+            var notifyToReturn = _notificationWrapper.MapNotificationToView(notifyById);
             return new NotificationResult(notifyToReturn);
         }
 
         public async Task<ListNotificationResult> GetUnreadNotificationsAsync(int userId)
         {
             var notificationsFromDb = await _notificationRepository.GetUnreadNotificationsAsync(userId);
-            if (notificationsFromDb is null || notificationsFromDb.Count == 0)
-            {
-                return new ListNotificationResult(null);
-            }
-            var notificationsToView = new List<NotificationViewModel>();
-            foreach (var notify in notificationsFromDb)
-            {
-                NotificationViewModel notifyToReturn = null;
-                notifyToReturn = _notificationWrapper.MapNotificationToView(notify);
-                notifyToReturn = _mapper.Map<NotificationViewModel>(notify);
-                notificationsToView.Add(notifyToReturn);
-            }
+            var notificationsToView = _notificationWrapper.MapNotificationsToView(notificationsFromDb);
             return new ListNotificationResult(notificationsToView);
         }
 
