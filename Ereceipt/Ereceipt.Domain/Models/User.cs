@@ -17,6 +17,5 @@ namespace Ereceipt.Domain.Models
         public List<Receipt> Receipts { get; set; }
         public List<GroupMember> GroupMembers { get; set; }
         public List<Comment> Comments { get; set; }
-        public List<Notification> Notifications { get; set; }
     }
 }

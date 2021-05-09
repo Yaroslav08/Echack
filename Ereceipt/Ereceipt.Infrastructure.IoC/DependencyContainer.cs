@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Services;
-using Ereceipt.Application.Wrappers;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Infrastructure.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,9 +25,6 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddScoped<ITestDataRepository, TestDataRepository>();
             services.AddScoped<ITestDataService, TestDataService>();
             services.AddScoped<IJsonConverter, JsonConverter>();
-            services.AddScoped<INotificationRepository, NotificationRepository>();
-            services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<INotificationWrapper, NotificationWrapper>();
         }
 
         public static void AddEreceiptAutoMapper(this IServiceCollection services)

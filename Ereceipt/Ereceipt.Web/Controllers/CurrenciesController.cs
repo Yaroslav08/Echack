@@ -23,7 +23,6 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> GetAllCurrencies()
         {
             var result = await _currencyService.GetAllCurrenciesAsync();
-            var d = HttpContext.GetNotificationLoginData();
             return Result(result);
         }
 

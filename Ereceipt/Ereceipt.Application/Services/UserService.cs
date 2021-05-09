@@ -2,7 +2,6 @@
 using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Users;
-using Ereceipt.Application.ViewModels.Notification;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
@@ -16,13 +15,11 @@ namespace Ereceipt.Application.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly INotificationService _notificationService;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, INotificationService notificationService)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-            _notificationService = notificationService;
         }
 
         public async Task<UserResult> CreateUserAsync(UserCreateViewModel model)

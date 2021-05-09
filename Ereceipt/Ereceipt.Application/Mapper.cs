@@ -4,7 +4,6 @@ using Ereceipt.Application.ViewModels.Comment;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Application.ViewModels.Group;
 using Ereceipt.Application.ViewModels.GroupMember;
-using Ereceipt.Application.ViewModels.Notification;
 using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
@@ -53,8 +52,6 @@ namespace Ereceipt.Application
             CreateMap<Currency, CurrencyRootViewModel>();
             CreateMap<CurrencyCreateModel, Currency>().ReverseMap();
             CreateMap<CurrencyEditModel, Currency>().ReverseMap();
-
-            CreateMap<Notification, NotificationViewModel>().ReverseMap();
         }
     }
 }

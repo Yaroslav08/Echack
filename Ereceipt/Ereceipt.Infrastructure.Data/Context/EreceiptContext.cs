@@ -10,7 +10,6 @@ namespace Ereceipt.Infrastructure.Data.Context
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
         public DbSet<Currency> Currencies { get; set; }
 
         public EreceiptContext(DbContextOptions<EreceiptContext> options) : base(options) { }
@@ -23,7 +22,6 @@ namespace Ereceipt.Infrastructure.Data.Context
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
             modelBuilder.ApplyConfiguration(new GroupMemberConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new NotificationConfiguration());
             modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
         }
 
