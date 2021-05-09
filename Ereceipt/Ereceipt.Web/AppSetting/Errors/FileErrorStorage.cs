@@ -83,5 +83,8 @@ namespace Ereceipt.Web.AppSetting.Errors
                 .OrderBy(x => x.Code)
                 .ToList();
         }
+
+        public List<ErrorViewModel> GetAllErrors() =>
+            _errors.OrderBy(x => x.Code).ToList();
     }
 }

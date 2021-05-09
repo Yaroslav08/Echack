@@ -1,4 +1,5 @@
-﻿using Ereceipt.Web.Models;
+﻿using Ereceipt.Web.AppSetting.Errors;
+using Ereceipt.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing;
@@ -13,11 +14,13 @@ namespace Ereceipt.Web.Middlewares
     {
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
         private readonly RequestDelegate _next;
+        private readonly IErrorStorage _errorStorage;
 
-        public RoutesMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
+        public RoutesMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IErrorStorage errorStorage)
         {
             _next = next;
             _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
+            _errorStorage = errorStorage;
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
@@ -52,6 +55,13 @@ namespace Ereceipt.Web.Middlewares
                     AppName = "Ereceipt",
                     Version = "1.4.0"
                 });
+                return;
+            }
+            else if (httpContext.Request.Path.Value == "/api/errors")
+            {
+                _errorStorage.DownloadErrorsAsync();
+                httpContext.Response.StatusCode = StatusCodes.Status200OK;
+                await httpContext.Response.WriteAsJsonAsync(_errorStorage.GetAllErrors());
                 return;
             }
             await _next(httpContext);

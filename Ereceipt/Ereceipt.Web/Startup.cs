@@ -54,7 +54,7 @@ namespace Ereceipt.Web
                     };
                 });
             services.AddServices();
-            services.AddScoped<IErrorStorage, FileErrorStorage>();
+            services.AddSingleton<IErrorStorage, FileErrorStorage>();
             services.AddEreceiptAutoMapper();
             services.AddControllers(options =>
             {

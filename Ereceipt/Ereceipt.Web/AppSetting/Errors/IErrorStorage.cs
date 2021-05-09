@@ -13,5 +13,6 @@ namespace Ereceipt.Web.AppSetting.Errors
         ErrorViewModel GetErrorById(string id);
         ErrorViewModel GetErrorByCode(string code);
         List<ErrorViewModel> GetErrorsByCategory(string category);
+        List<ErrorViewModel> GetAllErrors();
     }
 }
