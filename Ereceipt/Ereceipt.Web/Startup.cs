@@ -2,6 +2,7 @@ using Ereceipt.Application;
 using Ereceipt.Infrastructure.Data.Context;
 using Ereceipt.Infrastructure.IoC;
 using Ereceipt.Web.AppSetting;
+using Ereceipt.Web.AppSetting.Errors;
 using Ereceipt.Web.Filters;
 using Ereceipt.Web.Middlewares;
 using MediatR;
@@ -53,6 +54,7 @@ namespace Ereceipt.Web
                     };
                 });
             services.AddServices();
+            services.AddScoped<IErrorStorage, FileErrorStorage>();
             services.AddEreceiptAutoMapper();
             services.AddControllers(options =>
             {
