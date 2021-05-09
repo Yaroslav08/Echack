@@ -14,7 +14,7 @@ namespace Ereceipt.Web.Controllers
     [Authorize]
     public class ApiController : ControllerBase
     {
-        protected string GetIdentityName() => User.Identity.IsAuthenticated ? User.Identity.Name : null;
+        protected string GetUsername() => User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
         protected int GetId()
         {

@@ -1,6 +1,7 @@
 ﻿using Ereceipt.Application.MediatR.Commands;
 using Ereceipt.Application.ViewModels.Authentication;
 using Ereceipt.Web.AppSetting;
+using Ereceipt.Web.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -38,7 +39,9 @@ namespace Ereceipt.Web.Controllers
         {
             model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
             var result = await _mediator.Send(new RegisterCommand(model));
-            return Result(result);
+            if (result.IsError)
+                return Ok(new APIBadRequestResponse(result.Error));
+            return Ok(new APIOKResponse("Successed registered!"));
         }
 
 
@@ -49,7 +52,7 @@ namespace Ereceipt.Web.Controllers
                 return new TokenResult("Login or password is incorrect");
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role),
                     new Claim("Id", user.Id.ToString())
                 };

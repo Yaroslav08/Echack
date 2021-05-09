@@ -25,7 +25,7 @@ namespace Ereceipt.Application.Services.Implementations
                 return new LoginViewModel("User with this email not found");
             if (!PasswordManager.VerifyPasswordHash(model.Password, userForLogin.PasswordHash))
                 return new LoginViewModel("Password is incorrect");
-            return new LoginViewModel(userForLogin.Id, userForLogin.Name, userForLogin.Role, userForLogin.Avatar);
+            return new LoginViewModel(userForLogin.Id, userForLogin.Name, userForLogin.Username, userForLogin.Role, userForLogin.Avatar);
         }
 
         public async Task<RegisterViewModel> RegisterAsync(RegisterModel model)
