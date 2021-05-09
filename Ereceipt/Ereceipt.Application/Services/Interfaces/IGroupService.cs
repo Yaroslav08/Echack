@@ -3,7 +3,7 @@ using Ereceipt.Application.ViewModels.Group;
 using Ereceipt.Application.ViewModels.GroupMember;
 using System;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Interfaces
+namespace Ereceipt.Application.Services.Interfaces
 {
     public interface IGroupService
     {

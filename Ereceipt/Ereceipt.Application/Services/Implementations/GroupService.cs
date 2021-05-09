@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Extensions;
-using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Groups;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Group;
 using Ereceipt.Application.ViewModels.GroupMember;
 using Ereceipt.Domain.Interfaces;
@@ -9,14 +9,14 @@ using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Services
+namespace Ereceipt.Application.Services.Implementations
 {
     public class GroupService : IGroupService
     {
-        private IGroupRepository _groupRepository;
-        private IGroupMemberRepository _groupMemberRepository;
-        private IReceiptRepository _ReceiptRepository;
-        private IMapper _mapper;
+        private readonly IGroupRepository _groupRepository;
+        private readonly IGroupMemberRepository _groupMemberRepository;
+        private readonly IReceiptRepository _ReceiptRepository;
+        private readonly IMapper _mapper;
         public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IReceiptRepository ReceiptRepository)
         {
             _groupRepository = groupRepository;

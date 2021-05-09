@@ -1,21 +1,19 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Extensions;
-using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Currencies;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Services
+namespace Ereceipt.Application.Services.Implementations
 {
     public class CurrencyService : ICurrencyService
     {
-        ICurrencyRepository _currencyRepository;
-        IMapper _mapper;
+        private readonly ICurrencyRepository _currencyRepository;
+        private readonly IMapper _mapper;
         public CurrencyService(ICurrencyRepository currencyRepository, IMapper mapper)
         {
             _currencyRepository = currencyRepository;

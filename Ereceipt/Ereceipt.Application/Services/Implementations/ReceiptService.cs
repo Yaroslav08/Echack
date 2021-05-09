@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Extensions;
-using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results;
 using Ereceipt.Application.Results.Receipts;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Domain.Interfaces;
@@ -11,15 +11,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Services
+namespace Ereceipt.Application.Services.Implementations
 {
     public class ReceiptService : IReceiptService
     {
-        private IReceiptRepository _receiptRepos;
-        private IProductService _productService;
-        private IJsonConverter _jsonConverter;
-        private ICurrencyRepository _currencyRepository;
-        private IMapper _mapper;
+        private readonly IReceiptRepository _receiptRepos;
+        private readonly IProductService _productService;
+        private readonly IJsonConverter _jsonConverter;
+        private readonly ICurrencyRepository _currencyRepository;
+        private readonly IMapper _mapper;
         public ReceiptService(IReceiptRepository ReceiptRepos, IMapper mapper, IProductService productService, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter)
         {
             _receiptRepos = ReceiptRepos;

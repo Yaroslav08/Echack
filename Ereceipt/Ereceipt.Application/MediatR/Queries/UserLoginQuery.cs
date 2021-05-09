@@ -1,4 +1,4 @@
-﻿using Ereceipt.Application.Interfaces;
+﻿using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
 using MediatR;

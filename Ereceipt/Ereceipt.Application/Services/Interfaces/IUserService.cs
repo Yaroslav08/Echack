@@ -2,7 +2,7 @@
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Models;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Interfaces
+namespace Ereceipt.Application.Services.Interfaces
 {
     public interface IUserService
     {

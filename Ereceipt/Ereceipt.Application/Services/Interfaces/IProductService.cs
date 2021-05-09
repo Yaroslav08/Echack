@@ -1,6 +1,6 @@
 ﻿using Ereceipt.Application.ViewModels.Receipt;
 using System.Collections.Generic;
-namespace Ereceipt.Application.Interfaces
+namespace Ereceipt.Application.Services.Interfaces
 {
     public interface IProductService
     {

@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Extensions;
-using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Users;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using Extensions;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Services
+namespace Ereceipt.Application.Services.Implementations
 {
     public class UserService : IUserService
     {

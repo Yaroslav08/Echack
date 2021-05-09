@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Comment;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Application.ViewModels.Group;

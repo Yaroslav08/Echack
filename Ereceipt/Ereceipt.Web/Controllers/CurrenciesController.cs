@@ -1,5 +1,5 @@
 ﻿using Ereceipt.Application.Extensions;
-using Ereceipt.Application.Interfaces;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Currency;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ namespace Ereceipt.Web.Controllers
 {
     public class CurrenciesController : ApiController
     {
-        public ICurrencyService _currencyService;
+        private readonly ICurrencyService _currencyService;
         ILogger<CurrenciesController> _logger;
         public CurrenciesController(ICurrencyService currencyService, ILogger<CurrenciesController> logger)
         {

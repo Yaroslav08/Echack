@@ -1,5 +1,5 @@
-﻿using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.Results.Comments;
+﻿using Ereceipt.Application.Results.Comments;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Comment;
 using MediatR;
 using System;
@@ -22,7 +22,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
     public class EditCommentCommandHandler : IRequestHandler<EditCommentCommand, CommentResult>
     {
-        ICommentService _commentService;
+        private readonly ICommentService _commentService;
 
         public EditCommentCommandHandler(ICommentService commentService)
         {

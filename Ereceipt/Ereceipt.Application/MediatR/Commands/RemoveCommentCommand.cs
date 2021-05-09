@@ -1,4 +1,4 @@
-﻿using Ereceipt.Application.Interfaces;
+﻿using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.Results.Comments;
 using MediatR;
 using System;

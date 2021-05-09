@@ -1,11 +1,7 @@
 ﻿using Ereceipt.Application.Results.Currencies;
 using Ereceipt.Application.ViewModels.Currency;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Interfaces
+namespace Ereceipt.Application.Services.Interfaces
 {
     public interface ICurrencyService
     {

@@ -1,5 +1,6 @@
-﻿using Ereceipt.Application.Interfaces;
+﻿using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.Results.Groups;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Group;
 using MediatR;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
     public class GroupCreateCommandHandler : IRequestHandler<GroupCreateCommand, GroupResult>
     {
-        IGroupService _groupService;
+        private readonly IGroupService _groupService;
 
         public GroupCreateCommandHandler(IGroupService groupService)
         {

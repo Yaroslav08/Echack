@@ -1,8 +1,8 @@
-﻿using Ereceipt.Application.Interfaces;
+﻿using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Receipt;
 using System.Collections.Generic;
 using System.Linq;
-namespace Ereceipt.Application.Services
+namespace Ereceipt.Application.Services.Implementations
 {
     public class ProductService : IProductService
     {

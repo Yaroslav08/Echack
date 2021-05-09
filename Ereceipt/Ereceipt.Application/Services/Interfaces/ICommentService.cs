@@ -1,11 +1,8 @@
 ﻿using Ereceipt.Application.Results.Comments;
 using Ereceipt.Application.ViewModels.Comment;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Interfaces
+namespace Ereceipt.Application.Services.Interfaces
 {
     public interface ICommentService
     {

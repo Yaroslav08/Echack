@@ -1,5 +1,5 @@
-﻿using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.Results.Receipts;
+﻿using Ereceipt.Application.Results.Receipts;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Receipt;
 using MediatR;
 using System.Threading;
@@ -17,7 +17,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
     public class AddReceiptToGroupCommandHandler : IRequestHandler<AddReceiptToGroupCommand, ReceiptResult>
     {
-        IReceiptService _ReceiptService;
+        private readonly IReceiptService _ReceiptService;
         public AddReceiptToGroupCommandHandler(IReceiptService ReceiptService)
         {
             _ReceiptService = ReceiptService;

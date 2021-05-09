@@ -1,4 +1,4 @@
-﻿using Ereceipt.Application.Interfaces;
+﻿using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.Results;
 using Ereceipt.Application.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;

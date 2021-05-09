@@ -1,21 +1,19 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Extensions;
-using Ereceipt.Application.Interfaces;
 using Ereceipt.Application.Results.Comments;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Comment;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Services
+namespace Ereceipt.Application.Services.Implementations
 {
     public class CommentService : ICommentService
     {
-        ICommentRepository _commentRepository;
-        IMapper _mapper;
+        private readonly ICommentRepository _commentRepository;
+        private readonly IMapper _mapper;
         public CommentService(ICommentRepository commentRepository, IMapper mapper)
         {
             _commentRepository = commentRepository;

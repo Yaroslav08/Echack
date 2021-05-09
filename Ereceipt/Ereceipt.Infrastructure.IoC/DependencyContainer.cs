@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Ereceipt.Application.Interfaces;
-using Ereceipt.Application.Services;
+using Ereceipt.Application.Services.Implementations;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Infrastructure.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;

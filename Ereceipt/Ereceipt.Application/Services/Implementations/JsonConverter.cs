@@ -1,8 +1,7 @@
-﻿using Ereceipt.Application.Interfaces;
-using System;
+﻿using Ereceipt.Application.Services.Interfaces;
 using System.Text.Json;
 
-namespace Ereceipt.Application.Services
+namespace Ereceipt.Application.Services.Implementations
 {
     public class JsonConverter : IJsonConverter
     {

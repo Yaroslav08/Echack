@@ -2,9 +2,8 @@
 using Ereceipt.Application.Results.Receipts;
 using Ereceipt.Application.ViewModels.Receipt;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-namespace Ereceipt.Application.Interfaces
+namespace Ereceipt.Application.Services.Interfaces
 {
     public interface IReceiptService
     {

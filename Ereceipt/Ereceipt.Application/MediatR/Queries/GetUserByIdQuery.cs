@@ -1,4 +1,4 @@
-﻿using Ereceipt.Application.Interfaces;
+﻿using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.Results.Users;
 using MediatR;
 using System.Threading;
