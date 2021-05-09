@@ -20,6 +20,7 @@ namespace Ereceipt.Web.AppSetting.Errors
         {
             if (IsExist(error))
                 return;
+            error.Id = Guid.NewGuid().ToString("N");
             _errors.Add(error);
         }
 
