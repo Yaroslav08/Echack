@@ -14,6 +14,7 @@ namespace Ereceipt.Web.AppSetting.Errors
         public FileErrorStorage()
         {
             _errors = new List<ErrorViewModel>();
+            DownloadErrorsAsync().GetAwaiter().GetResult();
         }
 
         public void AddNewError(ErrorViewModel error)
@@ -48,23 +49,13 @@ namespace Ereceipt.Web.AppSetting.Errors
                 return;
             var errors = JsonSerializer.Deserialize<List<ErrorViewModel>>(contentFromFile);
             _errors.Clear();
-            _errors = errors.OrderBy(x => x.Code).ToList();
+            _errors = GetSortedErrors(errors);
         }
 
         public async Task UploadErrorsAsync()
         {
-            using var sw = new StreamWriter(_pathFile);
-            var contentToFile = JsonSerializer.Serialize(_errors.OrderBy(x => x.Code).ToList());
-            await sw.WriteLineAsync(contentToFile);
-            sw.Dispose();
-        }
-
-        private bool IsExist(ErrorViewModel errorModel)
-        {
-            var error = _errors.FirstOrDefault(x => x.Code == errorModel.Code);
-            if (error is null)
-                return false;
-            return true;
+            var contentToFile = JsonSerializer.Serialize(GetSortedErrors(ErrorSortBy.CodeAsc));
+            await File.WriteAllTextAsync(_pathFile, contentToFile);
         }
 
         public ErrorViewModel GetErrorById(string id)
@@ -79,13 +70,60 @@ namespace Ereceipt.Web.AppSetting.Errors
 
         public List<ErrorViewModel> GetErrorsByCategory(string category)
         {
-            return _errors
+            var errorsByCategory = _errors
                 .Where(x => x.Category == category)
-                .OrderBy(x => x.Code)
                 .ToList();
+            return GetSortedErrors(errorsByCategory);
         }
 
-        public List<ErrorViewModel> GetAllErrors() =>
-            _errors.OrderBy(x => x.Code).ToList();
+        public List<ErrorViewModel> GetAllErrors() => GetSortedErrors();
+
+
+        private bool IsExist(ErrorViewModel errorModel)
+        {
+            var error = _errors.FirstOrDefault(x => x.Code == errorModel.Code);
+            if (error is null)
+                return false;
+            return true;
+        }
+        private List<ErrorViewModel> GetSortedErrors(ErrorSortBy sortBy = ErrorSortBy.CodeAsc) =>
+            sortBy switch
+            {
+                ErrorSortBy.CodeAsc => _errors.OrderBy(x => x.Code).ToList(),
+                ErrorSortBy.IdAsc => _errors.OrderBy(x=>x.Id).ToList(),
+                ErrorSortBy.DateAsc => _errors.OrderBy(x => x.CreatedAt).ToList(),
+                ErrorSortBy.CategoryAsc => _errors.OrderBy(x => x.Category).ToList(),
+                ErrorSortBy.IdDesc => _errors.OrderByDescending(x => x.Id).ToList(),
+                ErrorSortBy.DateDesc => _errors.OrderByDescending(x => x.CreatedAt).ToList(),
+                ErrorSortBy.CodeDesc => _errors.OrderByDescending(x => x.Code).ToList(),
+                ErrorSortBy.CategoryDesc => _errors.OrderByDescending(x => x.Category).ToList(),
+                _=> _errors.OrderBy(x => x.Code).ToList()
+            };
+
+        private List<ErrorViewModel> GetSortedErrors(List<ErrorViewModel> errors, ErrorSortBy sortBy = ErrorSortBy.CodeAsc) =>
+            sortBy switch
+            {
+                ErrorSortBy.CodeAsc => errors.OrderBy(x => x.Code).ToList(),
+                ErrorSortBy.IdAsc => errors.OrderBy(x => x.Id).ToList(),
+                ErrorSortBy.DateAsc => errors.OrderBy(x => x.CreatedAt).ToList(),
+                ErrorSortBy.CategoryAsc => errors.OrderBy(x => x.Category).ToList(),
+                ErrorSortBy.IdDesc => errors.OrderByDescending(x => x.Id).ToList(),
+                ErrorSortBy.DateDesc => errors.OrderByDescending(x => x.CreatedAt).ToList(),
+                ErrorSortBy.CodeDesc => errors.OrderByDescending(x => x.Code).ToList(),
+                ErrorSortBy.CategoryDesc => errors.OrderByDescending(x => x.Category).ToList(),
+                _ => errors.OrderBy(x => x.Code).ToList()
+            };
+    }
+
+    public enum ErrorSortBy
+    {
+        IdAsc,
+        DateAsc,
+        CodeAsc,
+        CategoryAsc,
+        IdDesc,
+        DateDesc,
+        CodeDesc,
+        CategoryDesc
     }
 }
