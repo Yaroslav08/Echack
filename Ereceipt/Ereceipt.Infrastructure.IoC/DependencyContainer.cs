@@ -26,6 +26,7 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddScoped<ITestDataService, TestDataService>();
             services.AddScoped<IJsonConverter, JsonConverter>();
             services.AddScoped<IAuthenticationService, TokenAuthenticationService>();
+            services.AddScoped<IUsernameService, UsernameService>();
         }
 
         public static void AddEreceiptAutoMapper(this IServiceCollection services)

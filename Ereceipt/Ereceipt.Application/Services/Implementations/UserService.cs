@@ -13,20 +13,25 @@ namespace Ereceipt.Application.Services.Implementations
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUsernameService _usernameService;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, IUsernameService usernameService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _usernameService = usernameService;
         }
 
         public async Task<UserResult> EditUserAsync(UserEditViewModel model)
         {
             var user = await _userRepository.GetByIdAsTrackingAsync(model.UserId);
             if (user == null)
-                return null;
+                return new UserResult($"User with Id:{model.UserId} not found for edit");
+            if (await _usernameService.UsernameIsBusyAsync(model.Username))
+                return new UserResult("This username is busy");
             user.Name = model.Name;
+            user.Username = model.Username;
             user.SetUpdateData(model);
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.UpdateAsync(user)));
         }

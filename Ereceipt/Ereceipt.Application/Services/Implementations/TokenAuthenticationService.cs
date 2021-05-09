@@ -11,9 +11,11 @@ namespace Ereceipt.Application.Services.Implementations
     public class TokenAuthenticationService : IAuthenticationService
     {
         private readonly IUserRepository _userRepository;
-        public TokenAuthenticationService(IUserRepository userRepository)
+        private readonly IUsernameService _usernameService;
+        public TokenAuthenticationService(IUserRepository userRepository, IUsernameService usernameService)
         {
             _userRepository = userRepository;
+            _usernameService = usernameService;
         }
 
         public async Task<LoginViewModel> LoginAsync(LoginModel model)
@@ -38,6 +40,7 @@ namespace Ereceipt.Application.Services.Implementations
                 CreatedBy = "0",
                 Login = model.Login,
                 Role = "User",
+                Username = await _usernameService.GeneratingNewUsernameAsync(),
                 PasswordHash = PasswordManager.GeneratePasswordHash(model.Password)
             };
             var createdUser = await _userRepository.CreateAsync(newUser);

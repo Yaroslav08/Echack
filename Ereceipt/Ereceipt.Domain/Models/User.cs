@@ -6,6 +6,8 @@ namespace Ereceipt.Domain.Models
     {
         [Required, MinLength(5), MaxLength(150)]
         public string Name { get; set; }
+        [Required, MinLength(3), MaxLength(30)]
+        public string Username { get; set; }
         [MinLength(20), MaxLength(150)]
         public string Avatar { get; set; }
         [MinLength(8), MaxLength(100)]
