@@ -21,20 +21,6 @@ namespace Ereceipt.Application.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<UserResult> CreateUserAsync(UserCreateViewModel model)
-        {
-            var user = new User
-            {
-                Name = model.Name,
-                Login = model.Login,
-                PasswordHash = PasswordManager.GeneratePasswordHash(model.Password),
-                CreatedBy = "0",
-                Role = "User",
-                Avatar = model.Photo
-            };
-            return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.CreateAsync(user)));
-        }
-
         public async Task<UserResult> EditUserAsync(UserEditViewModel model)
         {
             var user = await _userRepository.GetByIdAsTrackingAsync(model.UserId);
@@ -54,19 +40,6 @@ namespace Ereceipt.Application.Services.Implementations
         {
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.FindAsync(d => d.Id == id)));
         }
-
-        public async Task<User> LoginUserAsync(UserLoginViewModel model)
-        {
-            var user = await _userRepository.FindAsync(d => d.Login == model.Login);
-            if (user == null)
-                return null;
-            if(!PasswordManager.VerifyPasswordHash(model.Password, user.PasswordHash))
-            {
-                return null;
-            }
-            return user;
-        }
-
         public async Task<ListUsersResult> SearchUsersAsync(string user, int afterId)
         {
             return new ListUsersResult(_mapper.Map<List<UserViewModel>>(await _userRepository.SearchUsersAsync(user, afterId)));

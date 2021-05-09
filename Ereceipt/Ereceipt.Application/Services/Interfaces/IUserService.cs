@@ -6,8 +6,6 @@ namespace Ereceipt.Application.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<User> LoginUserAsync(UserLoginViewModel model);
-        Task<UserResult> CreateUserAsync(UserCreateViewModel model);
         Task<UserResult> EditUserAsync(UserEditViewModel model);
         Task<UserResult> GetUserByIdAsync(int id);
         Task<ListUsersResult> SearchUsersAsync(string user, int afterId);

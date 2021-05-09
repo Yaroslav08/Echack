@@ -1,7 +1,5 @@
 ﻿using Ereceipt.Application.MediatR.Commands;
-using Ereceipt.Application.MediatR.Queries;
-using Ereceipt.Application.ViewModels.User;
-using Ereceipt.Domain.Models;
+using Ereceipt.Application.ViewModels.Authentication;
 using Ereceipt.Web.AppSetting;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -27,31 +25,31 @@ namespace Ereceipt.Web.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] UserLoginViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var result = GetToken(await _mediator.Send(new UserLoginQuery(model)));
+            var result = GetToken(await _mediator.Send(new LoginCommand(model)));
             return Result(result, "Login or password is incorrect");
         }
 
 
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] UserCreateViewModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
-            var result = await _mediator.Send(new UserCreateCommand(model));
+            var result = await _mediator.Send(new RegisterCommand(model));
             return Result(result);
         }
 
 
         [NonAction]
-        private TokenResult GetToken(User user)
+        private TokenResult GetToken(LoginViewModel user)
         {
             if (user == null)
                 return new TokenResult("Login or password is incorrect");
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role),
                     new Claim("Id", user.Id.ToString())
                 };

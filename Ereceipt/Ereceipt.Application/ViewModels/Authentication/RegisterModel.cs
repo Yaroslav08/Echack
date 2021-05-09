@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Ereceipt.Application.ViewModels.User
+namespace Ereceipt.Application.ViewModels.Authentication
 {
-    public class UserCreateViewModel : RequestModel
+    public class RegisterModel
     {
         [Required, MinLength(5), MaxLength(150)]
         public string Name { get; set; }
@@ -9,7 +9,6 @@ namespace Ereceipt.Application.ViewModels.User
         public string Login { get; set; }
         [MinLength(8), MaxLength(25)]
         public string Password { get; set; }
-
         public string Photo { get; set; }
     }
 }
