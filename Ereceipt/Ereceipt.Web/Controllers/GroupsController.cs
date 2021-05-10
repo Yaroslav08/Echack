@@ -12,7 +12,7 @@ namespace Ereceipt.Web.Controllers
 {
     public class GroupsController : ApiController
     {
-        private IMediator _mediatr;
+        private readonly IMediator _mediatr;
         public GroupsController(IMediator mediatr)
         {
             _mediatr = mediatr;
