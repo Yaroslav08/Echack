@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
-    public class Receipt : BaseModelWithIdentityGen<Guid>
+    public class Receipt : BaseModel<Guid>
     {
         [Required, MinLength(1), MaxLength(100)]
         public string ShopName { get; set; }

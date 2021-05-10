@@ -7,9 +7,9 @@ namespace Ereceipt.Application.Extensions
     {
         public static void SetUpdateData(this BaseModel model, RequestModel requestModel)
         {
-            model.UpdatedAt = DateTime.UtcNow;
-            model.UpdatedBy = requestModel.UserId.ToString();
-            model.UpdatedFromIP = requestModel.IP;
+            model.LastUpdatedAt = DateTime.UtcNow;
+            model.LastUpdatedBy = requestModel.UserId.ToString();
+            model.LastUpdatedFromIP = requestModel.IP;
         }
 
         public static void SetInitData(this BaseModel model, RequestModel requestModel)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
-    public class Group : BaseModelWithIdentityGen<Guid>
+    public class Group : BaseModel<Guid>
     {
         [Required, MinLength(1), MaxLength(100)]
         public string Name { get; set; }

@@ -112,8 +112,9 @@ namespace Ereceipt.Application.Services.Implementations
                 Receipts.ForEach(d =>
                 {
                     d.GroupId = null;
-                    d.UpdatedAt = DateTime.UtcNow;
-                    d.UpdatedBy = userId.ToString();
+                    d.LastUpdatedAt = DateTime.UtcNow;
+                    d.LastUpdatedBy = userId.ToString();
+                    d.LastUpdatedFromIP = "::1";
                 });
                 await _ReceiptRepository.UpdateRangeAsync(Receipts);
             }

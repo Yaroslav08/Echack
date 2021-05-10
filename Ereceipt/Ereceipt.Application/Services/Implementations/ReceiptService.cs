@@ -39,8 +39,8 @@ namespace Ereceipt.Application.Services.Implementations
             if (Receipt.GroupId != null)
                 return new ReceiptResult("Already in group");
             Receipt.GroupId = model.GroupId;
-            Receipt.UpdatedAt = DateTime.UtcNow;
-            Receipt.UpdatedBy = model.UserId.ToString();
+            Receipt.LastUpdatedAt = DateTime.UtcNow;
+            Receipt.LastUpdatedBy = model.UserId.ToString();
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.UpdateAsync(Receipt)));
         }
 
@@ -144,8 +144,8 @@ namespace Ereceipt.Application.Services.Implementations
             if (Receipt.GroupId != model.GroupId)
                 return new ReceiptResult("GroupId not valid");
             Receipt.GroupId = null;
-            Receipt.UpdatedAt = DateTime.Now;
-            Receipt.UpdatedBy = model.UserId.ToString();
+            Receipt.LastUpdatedAt = DateTime.Now;
+            Receipt.LastUpdatedBy = model.UserId.ToString();
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.UpdateAsync(Receipt)));
         }
     }

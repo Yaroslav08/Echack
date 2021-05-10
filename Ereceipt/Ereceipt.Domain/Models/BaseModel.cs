@@ -3,26 +3,34 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Ereceipt.Domain.Models
 {
-    public class BaseModel
+    public class BaseCreateModel
     {
-        [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedFromIP { get; set; }
-
-        public DateTime? UpdatedAt { get; set; }
-        public string UpdatedBy { get; set; }
-        public string UpdatedFromIP { get; set; }
     }
+
+    public class BaseEditModel : BaseCreateModel
+    {
+        public DateTime? LastUpdatedAt { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public string LastUpdatedFromIP { get; set; }
+    }
+
+    public class BaseModel : BaseEditModel
+    {
+
+    }
+
     public class BaseModel<TypeId> : BaseModel
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public TypeId Id { get; set; }
     }
 
-    public class BaseModelWithIdentityGen<TypeId> : BaseModel
+    public class BaseModelWithoutGeneratingId<TypeId> : BaseModel
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public TypeId Id { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
-    public class GroupMember : BaseModelWithIdentityGen<Guid>
+    public class GroupMember : BaseModel<Guid>
     {
         [Required, MinLength(1), MaxLength(100)]
         public string Title { get; set; }

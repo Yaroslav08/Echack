@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
-    public class Comment : BaseModelWithIdentityGen<long>
+    public class Comment : BaseModel<long>
     {
         [Required, MinLength(1), MaxLength(500)]
         public string Text { get; set; }

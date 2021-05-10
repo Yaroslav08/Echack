@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ereceipt.Domain.Models
 {
-    public class Budget : BaseModelWithIdentityGen<int>
+    public class Budget : BaseModel<int>
     {
         [Required, MinLength(2), MaxLength(50)]
         public string Name { get; set; }

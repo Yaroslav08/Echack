@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
-    public class Currency : BaseModelWithIdentityGen<int>
+    public class Currency : BaseModel<int>
     {
         [Required]
         public string Symbol { get; set; }
