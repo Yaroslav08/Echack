@@ -24,6 +24,7 @@ namespace Ereceipt.Infrastructure.Data.Context
             modelBuilder.ApplyConfiguration(new GroupMemberConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
+            modelBuilder.ApplyConfiguration(new BugdetConfiguration());
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
