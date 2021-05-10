@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Web.Controllers
 {
-    [AllowAnonymous]
     public class ErrorsController : ApiController
     {
         private readonly IErrorStorage _errorStorage;
