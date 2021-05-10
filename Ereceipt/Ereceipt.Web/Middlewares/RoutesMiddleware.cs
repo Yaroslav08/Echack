@@ -24,7 +24,7 @@ namespace Ereceipt.Web.Middlewares
         {
             if (httpContext.Request.Path.Value == "/api/routes")
             {
-                var result = new ListResult<RouteModel>();
+                var result = new ListRoutes<RouteModel>();
                 var routes = _actionDescriptorCollectionProvider.ActionDescriptors.Items.Where(
                     ad => ad.AttributeRouteInfo != null).Select(ad =>
                     new RouteModel

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-
 namespace Ereceipt.Web.Models
 {
-    internal class ListResult<T>
+    internal class ListRoutes<T>
     {
-        public ListResult()
+        public ListRoutes()
         {
         }
 
