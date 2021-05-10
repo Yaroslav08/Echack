@@ -18,7 +18,7 @@ namespace Ereceipt.Application.MediatR.Queries
 
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, ListUsersResult>
     {
-        IUserService _userService;
+        private readonly IUserService _userService;
         public GetAllUsersQueryHandler(IUserService userService)
         {
             _userService = userService;

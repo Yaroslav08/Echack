@@ -11,8 +11,8 @@ namespace Ereceipt.Web.Controllers
 {
     public class CommentsController : ApiController
     {
-        IMediator _mediator;
-        ILogger<CommentsController> _logger;
+        private readonly IMediator _mediator;
+        private readonly ILogger<CommentsController> _logger;
         public CommentsController(IMediator mediator, ILogger<CommentsController> logger)
         {
             _mediator = mediator;
