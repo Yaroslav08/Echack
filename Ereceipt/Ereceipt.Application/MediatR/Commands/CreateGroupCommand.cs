@@ -6,16 +6,16 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class GroupCreateCommand : IRequest<GroupResult>
+    public class CreateGroupCommand : IRequest<GroupResult>
     {
         public GroupCreateModel Group { get; set; }
-        public GroupCreateCommand(GroupCreateModel group)
+        public CreateGroupCommand(GroupCreateModel group)
         {
             Group = group;
         }
     }
 
-    public class GroupCreateCommandHandler : IRequestHandler<GroupCreateCommand, GroupResult>
+    public class GroupCreateCommandHandler : IRequestHandler<CreateGroupCommand, GroupResult>
     {
         private readonly IGroupService _groupService;
 
@@ -24,7 +24,7 @@ namespace Ereceipt.Application.MediatR.Commands
             _groupService = groupService;
         }
 
-        public async Task<GroupResult> Handle(GroupCreateCommand request, CancellationToken cancellationToken)
+        public async Task<GroupResult> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {
             return await _groupService.CreateGroupAsync(request.Group);
         }

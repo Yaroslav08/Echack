@@ -29,7 +29,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> EditUser(int id, [FromBody] UserEditModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
-            var result = await _mediator.Send(new UserEditCommand(model));
+            var result = await _mediator.Send(new EditUserCommand(model));
             return Result(result);
         }
 

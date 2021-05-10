@@ -51,7 +51,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
-            var result = await _mediatr.Send(new GroupCreateCommand(model));
+            var result = await _mediatr.Send(new CreateGroupCommand(model));
             return Result(result);
         }
 
@@ -59,14 +59,14 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> EditGroup([FromBody] GroupEditModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
-            var result = await _mediatr.Send(new GroupEditCommand(model));
+            var result = await _mediatr.Send(new EditGroupCommand(model));
             return Result(result);
         }
 
         [HttpDelete]
         public async Task<IActionResult> RemoveGroup(Guid id)
         {
-            var result = await _mediatr.Send(new GroupRemoveCommand(id, GetId()));
+            var result = await _mediatr.Send(new RemoveGroupCommand(id, GetId()));
             return Result(result);
         }
 

@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class GroupRemoveCommand : IRequest<GroupResult>
+    public class RemoveGroupCommand : IRequest<GroupResult>
     {
         public Guid Id { get; }
         public int UserId { get; }
-        public GroupRemoveCommand(Guid id, int userId)
+        public RemoveGroupCommand(Guid id, int userId)
         {
             Id = id;
             UserId = userId;
         }
     }
 
-    public class GroupRemoveCommandHandler : IRequestHandler<GroupRemoveCommand, GroupResult>
+    public class GroupRemoveCommandHandler : IRequestHandler<RemoveGroupCommand, GroupResult>
     {
         IGroupService _groupService;
         public GroupRemoveCommandHandler(IGroupService groupService)
@@ -27,7 +27,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<GroupResult> Handle(GroupRemoveCommand request, CancellationToken cancellationToken)
+        public async Task<GroupResult> Handle(RemoveGroupCommand request, CancellationToken cancellationToken)
         {
             return await _groupService.RemoveGroupAsync(request.Id, request.UserId);
         }

@@ -6,17 +6,17 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class ReceiptCreateCommand : IRequest<ReceiptResult>
+    public class CreateReceiptCommand : IRequest<ReceiptResult>
     {
         public ReceiptCreateModel Receipt { get; set; }
 
-        public ReceiptCreateCommand(ReceiptCreateModel receipt)
+        public CreateReceiptCommand(ReceiptCreateModel receipt)
         {
             Receipt = receipt;
         }
     }
 
-    public class ReceiptCreateCommandHandler : IRequestHandler<ReceiptCreateCommand, ReceiptResult>
+    public class ReceiptCreateCommandHandler : IRequestHandler<CreateReceiptCommand, ReceiptResult>
     {
         IReceiptService _ReceiptService;
         public ReceiptCreateCommandHandler(IReceiptService ReceiptService)
@@ -25,7 +25,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<ReceiptResult> Handle(ReceiptCreateCommand request, CancellationToken cancellationToken)
+        public async Task<ReceiptResult> Handle(CreateReceiptCommand request, CancellationToken cancellationToken)
         {
             return await _ReceiptService.CreateReceiptAsync(request.Receipt);
         }

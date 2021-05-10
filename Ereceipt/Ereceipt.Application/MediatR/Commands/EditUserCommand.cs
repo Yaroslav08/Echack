@@ -6,16 +6,16 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class UserEditCommand : IRequest<UserResult>
+    public class EditUserCommand : IRequest<UserResult>
     {
         public UserEditModel User { get; set; }
-        public UserEditCommand(UserEditModel user)
+        public EditUserCommand(UserEditModel user)
         {
             User = user;
         }
     }
 
-    public class UserEditCommandHandler : IRequestHandler<UserEditCommand, UserResult>
+    public class UserEditCommandHandler : IRequestHandler<EditUserCommand, UserResult>
     {
         IUserService _userService;
         public UserEditCommandHandler(IUserService userService)
@@ -24,7 +24,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<UserResult> Handle(UserEditCommand request, CancellationToken cancellationToken)
+        public async Task<UserResult> Handle(EditUserCommand request, CancellationToken cancellationToken)
         {
             return await _userService.EditUserAsync(request.User);
         }

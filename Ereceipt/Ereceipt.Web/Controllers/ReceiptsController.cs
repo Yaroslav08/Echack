@@ -22,7 +22,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
-            var result = await _mediator.Send(new ReceiptCreateCommand(model));
+            var result = await _mediator.Send(new CreateReceiptCommand(model));
             return Result(result);
         }
 
@@ -30,7 +30,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> EditReceipt([FromBody] ReceiptEditModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
-            var result = await _mediator.Send(new ReceiptEditCommand(model));
+            var result = await _mediator.Send(new EditReceiptCommand(model));
             return Result(result);
         }
 

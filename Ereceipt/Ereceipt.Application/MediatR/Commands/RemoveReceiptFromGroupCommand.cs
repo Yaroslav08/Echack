@@ -17,16 +17,16 @@ namespace Ereceipt.Application.MediatR.Commands
 
     public class RemoveReceiptFromGroupCommandHandler : IRequestHandler<RemoveReceiptFromGroupCommand, ReceiptResult>
     {
-        IReceiptService _ReceiptService;
+        private readonly IReceiptService _receiptService;
         public RemoveReceiptFromGroupCommandHandler(IReceiptService ReceiptService)
         {
-            _ReceiptService = ReceiptService;
+            _receiptService = ReceiptService;
         }
 
 
         public async Task<ReceiptResult> Handle(RemoveReceiptFromGroupCommand request, CancellationToken cancellationToken)
         {
-            return await _ReceiptService.RemoveReceiptFromGroupAsync(request.ToGroup);
+            return await _receiptService.RemoveReceiptFromGroupAsync(request.ToGroup);
         }
     }
 }

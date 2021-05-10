@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Application.MediatR.Commands
 {
-    public class GroupEditCommand : IRequest<GroupResult>
+    public class EditGroupCommand : IRequest<GroupResult>
     {
         public GroupEditModel Group { get; }
-        public GroupEditCommand(GroupEditModel group)
+        public EditGroupCommand(GroupEditModel group)
         {
             Group = group;
         }
     }
 
-    public class GroupEditCommandHandler : IRequestHandler<GroupEditCommand, GroupResult>
+    public class GroupEditCommandHandler : IRequestHandler<EditGroupCommand, GroupResult>
     {
         IGroupService _groupService;
         public GroupEditCommandHandler(IGroupService groupService)
@@ -25,7 +25,7 @@ namespace Ereceipt.Application.MediatR.Commands
         }
 
 
-        public async Task<GroupResult> Handle(GroupEditCommand request, CancellationToken cancellationToken)
+        public async Task<GroupResult> Handle(EditGroupCommand request, CancellationToken cancellationToken)
         {
             if (await _groupService.CanEditGroupAsync(request.Group.Id, request.Group.UserId))
                 return await _groupService.EditGroupAsync(request.Group);
