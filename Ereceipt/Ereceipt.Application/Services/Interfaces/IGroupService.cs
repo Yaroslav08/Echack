@@ -8,10 +8,10 @@ namespace Ereceipt.Application.Services.Interfaces
     public interface IGroupService
     {
         Task<GroupResult> GetGroupByIdAsync(Guid id);
-        Task<GroupResult> CreateGroupAsync(GroupCreateViewModel model);
-        Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateViewModel model);
-        Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateViewModel model);
-        Task<GroupResult> EditGroupAsync(GroupEditViewModel model);
+        Task<GroupResult> CreateGroupAsync(GroupCreateModel model);
+        Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateModel model);
+        Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateModel model);
+        Task<GroupResult> EditGroupAsync(GroupEditModel model);
         Task<GroupResult> RemoveGroupAsync(Guid id, int userId);
         Task<ListReceiptGroupResult> GetReceiptsByGroupIdAsync(Guid groupId, int skip);
         Task<ListGroupMemberResult> GetGroupMembersAsync(Guid id);

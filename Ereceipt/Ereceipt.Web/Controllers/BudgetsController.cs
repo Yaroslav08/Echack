@@ -16,7 +16,7 @@ namespace Ereceipt.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateBudget([FromBody] BudgetCreateViewModel model)
+        public async Task<IActionResult> CreateBudget([FromBody] BudgetCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediator.Send(new CreateBudgetCommand(model));

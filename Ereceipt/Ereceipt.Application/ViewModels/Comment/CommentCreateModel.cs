@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Application.ViewModels.Comment
 {
-    public class CommentCreateViewModel : RequestModel
+    public class CommentCreateModel : RequestModel
     {
         [Required, MinLength(1), MaxLength(500)]
         public string Text { get; set; }

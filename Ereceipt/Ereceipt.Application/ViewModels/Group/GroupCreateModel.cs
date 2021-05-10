@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Application.ViewModels.Group
 {
-    public class GroupCreateViewModel : RequestModel
+    public class GroupCreateModel : RequestModel
     {
         [Required, MinLength(1), MaxLength(100)]
         public string Name { get; set; }

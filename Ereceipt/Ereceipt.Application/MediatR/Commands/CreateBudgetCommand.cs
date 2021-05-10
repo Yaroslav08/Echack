@@ -8,11 +8,11 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class CreateBudgetCommand : IRequest<BudgetResult>
     {
-        public CreateBudgetCommand(BudgetCreateViewModel model)
+        public CreateBudgetCommand(BudgetCreateModel model)
         {
             Budget = model;
         }
-        public BudgetCreateViewModel Budget { get; set; }
+        public BudgetCreateModel Budget { get; set; }
     }
     public class CreateBudgetCommandHandler : IRequestHandler<CreateBudgetCommand, BudgetResult>
     {

@@ -4,6 +4,6 @@ namespace Ereceipt.Application.Services.Interfaces
 {
     public interface IProductService
     {
-        double GetSum(List<ProductCreateViewModel> products);
+        double GetSum(List<ProductCreateModel> products);
     }
 }

@@ -9,8 +9,8 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class GroupEditCommand : IRequest<GroupResult>
     {
-        public GroupEditViewModel Group { get; }
-        public GroupEditCommand(GroupEditViewModel group)
+        public GroupEditModel Group { get; }
+        public GroupEditCommand(GroupEditModel group)
         {
             Group = group;
         }

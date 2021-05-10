@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.ViewModels.Comment
 {
-    public class CommentEditViewModel : CommentCreateViewModel
+    public class CommentEditModel : CommentCreateModel
     {
         public long Id { get; set; }
     }

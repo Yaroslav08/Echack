@@ -6,7 +6,7 @@ namespace Ereceipt.Application.Services.Implementations
 {
     public class ProductService : IProductService
     {
-        public double GetSum(List<ProductCreateViewModel> products)
+        public double GetSum(List<ProductCreateModel> products)
         {
             if (products == null || products.Count == 0)
                 return 0;

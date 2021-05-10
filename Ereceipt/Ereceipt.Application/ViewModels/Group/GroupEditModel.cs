@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Application.ViewModels.Group
 {
-    public class GroupEditViewModel : RequestModel
+    public class GroupEditModel : RequestModel
     {
         [Required]
         public Guid Id { get; set; }

@@ -12,9 +12,9 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class EditCommentCommand : IRequest<CommentResult>
     {
-        public CommentEditViewModel Model { get; set; }
+        public CommentEditModel Model { get; set; }
 
-        public EditCommentCommand(CommentEditViewModel model)
+        public EditCommentCommand(CommentEditModel model)
         {
             Model = model;
         }

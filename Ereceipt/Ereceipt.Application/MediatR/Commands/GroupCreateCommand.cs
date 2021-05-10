@@ -9,8 +9,8 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class GroupCreateCommand : IRequest<GroupResult>
     {
-        public GroupCreateViewModel Group { get; set; }
-        public GroupCreateCommand(GroupCreateViewModel group)
+        public GroupCreateModel Group { get; set; }
+        public GroupCreateCommand(GroupCreateModel group)
         {
             Group = group;
         }

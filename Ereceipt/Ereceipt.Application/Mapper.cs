@@ -57,7 +57,7 @@ namespace Ereceipt.Application
 
             CreateMap<Budget, BudgetViewModel>()
                 .ForMember(x => x.Currency, s => s.MapFrom(x => _jsonConverter.GetModelFromJson<CurrencyViewModel>(x.Currency)));
-            CreateMap<BudgetCreateViewModel, Budget>();
+            CreateMap<BudgetCreateModel, Budget>();
         }
     }
 }

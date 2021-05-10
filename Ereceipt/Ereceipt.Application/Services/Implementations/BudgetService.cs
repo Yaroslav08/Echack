@@ -26,7 +26,7 @@ namespace Ereceipt.Application.Services.Implementations
             _jsonConverter = jsonConverter;
         }
 
-        public async Task<BudgetResult> CreateBudgetAsync(BudgetCreateViewModel model)
+        public async Task<BudgetResult> CreateBudgetAsync(BudgetCreateModel model)
         {
             var currencyById = _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(x => x.Id == model.CurrencyId));
             if (currencyById is null)

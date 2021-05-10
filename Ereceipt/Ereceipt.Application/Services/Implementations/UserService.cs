@@ -23,7 +23,7 @@ namespace Ereceipt.Application.Services.Implementations
             _usernameService = usernameService;
         }
 
-        public async Task<UserResult> EditUserAsync(UserEditViewModel model)
+        public async Task<UserResult> EditUserAsync(UserEditModel model)
         {
             var user = await _userRepository.GetByIdAsTrackingAsync(model.UserId);
             if (user == null)

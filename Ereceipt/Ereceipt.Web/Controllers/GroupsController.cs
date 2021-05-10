@@ -48,7 +48,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGroup([FromBody] GroupCreateViewModel model)
+        public async Task<IActionResult> CreateGroup([FromBody] GroupCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediatr.Send(new GroupCreateCommand(model));
@@ -56,7 +56,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditGroup([FromBody] GroupEditViewModel model)
+        public async Task<IActionResult> EditGroup([FromBody] GroupEditModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediatr.Send(new GroupEditCommand(model));
@@ -72,7 +72,7 @@ namespace Ereceipt.Web.Controllers
 
 
         [HttpPost("members")]
-        public async Task<IActionResult> AddMember([FromBody] GroupMemberCreateViewModel model)
+        public async Task<IActionResult> AddMember([FromBody] GroupMemberCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediatr.Send(new AddUserToGroupCommand(model));
@@ -81,7 +81,7 @@ namespace Ereceipt.Web.Controllers
 
 
         [HttpDelete("members")]
-        public async Task<IActionResult> RemoveMember([FromBody] GroupMemberCreateViewModel model)
+        public async Task<IActionResult> RemoveMember([FromBody] GroupMemberCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediatr.Send(new RemoveUserFromGroupCommand(model));

@@ -8,8 +8,8 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class UserEditCommand : IRequest<UserResult>
     {
-        public UserEditViewModel User { get; set; }
-        public UserEditCommand(UserEditViewModel user)
+        public UserEditModel User { get; set; }
+        public UserEditCommand(UserEditModel user)
         {
             User = user;
         }

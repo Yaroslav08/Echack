@@ -20,7 +20,7 @@ namespace Ereceipt.Application.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<CommentResult> CreateCommentAsync(CommentCreateViewModel model)
+        public async Task<CommentResult> CreateCommentAsync(CommentCreateModel model)
         {
             var comment = new Comment
             {
@@ -33,7 +33,7 @@ namespace Ereceipt.Application.Services.Implementations
             return new CommentResult(_mapper.Map<CommentViewModel>(await _commentRepository.CreateAsync(comment)));
         }
 
-        public async Task<CommentResult> EditCommentAsync(CommentEditViewModel model)
+        public async Task<CommentResult> EditCommentAsync(CommentEditModel model)
         {
             var commentToEdit = await _commentRepository.FindAsTrackingAsync(x => x.Id == model.Id);
             if (commentToEdit == null)

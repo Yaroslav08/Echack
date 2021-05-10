@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Application.ViewModels.Receipt
 {
-    public class ProductCreateViewModel
+    public class ProductCreateModel
     {
         public string Id { get; set; } = Guid.NewGuid().ToString("N");
         [Required]

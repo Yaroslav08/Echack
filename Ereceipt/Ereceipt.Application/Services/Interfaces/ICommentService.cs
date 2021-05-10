@@ -8,8 +8,8 @@ namespace Ereceipt.Application.Services.Interfaces
     {
         Task<ListCommentResult> GetCommentsByReceiptIdAsync(Guid id);
         Task<CommentResult> GetCommentWithDetailsAsync(long id);
-        Task<CommentResult> CreateCommentAsync(CommentCreateViewModel model);
-        Task<CommentResult> EditCommentAsync(CommentEditViewModel model);
+        Task<CommentResult> CreateCommentAsync(CommentCreateModel model);
+        Task<CommentResult> EditCommentAsync(CommentEditModel model);
         Task<CommentResult> RemoveCommentAsync(int userId, long commentId);
     }
 }

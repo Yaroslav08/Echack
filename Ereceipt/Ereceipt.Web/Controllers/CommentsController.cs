@@ -28,7 +28,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] CommentCreateViewModel model)
+        public async Task<IActionResult> CreateComment([FromBody] CommentCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediator.Send(new CreateCommentCommand(model));
@@ -36,7 +36,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditComment([FromBody] CommentEditViewModel model)
+        public async Task<IActionResult> EditComment([FromBody] CommentEditModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediator.Send(new EditCommentCommand(model));

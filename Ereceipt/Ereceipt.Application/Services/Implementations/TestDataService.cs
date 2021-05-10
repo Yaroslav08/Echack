@@ -22,11 +22,11 @@ namespace Ereceipt.Application.Services.Implementations
 
             for (int i = 0; i < products.Length; i++)
             {
-                var productsToDb = new List<ProductCreateViewModel>();
+                var productsToDb = new List<ProductCreateModel>();
                 for (int j = 0; j < new Random().Next(1,5); j++)
                 {
                     var productId = Guid.NewGuid().ToString("N");
-                    productsToDb.Add(new ProductCreateViewModel
+                    productsToDb.Add(new ProductCreateModel
                     {
                         CountWeight = new Random().Next(1,15),
                         Id = productId,

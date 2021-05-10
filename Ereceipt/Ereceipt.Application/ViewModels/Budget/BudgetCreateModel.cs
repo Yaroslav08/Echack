@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.ViewModels.Budget
 {
-    public class BudgetCreateViewModel : RequestModel
+    public class BudgetCreateModel : RequestModel
     {
         [Required, MinLength(2), MaxLength(50)]
         public string Name { get; set; }

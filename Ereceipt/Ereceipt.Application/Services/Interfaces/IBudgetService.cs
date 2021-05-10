@@ -11,7 +11,7 @@ namespace Ereceipt.Application.Services.Interfaces
         Task<ListBudgetResult> GetActiveBudgetsAsync(Guid groupId);
         Task<ListBudgetResult> GetAllBudgetsAsync(Guid groupId);
         Task<ListBudgetResult> GetUnactiveBudgestAsync(Guid groupId);
-        Task<BudgetResult> CreateBudgetAsync(BudgetCreateViewModel model);
+        Task<BudgetResult> CreateBudgetAsync(BudgetCreateModel model);
         Task<BudgetResult> EditBudgetAsync(BudgetEditModel budgetModel);
     }
 }

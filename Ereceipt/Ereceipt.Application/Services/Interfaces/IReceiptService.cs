@@ -7,8 +7,8 @@ namespace Ereceipt.Application.Services.Interfaces
 {
     public interface IReceiptService
     {
-        Task<ReceiptResult> CreateReceiptAsync(ReceiptCreateViewModel model);
-        Task<ReceiptResult> EditReceiptAsync(ReceiptEditViewModel model);
+        Task<ReceiptResult> CreateReceiptAsync(ReceiptCreateModel model);
+        Task<ReceiptResult> EditReceiptAsync(ReceiptEditModel model);
         Task<ReceiptResult> GetReceiptAsync(Guid id);
         Task<ListReceiptResult> GetUserReceiptsByUserIdAsync(int ownerId, int skip);
         Task<CountResult> GetUserReceiptsCountAsync(int ownerId);

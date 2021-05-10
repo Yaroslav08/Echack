@@ -8,9 +8,9 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class ReceiptEditCommand : IRequest<ReceiptResult>
     {
-        public ReceiptEditViewModel Receipt { get; set; }
+        public ReceiptEditModel Receipt { get; set; }
 
-        public ReceiptEditCommand(ReceiptEditViewModel receipt)
+        public ReceiptEditCommand(ReceiptEditModel receipt)
         {
             Receipt = receipt;
         }

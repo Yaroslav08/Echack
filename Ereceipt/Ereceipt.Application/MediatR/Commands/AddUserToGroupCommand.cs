@@ -8,8 +8,8 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class AddUserToGroupCommand : IRequest<GroupMemberResult>
     {
-        public GroupMemberCreateViewModel GroupData { get; }
-        public AddUserToGroupCommand(GroupMemberCreateViewModel groupData)
+        public GroupMemberCreateModel GroupData { get; }
+        public AddUserToGroupCommand(GroupMemberCreateModel groupData)
         {
             GroupData = groupData;
         }

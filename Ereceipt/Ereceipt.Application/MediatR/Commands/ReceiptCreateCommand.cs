@@ -8,9 +8,9 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class ReceiptCreateCommand : IRequest<ReceiptResult>
     {
-        public ReceiptCreateViewModel Receipt { get; set; }
+        public ReceiptCreateModel Receipt { get; set; }
 
-        public ReceiptCreateCommand(ReceiptCreateViewModel receipt)
+        public ReceiptCreateCommand(ReceiptCreateModel receipt)
         {
             Receipt = receipt;
         }

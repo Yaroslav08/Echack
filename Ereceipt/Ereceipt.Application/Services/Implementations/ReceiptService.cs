@@ -44,7 +44,7 @@ namespace Ereceipt.Application.Services.Implementations
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.UpdateAsync(Receipt)));
         }
 
-        public async Task<ReceiptResult> CreateReceiptAsync(ReceiptCreateViewModel model)
+        public async Task<ReceiptResult> CreateReceiptAsync(ReceiptCreateModel model)
         {
             CurrencyViewModel currency;
             if (model.CurrencyId == null)
@@ -68,7 +68,7 @@ namespace Ereceipt.Application.Services.Implementations
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.CreateAsync(Receipt)));
         }
 
-        public async Task<ReceiptResult> EditReceiptAsync(ReceiptEditViewModel model)
+        public async Task<ReceiptResult> EditReceiptAsync(ReceiptEditModel model)
         {
             var receiptForEdit = await _receiptRepos.FindAsTrackingAsync(d => d.Id == model.Id);
             if (receiptForEdit == null)

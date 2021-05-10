@@ -19,7 +19,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateViewModel model)
+        public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediator.Send(new ReceiptCreateCommand(model));
@@ -27,7 +27,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditReceipt([FromBody] ReceiptEditViewModel model)
+        public async Task<IActionResult> EditReceipt([FromBody] ReceiptEditModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediator.Send(new ReceiptEditCommand(model));

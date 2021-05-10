@@ -13,8 +13,8 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class CreateCommentCommand : IRequest<CommentResult>
     {
-        public CommentCreateViewModel Model { get; set; }
-        public CreateCommentCommand(CommentCreateViewModel model)
+        public CommentCreateModel Model { get; set; }
+        public CreateCommentCommand(CommentCreateModel model)
         {
             Model = model;
         }

@@ -35,7 +35,7 @@ namespace Ereceipt.Application.Services.Implementations
             return false;
         }
 
-        public async Task<GroupResult> CreateGroupAsync(GroupCreateViewModel model)
+        public async Task<GroupResult> CreateGroupAsync(GroupCreateModel model)
         {
             var group = new Group
             {
@@ -55,7 +55,7 @@ namespace Ereceipt.Application.Services.Implementations
             return new GroupResult(_mapper.Map<GroupViewModel>(groupToResult));
         }
 
-        public async Task<GroupResult> EditGroupAsync(GroupEditViewModel model)
+        public async Task<GroupResult> EditGroupAsync(GroupEditModel model)
         {
             if (!await CanEditGroupAsync(model.Id, model.UserId))
                 return null;
@@ -120,7 +120,7 @@ namespace Ereceipt.Application.Services.Implementations
             return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.RemoveAsync(group)));
         }
 
-        public async Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateViewModel model)
+        public async Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateModel model)
         {
             if (!await CanEditGroupAsync(model.GroupId, model.UserId))
                 return null;
@@ -142,7 +142,7 @@ namespace Ereceipt.Application.Services.Implementations
             return new ListGroupMemberResult(_mapper.Map<List<GroupMemberViewModel>>(await _groupMemberRepository.GetGroupMembersAsync(id)));
         }
 
-        public async Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateViewModel model)
+        public async Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateModel model)
         {
             var groupMember = await _groupMemberRepository.FindAsTrackingAsync(d => d.GroupId == model.GroupId && d.UserId == model.Id);
             if (groupMember == null)
