@@ -1,7 +1,7 @@
 ﻿using Ereceipt.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace Ereceipt.Infrastructure.Data.Configurations
+namespace Ereceipt.Infrastructure.Data.EntityFramework.Configurations
 {
     public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     {

@@ -1,12 +1,11 @@
 ﻿using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
-using Ereceipt.Infrastructure.Data.Context;
+using Ereceipt.Infrastructure.Data.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace Ereceipt.Infrastructure.Data.Repositories
+namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

@@ -1,5 +1,5 @@
 using Ereceipt.Application;
-using Ereceipt.Infrastructure.Data.Context;
+using Ereceipt.Infrastructure.Data.EntityFramework.Context;
 using Ereceipt.Infrastructure.IoC;
 using Ereceipt.Web.AppSetting;
 using Ereceipt.Web.AppSetting.Errors;

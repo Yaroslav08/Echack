@@ -2,7 +2,7 @@
 using Ereceipt.Application.Services.Implementations;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Domain.Interfaces;
-using Ereceipt.Infrastructure.Data.Repositories;
+using Ereceipt.Infrastructure.Data.Repositories.EF;
 using Microsoft.Extensions.DependencyInjection;
 namespace Ereceipt.Infrastructure.IoC
 {

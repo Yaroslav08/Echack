@@ -1,7 +1,7 @@
 ﻿using Ereceipt.Domain.Models;
-using Ereceipt.Infrastructure.Data.Configurations;
+using Ereceipt.Infrastructure.Data.EntityFramework.Configurations;
 using Microsoft.EntityFrameworkCore;
-namespace Ereceipt.Infrastructure.Data.Context
+namespace Ereceipt.Infrastructure.Data.EntityFramework.Context
 {
     public class EreceiptContext : DbContext
     {
