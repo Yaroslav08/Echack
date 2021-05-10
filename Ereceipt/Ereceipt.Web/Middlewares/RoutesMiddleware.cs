@@ -53,13 +53,12 @@ namespace Ereceipt.Web.Middlewares
                 await httpContext.Response.WriteAsJsonAsync(new
                 {
                     AppName = "Ereceipt",
-                    Version = "1.5.0"
+                    Version = "1.5.1"
                 });
                 return;
             }
             else if (httpContext.Request.Path.Value == "/api/errors")
             {
-                _errorStorage.DownloadErrorsAsync();
                 httpContext.Response.StatusCode = StatusCodes.Status200OK;
                 await httpContext.Response.WriteAsJsonAsync(_errorStorage.GetAllErrors());
                 return;
