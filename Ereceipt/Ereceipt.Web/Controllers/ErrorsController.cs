@@ -1,5 +1,4 @@
 ﻿using Ereceipt.Web.AppSetting.Errors;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

@@ -1,8 +1,6 @@
-﻿using Ereceipt.Application.Services.Interfaces;
-using Ereceipt.Application.Results.Receipts;
-using Ereceipt.Application.ViewModels.Receipt;
+﻿using Ereceipt.Application.Results.Receipts;
+using Ereceipt.Application.Services.Interfaces;
 using MediatR;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 

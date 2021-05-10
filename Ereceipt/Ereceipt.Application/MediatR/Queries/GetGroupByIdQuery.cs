@@ -1,5 +1,5 @@
-﻿using Ereceipt.Application.Services.Interfaces;
-using Ereceipt.Application.Results.Groups;
+﻿using Ereceipt.Application.Results.Groups;
+using Ereceipt.Application.Services.Interfaces;
 using MediatR;
 using System;
 using System.Threading;

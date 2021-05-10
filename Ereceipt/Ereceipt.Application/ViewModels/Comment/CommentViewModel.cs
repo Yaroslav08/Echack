@@ -1,5 +1,4 @@
 ﻿using Ereceipt.Application.ViewModels.Receipt;
-using Ereceipt.Application.ViewModels.User;
 using System;
 
 namespace Ereceipt.Application.ViewModels.Comment

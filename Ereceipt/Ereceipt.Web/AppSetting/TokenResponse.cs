@@ -1,5 +1,4 @@
-﻿using Ereceipt.Application.Results;
-using System;
+﻿using System;
 namespace Ereceipt.Web.AppSetting
 {
     public class TokenResponse

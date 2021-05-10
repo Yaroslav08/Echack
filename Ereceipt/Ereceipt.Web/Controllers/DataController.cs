@@ -1,5 +1,5 @@
-﻿using Ereceipt.Application.Services.Interfaces;
-using Ereceipt.Application.Results;
+﻿using Ereceipt.Application.Results;
+using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -4,8 +4,6 @@ using Ereceipt.Application.Results.Users;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.User;
 using Ereceipt.Domain.Interfaces;
-using Ereceipt.Domain.Models;
-using Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Services.Implementations

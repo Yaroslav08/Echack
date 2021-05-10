@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 namespace Ereceipt.Application.ViewModels.Receipt
 {
     public class ReceiptEditModel : RequestModel

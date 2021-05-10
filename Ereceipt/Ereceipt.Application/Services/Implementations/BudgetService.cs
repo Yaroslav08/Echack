@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Ereceipt.Application.Results.Budgets;
 using Ereceipt.Application.Extensions;
+using Ereceipt.Application.Results.Budgets;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Budget;
 using Ereceipt.Application.ViewModels.Currency;

@@ -1,6 +1,5 @@
 ﻿using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Authentication;
-using Ereceipt.Domain.Models;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

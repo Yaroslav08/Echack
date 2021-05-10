@@ -2,7 +2,6 @@
 using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 namespace Ereceipt.Application.ViewModels.Receipt
 {
     public class ReceiptViewModel : ReceiptComments
