@@ -13,11 +13,21 @@ namespace Ereceipt.Web.Controllers
         {
             _mediator = mediator;
         }
+
+
         [HttpPost]
         public async Task<IActionResult> CreateBudget([FromBody] BudgetCreateViewModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediator.Send(new CreateBudgetCommand(model));
+            return Result(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditBudget([FromBody] BudgetEditModel model)
+        {
+            model.IncomeRequestInit(GetId(), GetIpAddress());
+            var result = await _mediator.Send(new EditBudgetCommand(model));
             return Result(result);
         }
     }

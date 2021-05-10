@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Results.Budgets;
+using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Budget;
 using Ereceipt.Application.ViewModels.Currency;
@@ -36,6 +37,31 @@ namespace Ereceipt.Application.Services.Implementations
             budgetToDb.CreatedBy = model.UserId.ToString();
             var budgetFromDb = await _budgetRepository.CreateAsync(budgetToDb);
             return new BudgetResult(_mapper.Map<BudgetViewModel>(budgetFromDb));
+        }
+
+        public async Task<BudgetResult> EditBudgetAsync(BudgetEditModel budgetModel)
+        {
+            var budgetForEdit = await _budgetRepository.FindAsTrackingAsync(x => x.Id == budgetModel.Id);
+            if (budgetForEdit is null)
+                return new BudgetResult("Budget for edit not found");
+
+            //ToDo: check can current user edit budget
+
+            budgetForEdit.Name = budgetModel.Name;
+            budgetForEdit.Balance = budgetModel.Balance;
+            budgetForEdit.Description = budgetModel.Description;
+            budgetForEdit.EndPeriod = budgetModel.EndPeriod;
+            budgetForEdit.StartPeriod = budgetModel.StartPeriod;
+            if (budgetModel.CurrencyId != null)
+            {
+                var newCurrency = _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(x => x.Id == budgetModel.CurrencyId));
+                if (newCurrency is null)
+                    return new BudgetResult("Currency with this id not found");
+                budgetForEdit.Currency = _jsonConverter.GetStringAsJson(newCurrency);
+            }
+            budgetForEdit.SetUpdateData(budgetModel);
+            var updatedBudget = _mapper.Map<BudgetViewModel>(await _budgetRepository.UpdateAsync(budgetForEdit));
+            return new BudgetResult(updatedBudget);
         }
 
         public async Task<ListBudgetResult> GetActiveBudgetsAsync(Guid groupId)
