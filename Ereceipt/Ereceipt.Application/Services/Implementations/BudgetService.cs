@@ -2,22 +2,40 @@
 using Ereceipt.Application.Results.Budgets;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Budget;
+using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Domain.Interfaces;
+using Ereceipt.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace Ereceipt.Application.Services.Implementations
 {
     public class BudgetService : IBudgetService
     {
         private readonly IBudgetRepository _budgetRepository;
+        private readonly ICurrencyRepository _currencyRepository;
+        private readonly IJsonConverter _jsonConverter;
         private readonly IMapper _mapper;
-        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper)
+        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter)
         {
             _budgetRepository = budgetRepository;
             _mapper = mapper;
+            _currencyRepository = currencyRepository;
+            _jsonConverter = jsonConverter;
+        }
+
+        public async Task<BudgetResult> CreateBudgetAsync(BudgetCreateViewModel model)
+        {
+            var currencyById = _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(x => x.Id == model.CurrencyId));
+            if (currencyById is null)
+                return new BudgetResult("Currency by ID not found");
+            var budgetToDb = _mapper.Map<Budget>(model);
+            budgetToDb.Currency = _jsonConverter.GetStringAsJson(currencyById);
+            budgetToDb.CreatedAt = DateTime.UtcNow;
+            budgetToDb.CreatedBy = model.UserId.ToString();
+            var budgetFromDb = await _budgetRepository.CreateAsync(budgetToDb);
+            return new BudgetResult(_mapper.Map<BudgetViewModel>(budgetFromDb));
         }
 
         public async Task<ListBudgetResult> GetActiveBudgetsAsync(Guid groupId)
