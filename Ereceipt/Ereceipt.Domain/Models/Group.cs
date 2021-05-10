@@ -12,5 +12,7 @@ namespace Ereceipt.Domain.Models
         [MinLength(10), MaxLength(250)]
         public string Desc { get; set; }
         public List<GroupMember> GroupMembers { get; set; }
+        public List<Receipt> Receipts { get; set; }
+        public List<Budget> Budgets { get; set; }
     }
 }

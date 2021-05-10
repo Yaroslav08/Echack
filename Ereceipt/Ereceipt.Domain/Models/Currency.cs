@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace Ereceipt.Domain.Models
 {
     public class Currency : BaseModelWithIdentityGen<int>

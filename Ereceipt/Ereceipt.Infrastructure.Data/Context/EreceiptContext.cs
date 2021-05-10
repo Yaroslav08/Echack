@@ -11,6 +11,7 @@ namespace Ereceipt.Infrastructure.Data.Context
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
 
         public EreceiptContext(DbContextOptions<EreceiptContext> options) : base(options) { }
 
