@@ -94,5 +94,33 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediatr.Send(new GetGroupMembersQuery(groupId));
             return Result(result);
         }
+
+        [HttpGet("{groupId}/budgets")]
+        public async Task<IActionResult> GetAllBudgets(Guid groupId)
+        {
+            var result = await _mediatr.Send(new GetAllBudgetsQuery(groupId));
+            return Result(result);
+        }
+
+        [HttpGet("{groupId}/budgets/{id}")]
+        public async Task<IActionResult> GetBudgetById(Guid groupId, int id)
+        {
+            var result = await _mediatr.Send(new GetBudgetByIdQuery(id, groupId));
+            return Result(result);
+        }
+
+        [HttpGet("{groupId}/budgets/active")]
+        public async Task<IActionResult> GetActiveBudgets(Guid groupId)
+        {
+            var result = await _mediatr.Send(new GetActiveBudgetsQuery(groupId));
+            return Result(result);
+        }
+
+        [HttpGet("{groupId}/budgets/un-active")]
+        public async Task<IActionResult> GetUnactiveBudgets(Guid groupId)
+        {
+            var result = await _mediatr.Send(new GetUnactiveBudgestQuery(groupId));
+            return Result(result);
+        }
     }
 }
