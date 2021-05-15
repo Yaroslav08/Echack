@@ -12,12 +12,7 @@ namespace Ereceipt.Web.Controllers
     public class CommentsController : ApiController
     {
         private readonly IMediator _mediator;
-        private readonly ILogger<CommentsController> _logger;
-        public CommentsController(IMediator mediator, ILogger<CommentsController> logger)
-        {
-            _mediator = mediator;
-            _logger = logger;
-        }
+        public CommentsController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin, SAdmin")]

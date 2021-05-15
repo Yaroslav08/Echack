@@ -11,12 +11,8 @@ namespace Ereceipt.Web.Controllers
 {
     public class ReceiptsController : ApiController
     {
-        IMediator _mediator;
-
-        public ReceiptsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator;
+        public ReceiptsController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
         public async Task<IActionResult> CreateReceipt([FromBody] ReceiptCreateModel model)

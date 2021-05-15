@@ -10,11 +10,8 @@ namespace Ereceipt.Web.Controllers
 {
     public class UsersController : ApiController
     {
-        IMediator _mediator;
-        public UsersController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator  _mediator;
+        public UsersController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         [Authorize(Roles = "Admin, SAdmin")]

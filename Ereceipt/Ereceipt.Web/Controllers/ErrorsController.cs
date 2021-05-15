@@ -1,7 +1,6 @@
 ﻿using Ereceipt.Web.AppSetting.Errors;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-
 namespace Ereceipt.Web.Controllers
 {
     public class ErrorsController : ApiController

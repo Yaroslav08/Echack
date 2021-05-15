@@ -16,13 +16,8 @@ namespace Ereceipt.Web.Controllers
 {
     public class IdentityController : ApiController
     {
-        IMediator _mediator;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        public IdentityController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
-        {
-            _mediator = mediator;
-            _webHostEnvironment = webHostEnvironment;
-        }
+        private readonly IMediator _mediator;
+        public IdentityController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost("login")]
         [AllowAnonymous]
@@ -35,9 +30,10 @@ namespace Ereceipt.Web.Controllers
 
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterModel model, [FromServices] IWebHostEnvironment _webHostEnvironment)
         {
-            model.Photo = _webHostEnvironment.WebRootPath + @"\Images\Photo.png";
+            var photoId = Guid.NewGuid().ToString("N");
+            model.Photo = _webHostEnvironment.WebRootPath + @$"\Images\{photoId}.png";
             var result = await _mediator.Send(new RegisterCommand(model));
             if (result.IsError)
                 return Ok(new APIBadRequestResponse(result.Error));
