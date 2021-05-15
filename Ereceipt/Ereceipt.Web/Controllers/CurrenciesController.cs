@@ -1,42 +1,40 @@
 ﻿using Ereceipt.Application.Extensions;
-using Ereceipt.Application.Services.Interfaces;
+using Ereceipt.Application.MediatR.Commands;
+using Ereceipt.Application.MediatR.Queries;
 using Ereceipt.Application.ViewModels.Currency;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace Ereceipt.Web.Controllers
 {
     public class CurrenciesController : ApiController
     {
-        private readonly ICurrencyService _currencyService;
-        ILogger<CurrenciesController> _logger;
-        public CurrenciesController(ICurrencyService currencyService, ILogger<CurrenciesController> logger)
-        {
-            _currencyService = currencyService;
-            _logger = logger;
-        }
+        private readonly IMediator _mediator;
+
+        public CurrenciesController(IMediator mediator) => _mediator = mediator;
+
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetAllCurrencies()
         {
-            var result = await _currencyService.GetAllCurrenciesAsync();
+            var result = await _mediator.Send(new GetAllCurrenciesQuery());
             return Result(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCurrencyById(int id)
         {
-            var result = await _currencyService.GetCurrencyByIdAsync(id);
+            var result = await _mediator.Send(new GetCurrencyByIdQuery(id));
             return Result(result);
         }
 
         [HttpGet("by-code/{code}")]
         public async Task<IActionResult> GetCurrenciesByCode(string code)
         {
-            var result = await _currencyService.GetCurrenciesByCodeAsync(code);
+            var result = await _mediator.Send(new GetCurrenciesByCodeQuery(code));
             return Result(result);
         }
 
@@ -45,7 +43,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> CreateCurrency([FromBody] CurrencyCreateModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
-            var result = await _currencyService.CreateCurrencyAsync(model);
+            var result = await _mediator.Send(new CreateCurrencyCommand(model));
             return Result(result);
         }
 
@@ -54,7 +52,7 @@ namespace Ereceipt.Web.Controllers
         public async Task<IActionResult> EditCurrency([FromBody] CurrencyEditModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
-            var result = await _currencyService.EditCurrencyAsync(model);
+            var result = await _mediator.Send(new EditCurrencyCommand(model));
             return Result(result);
         }
 
@@ -62,7 +60,7 @@ namespace Ereceipt.Web.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveCurrency(int id)
         {
-            var result = await _currencyService.RemoveCurrencyAsync(id);
+            var result = await _mediator.Send(new RemoveCurrencyCommand(id));
             return Result(result);
         }
     }
