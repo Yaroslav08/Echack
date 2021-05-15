@@ -11,6 +11,7 @@ namespace Ereceipt.Application.ViewModels.Receipt
         public string CreatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public string ShopName { get; set; }
+        public string AddressShop { get; set; }
         public double TotalPrice { get; set; }
         public List<ProductViewModel> Products { get; set; }
         public CurrencyViewModel Currency { get; set; }

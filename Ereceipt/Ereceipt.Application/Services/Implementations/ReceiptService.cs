@@ -56,6 +56,7 @@ namespace Ereceipt.Application.Services.Implementations
             var Receipt = new Receipt
             {
                 ShopName = model.ShopName,
+                AddressShop = model.AddressShop,
                 IsImportant = model.IsImportant,
                 UserId = model.UserId,
                 GroupId = model.GroupId,
@@ -85,6 +86,7 @@ namespace Ereceipt.Application.Services.Implementations
                 receiptForEdit.Currency = _jsonConverter.GetStringAsJson(newCurrency);
             }
             receiptForEdit.ShopName = model.ShopName;
+            receiptForEdit.AddressShop = model.AddressShop;
             receiptForEdit.IsImportant = model.IsImportant;
             receiptForEdit.Products = _jsonConverter.GetStringAsJson(model.Products);
             receiptForEdit.TotalPrice = model.Products != null ? model.Products.Sum(x => x.Price) : receiptForEdit.TotalPrice;
