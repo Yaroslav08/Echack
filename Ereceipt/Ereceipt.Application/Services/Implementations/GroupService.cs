@@ -128,7 +128,7 @@ namespace Ereceipt.Application.Services.Implementations
                 GroupId = model.GroupId,
                 UserId = model.Id,
                 CreatedBy = model.UserId.ToString(),
-                Title = "Member"
+                Title = model.Title
             };
             newMember.SetInitData(model);
             newMember.SetUserPermissions();
@@ -167,6 +167,7 @@ namespace Ereceipt.Application.Services.Implementations
             if (!_groupMemberCheck.CanMakeAction(currentMember, GroupActionType.CanEditPermissions))
                 return new GroupMemberResult("Access denited");
 
+            memberForEdit.Title = model.Title;
             memberForEdit.CanAddMember = model.CanAddMember;
             memberForEdit.CanControlBudget = model.CanControlBudget;
             memberForEdit.CanEditGroup = model.CanEditGroup;

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Ereceipt.Application.ViewModels.GroupMember
 {
     public class GroupMemberEditModel : RequestModel
     {
         [Required]
         public Guid Id { get; set; }
+        [Required]
+        public string Title { get; set; }
         [Required]
         public bool CanEditGroup { get; set; }
         [Required]
