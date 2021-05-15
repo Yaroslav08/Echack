@@ -17,6 +17,5 @@ namespace Ereceipt.Application.Services.Interfaces
         Task<ListGroupMemberResult> GetGroupMembersAsync(Guid id);
         Task<ListGroupResult> GetAllGroupsAsync(int skip);
         Task<ListGroupResult> GetGroupsByUserIdAsync(int id);
-        Task<bool> CanEditGroupAsync(Guid groupId, int userId);
     }
 }

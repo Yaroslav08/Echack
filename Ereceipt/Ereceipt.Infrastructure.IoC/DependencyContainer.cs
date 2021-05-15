@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Services.Implementations;
 using Ereceipt.Application.Services.Interfaces;
+using Ereceipt.Application.Wrappers;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Infrastructure.Data.Repositories.EF;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,7 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddScoped<IUsernameService, UsernameService>();
             services.AddScoped<IBudgetRepository, BudgetRepository>();
             services.AddScoped<IBudgetService, BudgetService>();
+            services.AddScoped<IGroupMemberCheck, GroupMemberCheck>();
         }
 
         public static void AddEreceiptAutoMapper(this IServiceCollection services)

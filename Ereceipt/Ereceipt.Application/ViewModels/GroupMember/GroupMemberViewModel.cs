@@ -11,5 +11,12 @@ namespace Ereceipt.Application.ViewModels.GroupMember
         public GroupViewModel Group { get; set; }
         public UserReceiptViewModel User { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public bool IsCreator { get; set; }
+        public bool CanEditGroup { get; set; }
+        public bool CanAddMember { get; set; }
+        public bool CanRemoveMember { get; set; }
+        public bool CanControlBudget { get; set; }
+        public bool CanRemoveReceipt { get; set; }
     }
 }
