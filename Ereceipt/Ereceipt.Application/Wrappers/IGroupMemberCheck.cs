@@ -9,6 +9,7 @@ namespace Ereceipt.Application.Wrappers
     public enum GroupActionType
     {
         CanEditGroup,
+        CanEditPermissions,
         CanAddMember,
         CanRemoveMember,
         CanControlBudget,
@@ -33,6 +34,7 @@ namespace Ereceipt.Application.Wrappers
                 GroupActionType.CanRemoveMember => groupMember.CanRemoveMember,
                 GroupActionType.CanControlBudget => groupMember.CanControlBudget,
                 GroupActionType.CanRemoveReceipt => groupMember.CanRemoveReceipt,
+                GroupActionType.CanEditPermissions => groupMember.IsCreator,
                 _ => false
             };
         }

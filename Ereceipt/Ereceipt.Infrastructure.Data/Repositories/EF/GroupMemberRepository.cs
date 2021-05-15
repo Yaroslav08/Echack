@@ -12,11 +12,11 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
     {
         public GroupMemberRepository(EreceiptContext db) : base(db) { }
 
-        public async Task<GroupMember> GetGroupMemberByIdAsync(Guid id, int userId)
+        public async Task<GroupMember> GetGroupMemberByIdAsync(Guid groupId, int userId)
         {
             return await db.GroupMembers
                 .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
+                .SingleOrDefaultAsync(x => x.GroupId == groupId && x.UserId == userId);
         }
 
         public async Task<List<GroupMember>> GetGroupMembersAsync(Guid id)

@@ -8,6 +8,6 @@ namespace Ereceipt.Domain.Interfaces
     {
         Task<GroupMember> GetWithDataById(Guid id);
         Task<List<GroupMember>> GetGroupMembersAsync(Guid id);
-        Task<GroupMember> GetGroupMemberByIdAsync(Guid id, int userId);
+        Task<GroupMember> GetGroupMemberByIdAsync(Guid groupId, int userId);
     }
 }

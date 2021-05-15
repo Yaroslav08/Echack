@@ -79,6 +79,13 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
+        [HttpPut("members")]
+        public async Task<IActionResult> EditMember([FromBody] GroupMemberEditModel model)
+        {
+            model.IncomeRequestInit(GetId(), GetIpAddress());
+            var result = await _mediatr.Send(new EditMemberCommand(model));
+            return Result(result);
+        }
 
         [HttpDelete("members")]
         public async Task<IActionResult> RemoveMember([FromBody] GroupMemberCreateModel model)

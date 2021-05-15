@@ -18,7 +18,7 @@ namespace Ereceipt.Application.MediatR.Commands
 
     public class RemoveUserFromGroupCommandHandler : IRequestHandler<RemoveUserFromGroupCommand, GroupMemberResult>
     {
-        IGroupService _groupService;
+        private readonly IGroupService _groupService;
         public RemoveUserFromGroupCommandHandler(IGroupService groupService)
         {
             _groupService = groupService;

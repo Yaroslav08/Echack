@@ -12,6 +12,7 @@ namespace Ereceipt.Application.Services.Interfaces
         Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateModel model);
         Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateModel model);
         Task<GroupResult> EditGroupAsync(GroupEditModel model);
+        Task<GroupMemberResult> EditPermissionsInUserAsync(GroupMemberEditModel model);
         Task<GroupResult> RemoveGroupAsync(Guid id, int userId);
         Task<ListReceiptGroupResult> GetReceiptsByGroupIdAsync(Guid groupId, int skip);
         Task<ListGroupMemberResult> GetGroupMembersAsync(Guid id);

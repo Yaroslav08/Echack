@@ -153,5 +153,24 @@ namespace Ereceipt.Application.Services.Implementations
         {
             return new ListGroupResult(_mapper.Map<List<GroupViewModel>>(await _groupRepository.GetAllAsync(20, skip)));
         }
+
+        public async Task<GroupMemberResult> EditPermissionsInUserAsync(GroupMemberEditModel model)
+        {
+            var memberForEdit = await _groupMemberRepository.FindAsync(x => x.Id == model.Id);
+            if (memberForEdit == null)
+                return new GroupMemberResult("Member not found");
+
+            var currentMember = await _groupMemberRepository.GetGroupMemberByIdAsync(memberForEdit.GroupId, model.UserId);
+            if (!_groupMemberCheck.CanMakeAction(currentMember, GroupActionType.CanEditPermissions))
+                return new GroupMemberResult("Access denited");
+
+            memberForEdit.CanAddMember = model.CanAddMember;
+            memberForEdit.CanControlBudget = model.CanControlBudget;
+            memberForEdit.CanEditGroup = model.CanEditGroup;
+            memberForEdit.CanRemoveMember = model.CanRemoveMember;
+            memberForEdit.CanRemoveReceipt = model.CanRemoveReceipt;
+            memberForEdit.SetUpdateData(model);
+            return new GroupMemberResult(_mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.UpdateAsync(memberForEdit)));
+        }
     }
 }
