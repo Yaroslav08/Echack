@@ -8,9 +8,9 @@ namespace Ereceipt.Application.MediatR.Commands
 {
     public class RemoveUserFromGroupCommand : IRequest<GroupMemberResult>
     {
-        public GroupMemberCreateModel Member { get; }
+        public GroupMemberRemoveModel Member { get; }
 
-        public RemoveUserFromGroupCommand(GroupMemberCreateModel member)
+        public RemoveUserFromGroupCommand(GroupMemberRemoveModel member)
         {
             Member = member;
         }

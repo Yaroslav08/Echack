@@ -63,21 +63,39 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
                         UserId = user1.Entity.Id,
                         GroupId = group1.Entity.Id,
                         Title = "Creator",
-                        CreatedAt = DateTime.UtcNow
+                        CreatedAt = DateTime.UtcNow,
+                        IsCreator = true,
+                        CanAddMember = true,
+                        CanControlBudget = true,
+                        CanEditGroup = true,
+                        CanRemoveMember = true,
+                        CanRemoveReceipt = true
                     });
                     var member2 = await db.GroupMembers.AddAsync(new GroupMember
                     {
                         UserId = user2.Entity.Id,
                         GroupId = group1.Entity.Id,
                         Title = "Member",
-                        CreatedAt = DateTime.UtcNow
+                        CreatedAt = DateTime.UtcNow,
+                        IsCreator = false,
+                        CanAddMember = false,
+                        CanControlBudget = false,
+                        CanEditGroup = false,
+                        CanRemoveMember = false,
+                        CanRemoveReceipt = false
                     });
                     var member3 = await db.GroupMembers.AddAsync(new GroupMember
                     {
                         UserId = user3.Entity.Id,
                         GroupId = group1.Entity.Id,
                         Title = "Member",
-                        CreatedAt = DateTime.UtcNow
+                        CreatedAt = DateTime.UtcNow,
+                        IsCreator = false,
+                        CanAddMember = false,
+                        CanControlBudget = false,
+                        CanEditGroup = false,
+                        CanRemoveMember = false,
+                        CanRemoveReceipt = false
                     });
                     await db.SaveChangesAsync();
 

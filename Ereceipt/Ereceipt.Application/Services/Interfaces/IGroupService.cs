@@ -10,7 +10,7 @@ namespace Ereceipt.Application.Services.Interfaces
         Task<GroupResult> GetGroupByIdAsync(Guid id);
         Task<GroupResult> CreateGroupAsync(GroupCreateModel model);
         Task<GroupMemberResult> AddUserToGroupAsync(GroupMemberCreateModel model);
-        Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateModel model);
+        Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberRemoveModel model);
         Task<GroupResult> EditGroupAsync(GroupEditModel model);
         Task<GroupMemberResult> EditPermissionsInUserAsync(GroupMemberEditModel model);
         Task<GroupResult> RemoveGroupAsync(Guid id, int userId);

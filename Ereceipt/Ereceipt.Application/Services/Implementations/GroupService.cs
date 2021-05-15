@@ -45,6 +45,7 @@ namespace Ereceipt.Application.Services.Implementations
                 Title = "Creator",
                 CreatedBy = model.UserId.ToString()
             };
+            creatorMember.SetInitData(model);
             creatorMember.SetCreatorPermissions();
             await _groupMemberRepository.CreateAsync(creatorMember);
             return new GroupResult(_mapper.Map<GroupViewModel>(groupToResult));
@@ -129,6 +130,7 @@ namespace Ereceipt.Application.Services.Implementations
                 CreatedBy = model.UserId.ToString(),
                 Title = "Member"
             };
+            newMember.SetInitData(model);
             newMember.SetUserPermissions();
             var id = (await _groupMemberRepository.CreateAsync(newMember)).Id;
             return new GroupMemberResult(_mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.GetWithDataById(id)));
@@ -139,12 +141,13 @@ namespace Ereceipt.Application.Services.Implementations
             return new ListGroupMemberResult(_mapper.Map<List<GroupMemberViewModel>>(await _groupMemberRepository.GetGroupMembersAsync(id)));
         }
 
-        public async Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberCreateModel model)
+        public async Task<GroupMemberResult> RemoveUserFromGroupAsync(GroupMemberRemoveModel model)
         {
-            var groupMember = await _groupMemberRepository.FindAsTrackingAsync(d => d.GroupId == model.GroupId && d.UserId == model.Id);
+            var groupMember = await _groupMemberRepository.FindAsync(x => x.Id == model.GroupMemberId);
             if (groupMember == null)
                 return new GroupMemberResult("Member not found");
-            if (!_groupMemberCheck.CanMakeAction(groupMember, GroupActionType.CanRemoveMember))
+            var currentMember = await _groupMemberRepository.GetGroupMemberByIdAsync(groupMember.GroupId, model.UserId);
+            if (!_groupMemberCheck.CanMakeAction(currentMember, GroupActionType.CanRemoveMember))
                 return new GroupMemberResult("Access denited");
             return new GroupMemberResult(_mapper.Map<GroupMemberViewModel>(await _groupMemberRepository.RemoveAsync(groupMember)));
         }

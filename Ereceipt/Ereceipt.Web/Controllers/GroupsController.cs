@@ -88,7 +88,7 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpDelete("members")]
-        public async Task<IActionResult> RemoveMember([FromBody] GroupMemberCreateModel model)
+        public async Task<IActionResult> RemoveMember([FromBody] GroupMemberRemoveModel model)
         {
             model.IncomeRequestInit(GetId(), GetIpAddress());
             var result = await _mediatr.Send(new RemoveUserFromGroupCommand(model));
