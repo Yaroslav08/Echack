@@ -11,24 +11,24 @@ namespace Ereceipt.Infrastructure.IoC
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IReceiptRepository, ReceiptRepository>();
+            services.AddScoped<IReceiptRepository, EFReceiptRepository>();
             services.AddScoped<IReceiptService, ReceiptService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ICommentRepository, EFCommentRepository>();
             services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IGroupRepository, EFGroupRepository>();
             services.AddScoped<IGroupService, GroupService>();
-            services.AddScoped<IGroupMemberRepository, GroupMemberRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGroupMemberRepository, EFGroupMemberRepository>();
+            services.AddScoped<IUserRepository, EFUserRepository>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICurrencyRepository, EFCurrencyRepository>();
             services.AddScoped<ICurrencyService, CurrencyService>();
-            services.AddScoped<ITestDataRepository, TestDataRepository>();
+            services.AddScoped<ITestDataRepository, EFTestDataRepository>();
             services.AddScoped<ITestDataService, TestDataService>();
             services.AddScoped<IJsonConverter, JsonConverter>();
             services.AddScoped<IAuthenticationService, TokenAuthenticationService>();
             services.AddScoped<IUsernameService, UsernameService>();
-            services.AddScoped<IBudgetRepository, BudgetRepository>();
+            services.AddScoped<IBudgetRepository, EFBudgetRepository>();
             services.AddScoped<IBudgetService, BudgetService>();
             services.AddScoped<IGroupMemberCheck, GroupMemberCheck>();
             services.AddScoped<IBudgetCategoryRepository, EFBudgetCategoryRepository>();

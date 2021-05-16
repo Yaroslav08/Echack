@@ -7,9 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class CurrencyRepository : Repository<Currency>, ICurrencyRepository
+    public class EFCurrencyRepository : EFRepository<Currency>, ICurrencyRepository
     {
-        public CurrencyRepository(EreceiptContext db) : base(db) { }
+        public EFCurrencyRepository(EreceiptContext db) : base(db) { }
 
         public async Task<List<Currency>> GetAllCurrenciesAsync()
         {

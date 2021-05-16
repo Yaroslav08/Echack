@@ -7,9 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class UserRepository : Repository<User>, IUserRepository
+    public class EFUserRepository : EFRepository<User>, IUserRepository
     {
-        public UserRepository(EreceiptContext db) : base(db) { }
+        public EFUserRepository(EreceiptContext db) : base(db) { }
 
 
         public async Task<List<User>> GetAllAsync(int afterId)

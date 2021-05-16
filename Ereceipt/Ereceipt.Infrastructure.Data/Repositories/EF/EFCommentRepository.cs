@@ -8,9 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class CommentRepository : Repository<Comment>, ICommentRepository
+    public class EFCommentRepository : EFRepository<Comment>, ICommentRepository
     {
-        public CommentRepository(EreceiptContext db) : base(db) { }
+        public EFCommentRepository(EreceiptContext db) : base(db) { }
 
         public async Task<Comment> GetCommentWithDetailsAsync(long id)
         {

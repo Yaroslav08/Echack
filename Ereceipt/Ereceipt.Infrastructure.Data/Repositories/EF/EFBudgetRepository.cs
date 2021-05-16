@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class BudgetRepository : Repository<Budget>, IBudgetRepository
+    public class EFBudgetRepository : EFRepository<Budget>, IBudgetRepository
     {
-        public BudgetRepository(EreceiptContext db) : base(db) { }
+        public EFBudgetRepository(EreceiptContext db) : base(db) { }
 
         public async Task<List<Budget>> GetActiveBudgetsAsync(Guid id)
         {

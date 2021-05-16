@@ -9,12 +9,12 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
+    public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
     {
         protected EreceiptContext db;
         protected DbSet<TEntity> dbSet;
 
-        public Repository(EreceiptContext _db)
+        public EFRepository(EreceiptContext _db)
         {
             db = _db;
             dbSet = db.Set<TEntity>();

@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class TestDataRepository : ITestDataRepository
+    public class EFTestDataRepository : ITestDataRepository
     {
         private readonly EreceiptContext db;
-        public TestDataRepository(EreceiptContext _db)
+        public EFTestDataRepository(EreceiptContext _db)
         {
             db = _db;
         }

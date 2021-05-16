@@ -7,9 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class GroupRepository : Repository<Group>, IGroupRepository
+    public class EFGroupRepository : EFRepository<Group>, IGroupRepository
     {
-        public GroupRepository(EreceiptContext db) : base(db) { }
+        public EFGroupRepository(EreceiptContext db) : base(db) { }
 
 
         public async Task<List<Group>> GetGroupsByUserIdAsync(int id)

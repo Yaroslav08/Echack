@@ -8,9 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class ReceiptRepository : Repository<Receipt>, IReceiptRepository
+    public class EFReceiptRepository : EFRepository<Receipt>, IReceiptRepository
     {
-        public ReceiptRepository(EreceiptContext db) : base(db) { }
+        public EFReceiptRepository(EreceiptContext db) : base(db) { }
 
         public async Task<int> GetCountCommentsByReceiptIdAsync(Guid id)
         {

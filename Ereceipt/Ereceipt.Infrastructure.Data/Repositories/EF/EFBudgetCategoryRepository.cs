@@ -3,7 +3,7 @@ using Ereceipt.Domain.Models;
 using Ereceipt.Infrastructure.Data.EntityFramework.Context;
 namespace Ereceipt.Infrastructure.Data.Repositories.EF
 {
-    public class EFBudgetCategoryRepository : Repository<BudgetCategory>, IBudgetCategoryRepository
+    public class EFBudgetCategoryRepository : EFRepository<BudgetCategory>, IBudgetCategoryRepository
     {
         public EFBudgetCategoryRepository(EreceiptContext db) : base(db) { }
     }
