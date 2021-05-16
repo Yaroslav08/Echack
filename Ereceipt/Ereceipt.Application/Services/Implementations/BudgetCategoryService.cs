@@ -69,7 +69,12 @@ namespace Ereceipt.Application.Services.Implementations
 
         public async Task<BudgetCategoryResult> RemoveBudgetCategoryAsync(BudgetCategoryDeleteModel model)
         {
-            throw new NotImplementedException();
+            var currentMember = await _groupMemberRepository.GetGroupMemberByIdAsync(model.GroupId, model.UserId);
+            if (!_groupMemberCheck.CanMakeAction(currentMember, GroupActionType.CanControlBudget))
+                return new BudgetCategoryResult("Access denited");
+            var budgetCategoryForRemove = await _budgetCategoryRepository.FindAsTrackingAsync(x => x.Id == model.BudgetCategoryId);
+            await _budgetCategoryRepository.RemoveAsync(budgetCategoryForRemove);
+            return new BudgetCategoryResult(_mapper.Map<BudgetCategoryViewModel>(budgetCategoryForRemove));
         }
     }
 }
