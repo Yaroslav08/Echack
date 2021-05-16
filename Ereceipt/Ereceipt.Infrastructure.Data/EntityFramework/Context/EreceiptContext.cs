@@ -12,9 +12,10 @@ namespace Ereceipt.Infrastructure.Data.EntityFramework.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Budget> Budgets { get; set; }
+        public DbSet<BudgetCategory> BudgetCategories { get; set; }
+
 
         public EreceiptContext(DbContextOptions<EreceiptContext> options) : base(options) { }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
