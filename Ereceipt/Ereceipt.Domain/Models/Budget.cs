@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ereceipt.Domain.Models
@@ -14,8 +15,9 @@ namespace Ereceipt.Domain.Models
         public DateTime StartPeriod { get; set; }
         [Required]
         public DateTime EndPeriod { get; set; }
+        public string Currency { get; set; }
         public Guid GroupId { get; set; }
         public Group Group { get; set; }
-        public string Currency { get; set; }
+        public List<BudgetCategory> Categories { get; set; }
     }
 }
