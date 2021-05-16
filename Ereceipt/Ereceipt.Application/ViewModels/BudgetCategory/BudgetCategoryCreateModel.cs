@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-
-namespace Ereceipt.Domain.Models
+namespace Ereceipt.Application.ViewModels.BudgetCategory
 {
-    public class BudgetCategory : BaseModel<long>
+    public class BudgetCategoryCreateModel : RequestModel
     {
         [Required, MinLength(1), MaxLength(100)]
         public string Name { get; set; }
         [MinLength(1), MaxLength(100)]
         public string Description { get; set; }
         public int BudgetId { get; set; }
-        public Budget Budget { get; set; }
-        public List<Receipt> Receipts { get; set; }
+        public Guid GroupId { get; set; }
     }
 }
