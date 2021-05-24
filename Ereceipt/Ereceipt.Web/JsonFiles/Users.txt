@@ -1,0 +1,20 @@
+{
+  "name": "Yaroslav Mudryk",
+  "login": "yaroslav@gmail.com",
+  "password": "SomePassword"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiV054Yk80QXciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsIklkIjoiMSIsIm5iZiI6MTYyMTA5NDI2MywiZXhwIjoxNjIyMzkwMjYzLCJpc3MiOiJFcmVjZWlwdFNlcnZlciIsImF1ZCI6IkVyZWNlaXB0Q2xpZW50In0.BwrdCQ01n-phWUm5PbQT1IWbTysndCaNhZzIxJBnIys
+
+{
+  "name": "Nikita Medko",
+  "login": "nikita@gmail.com",
+  "password": "SomePassword"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiUW5sc0EzRjkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiSWQiOiIyIiwibmJmIjoxNjIxMDk0MjgzLCJleHAiOjE2MjIzOTAyODMsImlzcyI6IkVyZWNlaXB0U2VydmVyIiwiYXVkIjoiRXJlY2VpcHRDbGllbnQifQ.1H7eWm0gD01ZX3BhY6hgKH6dEHkU1hi1XWUkruPfpyg
+
+{
+  "name": "Zhdan Chernavskyi",
+  "login": "zhdan@gmail.com",
+  "password": "SomePassword"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMXA1V3JuOVUiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiSWQiOiIzIiwibmJmIjoxNjIxMDk0Mjk3LCJleHAiOjE2MjIzOTAyOTcsImlzcyI6IkVyZWNlaXB0U2VydmVyIiwiYXVkIjoiRXJlY2VpcHRDbGllbnQifQ.3yuUAdsSh5CFEtBnFlCR6tv-mSbp4E4QbFe4__I3ovU

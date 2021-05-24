@@ -1,0 +1,23 @@
+{
+  "symbol": "$",
+  "code": "USD",
+  "isoFormat": 840,
+  "name": "Американський долар",
+  "countries": "США"
+}
+
+{
+  "symbol": "€",
+  "code": "EUR",
+  "isoFormat": 978,
+  "name": "Євро",
+  "countries": "Країни Євросоюзу"
+}
+
+{
+  "symbol": "₴",
+  "code": "UAH",
+  "isoFormat": 980,
+  "name": "Українська гривня",
+  "countries": "Україна"
+}
