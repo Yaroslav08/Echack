@@ -15,15 +15,43 @@ namespace Ereceipt.Application.Services.Implementations
     public class BudgetCategoryService : IBudgetCategoryService
     {
         private readonly IBudgetCategoryRepository _budgetCategoryRepository;
+        private readonly IBudgetRepository _budgetRepository;
         private readonly IMapper _mapper;
         private readonly IGroupMemberCheck _groupMemberCheck;
         private readonly IGroupMemberRepository _groupMemberRepository;
-        public BudgetCategoryService(IBudgetCategoryRepository budgetCategoryRepository, IMapper mapper, IGroupMemberCheck groupMemberCheck, IGroupMemberRepository groupMemberRepository)
+        private readonly IReceiptRepository _receiptRepository;
+        public BudgetCategoryService(IBudgetCategoryRepository budgetCategoryRepository, IMapper mapper, IGroupMemberCheck groupMemberCheck, IGroupMemberRepository groupMemberRepository, IReceiptRepository receiptRepository, IBudgetRepository budgetRepository)
         {
             _budgetCategoryRepository = budgetCategoryRepository;
             _mapper = mapper;
             _groupMemberCheck = groupMemberCheck;
             _groupMemberRepository = groupMemberRepository;
+            _receiptRepository = receiptRepository;
+            _budgetRepository = budgetRepository;
+        }
+
+        public async Task<BudgetCategoryResult> AddReceiptToCategoryAsync(BudgetReceiptCreateModel model)
+        {
+            var receipt = await _receiptRepository.FindAsync(x => x.Id == model.ReceiptId);
+            if (receipt is null)
+                return new BudgetCategoryResult("Receipt not found");
+            if (receipt.UserId != model.UserId)
+                return new BudgetCategoryResult("Access denited");
+            if (receipt.BudgetCategoryId == model.BudgetCategoryId)
+                return new BudgetCategoryResult("This receipt is already exist in this category");
+            if (receipt.BudgetCategoryId != model.BudgetCategoryId && receipt.BudgetCategoryId != 0)
+                return new BudgetCategoryResult("This receipt is already busy in other category");
+            var budgetCategory = await _budgetCategoryRepository.FindAsync(x => x.Id == model.BudgetCategoryId);
+            if (budgetCategory is null)
+                return new BudgetCategoryResult("Budget category not found");
+            var budget = await _budgetRepository.FindAsTrackingAsync(x => x.Id == budgetCategory.BudgetId);
+            if (budget.Balance < (int)receipt.TotalPrice)
+                return new BudgetCategoryResult("The balance in this category is crowded");
+            receipt.BudgetCategoryId = budgetCategory.Id;
+            await _receiptRepository.UpdateAsync(receipt);
+            budget.Balance = budget.Balance - (int)receipt.TotalPrice;
+            await _budgetRepository.UpdateAsync(budget);
+            return new BudgetCategoryResult(_mapper.Map<BudgetCategoryViewModel>(budgetCategory));
         }
 
         public async Task<BudgetCategoryResult> CreateBudgetCategoryAsync(BudgetCategoryCreateModel model)
@@ -75,6 +103,29 @@ namespace Ereceipt.Application.Services.Implementations
             var budgetCategoryForRemove = await _budgetCategoryRepository.FindAsTrackingAsync(x => x.Id == model.BudgetCategoryId);
             await _budgetCategoryRepository.RemoveAsync(budgetCategoryForRemove);
             return new BudgetCategoryResult(_mapper.Map<BudgetCategoryViewModel>(budgetCategoryForRemove));
+        }
+
+        public async Task<BudgetCategoryResult> RemoveReceiptFromCategoryAsync(BudgetReceiptRemoveModel model)
+        {
+            var receipt = await _receiptRepository.FindAsTrackingAsync(x => x.Id == model.ReceiptId);
+            if (receipt is null)
+                return new BudgetCategoryResult("Receipt not found");
+            if (receipt.BudgetCategoryId == 0)
+                return new BudgetCategoryResult("Receipt don't have any category");
+            if (receipt.UserId != model.UserId)
+                return new BudgetCategoryResult("Access denited");
+            var budgetCategory = await _budgetCategoryRepository.FindAsync(x => x.Id == model.BudgetCategoryId);
+            if (budgetCategory is null)
+                return new BudgetCategoryResult("Budget category not found");
+            var budget = await _budgetRepository.FindAsync(x => x.Id == budgetCategory.Id);
+            var balance = budget.Balance + (int)receipt.TotalPrice;
+            if (balance < 0)
+                return new BudgetCategoryResult("Something went wrong");
+            budget.Balance = balance;
+            await _budgetRepository.UpdateAsync(budget);
+            receipt.BudgetCategoryId = 0;
+            await _receiptRepository.UpdateAsync(receipt);
+            return new BudgetCategoryResult(_mapper.Map<BudgetCategoryViewModel>(budgetCategory));
         }
     }
 }

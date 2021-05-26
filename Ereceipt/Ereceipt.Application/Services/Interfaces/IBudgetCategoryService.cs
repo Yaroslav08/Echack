@@ -12,5 +12,7 @@ namespace Ereceipt.Application.Services.Interfaces
         Task<BudgetCategoryResult> RemoveBudgetCategoryAsync(BudgetCategoryDeleteModel model);
         Task<ListBudgetCategoryResult> GetCategoriesByBudgetIdAsync(int id, Guid? groupId = null);
         Task<BudgetCategoryResult> GetCategoryByIdAsync(long id, bool withReceipts = false);
+        Task<BudgetCategoryResult> AddReceiptToCategoryAsync(BudgetReceiptCreateModel model);
+        Task<BudgetCategoryResult> RemoveReceiptFromCategoryAsync(BudgetReceiptRemoveModel model);
     }
 }
