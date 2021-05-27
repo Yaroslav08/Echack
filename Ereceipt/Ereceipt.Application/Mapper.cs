@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Budget;
-using Ereceipt.Application.ViewModels.BudgetCategory;
 using Ereceipt.Application.ViewModels.Comment;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Application.ViewModels.Group;
@@ -58,10 +57,6 @@ namespace Ereceipt.Application
             CreateMap<Budget, BudgetViewModel>()
                 .ForMember(x => x.Currency, s => s.MapFrom(x => _jsonConverter.GetModelFromJson<CurrencyViewModel>(x.Currency)));
             CreateMap<BudgetCreateModel, Budget>();
-
-            CreateMap<BudgetCategoryCreateModel, BudgetCategory>();
-            CreateMap<BudgetCategory, BudgetCategoryViewModel>()
-                .ForMember(x => x.Receipts, s => s.MapFrom(x => x.Receipts));
         }
     }
 }
