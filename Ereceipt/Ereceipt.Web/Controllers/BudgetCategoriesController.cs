@@ -20,6 +20,32 @@ namespace Ereceipt.Web.Controllers
             _mediator = mediator;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateBudgetCategory([FromBody] BudgetCategoryCreateModel model)
+        {
+            model.IncomeRequestInit(GetId(), GetIpAddress());
+            var result = await _mediator.Send(new CreateBudgetCategoryCommand(model));
+            return Result(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditBudgetCategory([FromBody] BudgetCategoryEditModel model)
+        {
+            model.IncomeRequestInit(GetId(), GetIpAddress());
+            var result = await _mediator.Send(new EditBudgetCategoryCommand(model));
+            return Result(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveBudgetCategory([FromBody] BudgetCategoryDeleteModel model)
+        {
+            model.IncomeRequestInit(GetId(), GetIpAddress());
+            var result = await _mediator.Send(new RemoveBudgetCategoryCommand(model));
+            return Result(result);
+        }
+
+
+
         [HttpPost("new-receipt")]
         public async Task<IActionResult> AddReceiptToBudgetCategory([FromBody] BudgetReceiptCreateModel model)
         {
