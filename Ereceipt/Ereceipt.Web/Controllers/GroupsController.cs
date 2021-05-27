@@ -18,34 +18,8 @@ namespace Ereceipt.Web.Controllers
             _mediatr = mediatr;
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin, SAdmin")]
-        public async Task<IActionResult> GetAllGroups(int skip = 0)
-        {
-            var result = await _mediatr.Send(new GetAllGroupsQuery(skip));
-            return Result(result);
-        }
 
-        [HttpGet("my")]
-        public async Task<IActionResult> GetMyGroups()
-        {
-            var result = await _mediatr.Send(new GetUserGroupsQuery(GetId()));
-            return Result(result);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetGroupById(Guid id)
-        {
-            var result = await _mediatr.Send(new GetGroupByIdQuery(id));
-            return Result(result);
-        }
-
-        [HttpGet("{groupId}/receipts")]
-        public async Task<IActionResult> GetReceiptsByGroupId(Guid groupId, int skip)
-        {
-            var result = await _mediatr.Send(new GetReceiptsByGroupIdQuery(groupId, skip));
-            return Result(result);
-        }
+        #region Groups
 
         [HttpPost]
         public async Task<IActionResult> CreateGroup([FromBody] GroupCreateModel model)
@@ -70,6 +44,44 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin, SAdmin")]
+        public async Task<IActionResult> GetAllGroups(int skip = 0)
+        {
+            var result = await _mediatr.Send(new GetAllGroupsQuery(skip));
+            return Result(result);
+        }
+
+        [HttpGet("my")]
+        public async Task<IActionResult> GetMyGroups()
+        {
+            var result = await _mediatr.Send(new GetUserGroupsQuery(GetId()));
+            return Result(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetGroupById(Guid id)
+        {
+            var result = await _mediatr.Send(new GetGroupByIdQuery(id));
+            return Result(result);
+        }
+
+        #endregion
+
+
+        #region Receipts
+
+        [HttpGet("{groupId}/receipts")]
+        public async Task<IActionResult> GetReceiptsByGroupId(Guid groupId, int skip)
+        {
+            var result = await _mediatr.Send(new GetReceiptsByGroupIdQuery(groupId, skip));
+            return Result(result);
+        }
+
+        #endregion
+
+
+        #region GroupMembers
 
         [HttpPost("members")]
         public async Task<IActionResult> AddMember([FromBody] GroupMemberCreateModel model)
@@ -102,6 +114,11 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
+        #endregion
+
+
+        #region Budgets
+
         [HttpGet("{groupId}/budgets")]
         public async Task<IActionResult> GetAllBudgets(Guid groupId)
         {
@@ -129,5 +146,7 @@ namespace Ereceipt.Web.Controllers
             var result = await _mediatr.Send(new GetUnactiveBudgestQuery(groupId));
             return Result(result);
         }
+
+        #endregion
     }
 }
