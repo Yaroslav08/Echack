@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ereceipt.Application.Extensions;
 using Ereceipt.Application.Results.Budgets;
+using Ereceipt.Application.Results.Receipts;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Budget;
 using Ereceipt.Application.ViewModels.Currency;
@@ -24,6 +25,11 @@ namespace Ereceipt.Application.Services.Implementations
             _mapper = mapper;
             _currencyRepository = currencyRepository;
             _jsonConverter = jsonConverter;
+        }
+
+        public Task<BudgetResult> AddReceiptToBudgetAsync(BudgetReceiptCreateModel model)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<BudgetResult> CreateBudgetAsync(BudgetCreateModel model)
@@ -94,6 +100,11 @@ namespace Ereceipt.Application.Services.Implementations
             return new BudgetResult(budgetToView);
         }
 
+        public Task<ListReceiptResult> GetBudgetReceiptsAsync(Guid groupId, long budgetId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ListBudgetResult> GetUnactiveBudgestAsync(Guid groupId)
         {
             var date = DateTime.UtcNow;
@@ -103,6 +114,11 @@ namespace Ereceipt.Application.Services.Implementations
             var budgetsToView = _mapper.Map<List<BudgetViewModel>>(budgetsFromDB);
             budgetsToView = budgetsToView.OrderByDescending(x => x.CreatedAt).ToList();
             return new ListBudgetResult(budgetsToView);
+        }
+
+        public Task<BudgetResult> RemoveReceiptFromBudgetAsync(BudgetReceiptCreateModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }
