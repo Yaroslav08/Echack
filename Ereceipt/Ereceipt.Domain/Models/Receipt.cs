@@ -23,7 +23,7 @@ namespace Ereceipt.Domain.Models
         public User User { get; set; }
         public Guid? GroupId { get; set; }
         public Group Group { get; set; }
-        public long BudgetCategoryId { get; set; }
+        public long? BudgetCategoryId { get; set; }
         public BudgetCategory BudgetCategory { get; set; }
         public List<Comment> Comments { get; set; }
     }

@@ -39,8 +39,8 @@ namespace Ereceipt.Application.Services.Implementations
                 return new BudgetCategoryResult("Access denited");
             if (receipt.BudgetCategoryId == model.BudgetCategoryId)
                 return new BudgetCategoryResult("This receipt is already exist in this category");
-            if (receipt.BudgetCategoryId != model.BudgetCategoryId && receipt.BudgetCategoryId != 0)
-                return new BudgetCategoryResult("This receipt is already busy in other category");
+            if (receipt.BudgetCategoryId != null)
+                return new BudgetCategoryResult("This receipt is already exist in other category");
             var budgetCategory = await _budgetCategoryRepository.FindAsync(x => x.Id == model.BudgetCategoryId);
             if (budgetCategory is null)
                 return new BudgetCategoryResult("Budget category not found");
@@ -110,7 +110,7 @@ namespace Ereceipt.Application.Services.Implementations
             var receipt = await _receiptRepository.FindAsTrackingAsync(x => x.Id == model.ReceiptId);
             if (receipt is null)
                 return new BudgetCategoryResult("Receipt not found");
-            if (receipt.BudgetCategoryId == 0)
+            if (receipt.BudgetCategoryId == null)
                 return new BudgetCategoryResult("Receipt don't have any category");
             if (receipt.UserId != model.UserId)
                 return new BudgetCategoryResult("Access denited");
@@ -123,7 +123,7 @@ namespace Ereceipt.Application.Services.Implementations
                 return new BudgetCategoryResult("Something went wrong");
             budget.Balance = balance;
             await _budgetRepository.UpdateAsync(budget);
-            receipt.BudgetCategoryId = 0;
+            receipt.BudgetCategoryId = null;
             await _receiptRepository.UpdateAsync(receipt);
             return new BudgetCategoryResult(_mapper.Map<BudgetCategoryViewModel>(budgetCategory));
         }
