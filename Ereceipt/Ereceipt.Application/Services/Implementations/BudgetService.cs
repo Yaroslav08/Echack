@@ -18,19 +18,39 @@ namespace Ereceipt.Application.Services.Implementations
     {
         private readonly IBudgetRepository _budgetRepository;
         private readonly ICurrencyRepository _currencyRepository;
+        private readonly IReceiptRepository _receiptRepository;
         private readonly IJsonConverter _jsonConverter;
         private readonly IMapper _mapper;
-        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter)
+        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter, IReceiptRepository receiptRepository)
         {
             _budgetRepository = budgetRepository;
             _mapper = mapper;
             _currencyRepository = currencyRepository;
             _jsonConverter = jsonConverter;
+            _receiptRepository = receiptRepository;
         }
 
-        public Task<BudgetResult> AddReceiptToBudgetAsync(BudgetReceiptCreateModel model)
+        public async Task<BudgetResult> AddReceiptToBudgetAsync(BudgetReceiptCreateModel model)
         {
-            throw new NotImplementedException();
+            var receiptToAdd = await _receiptRepository.FindAsTrackingAsync(x => x.Id == model.ReceiptId);
+            if (receiptToAdd is null)
+                return new BudgetResult("Receipt not found");
+            if (receiptToAdd.UserId != model.UserId)
+                return new BudgetResult("Access denited");
+            if (receiptToAdd.BudgetId == model.BudgetId)
+                return new BudgetResult("Receipt already reference with this budget");
+            if (receiptToAdd.BudgetId != model.BudgetId)
+                return new BudgetResult("Receipt already reference with other budget");
+            var budgetForAdd = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
+            if (budgetForAdd is null)
+                return new BudgetResult("Budget not found");
+            if (budgetForAdd.Balance < receiptToAdd.TotalPrice)
+                return new BudgetResult("The balance in this budget is crowded");
+            receiptToAdd.BudgetId = budgetForAdd.Id;
+            await _receiptRepository.UpdateAsync(receiptToAdd);
+            budgetForAdd.Balance = budgetForAdd.Balance - receiptToAdd.TotalPrice;
+            var updatedBudget = await _budgetRepository.UpdateAsync(budgetForAdd);
+            return new BudgetResult(_mapper.Map<BudgetViewModel>(updatedBudget));
         }
 
         public async Task<BudgetResult> CreateBudgetAsync(BudgetCreateModel model)
@@ -125,9 +145,25 @@ namespace Ereceipt.Application.Services.Implementations
             return new ListBudgetResult(budgetsToView);
         }
 
-        public Task<BudgetResult> RemoveReceiptFromBudgetAsync(BudgetReceiptCreateModel model)
+        public async Task<BudgetResult> RemoveReceiptFromBudgetAsync(BudgetReceiptCreateModel model)
         {
-            throw new NotImplementedException();
+            var receiptToEdit = await _receiptRepository.FindAsTrackingAsync(x => x.Id == model.ReceiptId);
+            if (receiptToEdit is null)
+                return new BudgetResult("Receipt not found");
+            if (receiptToEdit.BudgetId is null)
+                return new BudgetResult("It is impossible to untie the receipt");
+            if (receiptToEdit.UserId != model.UserId)
+                return new BudgetResult("Access denited");
+            if (receiptToEdit.BudgetId != model.BudgetId)
+                return new BudgetResult("Receipt don't reference with budget");
+            var budgetForEdit = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
+            if (budgetForEdit is null)
+                return new BudgetResult("Budget not found");
+            receiptToEdit.BudgetId = null;
+            await _receiptRepository.UpdateAsync(receiptToEdit);
+            budgetForEdit.Balance = budgetForEdit.Balance + receiptToEdit.TotalPrice;
+            var budgetToView = await _budgetRepository.UpdateAsync(budgetForEdit);
+            return new BudgetResult(_mapper.Map<BudgetViewModel>(budgetToView));
         }
     }
 }

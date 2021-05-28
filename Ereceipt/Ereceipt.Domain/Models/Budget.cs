@@ -9,7 +9,7 @@ namespace Ereceipt.Domain.Models
         [Required, MinLength(2), MaxLength(50)]
         public string Name { get; set; }
         [Required]
-        public int Balance { get; set; }
+        public double Balance { get; set; }
         public string Description { get; set; }
         [Required]
         public DateTime StartPeriod { get; set; }
