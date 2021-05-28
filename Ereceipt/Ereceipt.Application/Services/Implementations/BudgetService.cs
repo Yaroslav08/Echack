@@ -44,6 +44,12 @@ namespace Ereceipt.Application.Services.Implementations
             var budgetForAdd = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
             if (budgetForAdd is null)
                 return new BudgetResult("Budget not found");
+
+            var receiptCurrency = _jsonConverter.GetModelFromJson<Currency>(receiptToAdd.Currency);
+            var budgetCurrency = _jsonConverter.GetModelFromJson<Currency>(budgetForAdd.Currency);
+            if (receiptCurrency.ISOFormat != budgetCurrency.ISOFormat)
+                return new BudgetResult("Unable to add receipt due to different currency");
+
             if (budgetForAdd.Balance < receiptToAdd.TotalPrice)
                 return new BudgetResult("The balance in this budget is crowded");
             receiptToAdd.BudgetId = budgetForAdd.Id;
