@@ -6,6 +6,7 @@ using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Budget;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Application.ViewModels.Receipt;
+using Ereceipt.Application.Wrappers;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using System;
@@ -18,16 +19,20 @@ namespace Ereceipt.Application.Services.Implementations
     {
         private readonly IBudgetRepository _budgetRepository;
         private readonly ICurrencyRepository _currencyRepository;
+        private readonly IGroupMemberRepository _groupMemberRepository;
         private readonly IReceiptRepository _receiptRepository;
         private readonly IJsonConverter _jsonConverter;
+        private readonly IGroupMemberCheck _groupMemberCheck;
         private readonly IMapper _mapper;
-        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter, IReceiptRepository receiptRepository)
+        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter, IReceiptRepository receiptRepository, IGroupMemberRepository groupMemberRepository, IGroupMemberCheck groupMemberCheck)
         {
             _budgetRepository = budgetRepository;
             _mapper = mapper;
             _currencyRepository = currencyRepository;
             _jsonConverter = jsonConverter;
             _receiptRepository = receiptRepository;
+            _groupMemberRepository = groupMemberRepository;
+            _groupMemberCheck = groupMemberCheck;
         }
 
         public async Task<BudgetResult> AddReceiptToBudgetAsync(BudgetReceiptCreateModel model)
@@ -168,6 +173,26 @@ namespace Ereceipt.Application.Services.Implementations
             budgetForEdit.Balance = budgetForEdit.Balance + receiptToEdit.TotalPrice;
             var budgetToView = await _budgetRepository.UpdateAsync(budgetForEdit);
             return new BudgetResult(_mapper.Map<BudgetViewModel>(budgetToView));
+        }
+
+        public async Task<BudgetResult> RemoveBudgetAsync(BudgetRemoveModel model)
+        {
+            var budgetForRemove = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
+            if (budgetForRemove is null)
+                return new BudgetResult("Budget for remove not found");
+            var member = await _groupMemberRepository.GetGroupMemberByIdAsync(budgetForRemove.GroupId, model.UserId);
+            if (member is null)
+                return new BudgetResult("Your aren't a member of group from this budget");
+            if (!_groupMemberCheck.CanMakeAction(member, GroupActionType.CanControlBudget))
+                return new BudgetResult("Access denited");
+            var receiptsByBudget = await _receiptRepository.FindListAsTrackingAsync(x => x.BudgetId == budgetForRemove.Id);
+            receiptsByBudget.ForEach(x =>
+            {
+                x.BudgetId = null;
+            });
+            await _receiptRepository.UpdateRangeAsync(receiptsByBudget);
+            await _budgetRepository.RemoveAsync(budgetForRemove);
+            return new BudgetResult(_mapper.Map<BudgetViewModel>(budgetForRemove));
         }
     }
 }

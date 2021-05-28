@@ -31,6 +31,15 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveBudget(long id)
+        {
+            var model = new BudgetRemoveModel(id);
+            model.IncomeRequestInit(GetId(), GetIpAddress());
+            var result = await _mediator.Send(new RemoveBudgetCommand(model));
+            return Result(result);
+        }
+
         [HttpPost("receipt")]
         public async Task<IActionResult> AddReceiptToBudget([FromBody] BudgetReceiptCreateModel model)
         {

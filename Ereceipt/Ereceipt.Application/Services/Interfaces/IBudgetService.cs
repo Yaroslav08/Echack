@@ -10,6 +10,7 @@ namespace Ereceipt.Application.Services.Interfaces
     {
         Task<BudgetResult> CreateBudgetAsync(BudgetCreateModel model);
         Task<BudgetResult> EditBudgetAsync(BudgetEditModel budgetModel);
+        Task<BudgetResult> RemoveBudgetAsync(BudgetRemoveModel model);
         Task<BudgetResult> AddReceiptToBudgetAsync(BudgetReceiptCreateModel model);
         Task<BudgetResult> RemoveReceiptFromBudgetAsync(BudgetReceiptCreateModel model);
         Task<BudgetResult> GetBudgetByIdAsync(int id, Guid groupId);
