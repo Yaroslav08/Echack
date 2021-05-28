@@ -1,0 +1,14 @@
+{
+  "shopName": "Сільпо",
+  "addressShop": "Героїв Сталінграду 12",
+  "isImportant": false,
+  "groupId": "7cfb5d72-a635-4b9b-895c-08d922031f31",
+  "products": [
+    {
+      "countWeight": 13,
+      "name": "Банани",
+      "price": 3463
+    }
+  ],
+  "currencyId": 3
+}

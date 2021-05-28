@@ -39,7 +39,7 @@ namespace Ereceipt.Application.Services.Implementations
                 return new BudgetResult("Access denited");
             if (receiptToAdd.BudgetId == model.BudgetId)
                 return new BudgetResult("Receipt already reference with this budget");
-            if (receiptToAdd.BudgetId != model.BudgetId)
+            if (receiptToAdd.BudgetId != null)
                 return new BudgetResult("Receipt already reference with other budget");
             var budgetForAdd = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
             if (budgetForAdd is null)
@@ -97,15 +97,6 @@ namespace Ereceipt.Application.Services.Implementations
             return new BudgetResult(updatedBudget);
         }
 
-        public async Task<ListBudgetResult> GetActiveBudgetsAsync(Guid groupId)
-        {
-            var budgets = await _budgetRepository.GetActiveBudgetsAsync(groupId);
-            if (budgets is null || budgets.Count == 0)
-                return new ListBudgetResult("Budgets not found");
-            var budgetsToView = _mapper.Map<List<BudgetViewModel>>(budgets);
-            return new ListBudgetResult(budgetsToView);
-        }
-
         public async Task<ListBudgetResult> GetAllBudgetsAsync(Guid groupId)
         {
             var allBudgetsFromDb = await _budgetRepository.FindListAsync(x => x.GroupId == groupId);
@@ -140,14 +131,21 @@ namespace Ereceipt.Application.Services.Implementations
             return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(receiptsToView));
         }
 
+        public async Task<ListBudgetResult> GetActiveBudgetsAsync(Guid groupId)
+        {
+            var budgets = await _budgetRepository.GetActiveBudgetsAsync(groupId);
+            if (budgets is null || budgets.Count == 0)
+                return new ListBudgetResult("Budgets not found");
+            var budgetsToView = _mapper.Map<List<BudgetViewModel>>(budgets);
+            return new ListBudgetResult(budgetsToView);
+        }
+
         public async Task<ListBudgetResult> GetUnactiveBudgestAsync(Guid groupId)
         {
-            var date = DateTime.UtcNow;
-            var budgetsFromDB = await _budgetRepository.FindListAsync(x => x.GroupId == groupId && x.StartPeriod > date);
-            if (budgetsFromDB is null || budgetsFromDB.Count == 0)
+            var budgets = await _budgetRepository.GetUnactiveBudgetsAsync(groupId);
+            if (budgets is null || budgets.Count == 0)
                 return new ListBudgetResult("Budgets not found");
-            var budgetsToView = _mapper.Map<List<BudgetViewModel>>(budgetsFromDB);
-            budgetsToView = budgetsToView.OrderByDescending(x => x.CreatedAt).ToList();
+            var budgetsToView = _mapper.Map<List<BudgetViewModel>>(budgets);
             return new ListBudgetResult(budgetsToView);
         }
 

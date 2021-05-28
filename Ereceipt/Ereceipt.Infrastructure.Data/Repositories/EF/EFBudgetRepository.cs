@@ -19,6 +19,16 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
             return await db.Budgets
                 .AsNoTracking()
                 .Where(x => x.GroupId == id && (x.StartPeriod < todayDate && x.EndPeriod > todayDate))
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<Budget>> GetUnactiveBudgetsAsync(Guid id)
+        {
+            return await db.Budgets
+                .AsNoTracking()
+                .Where(x => x.GroupId == id && x.EndPeriod < DateTime.UtcNow)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
         }
 

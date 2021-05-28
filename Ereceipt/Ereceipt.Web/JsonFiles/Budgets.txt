@@ -1,0 +1,8 @@
+{
+  "name": "Example 1",
+  "balance": 30000,
+  "startPeriod": "2021-05-28T18:14:59.680Z",
+  "endPeriod": "2021-06-28T18:14:59.680Z",
+  "groupId": "7cfb5d72-a635-4b9b-895c-08d922031f31",
+  "currencyId": 3
+}
