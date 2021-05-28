@@ -21,5 +21,15 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
                 .Where(x => x.GroupId == id && (x.StartPeriod < todayDate && x.EndPeriod > todayDate))
                 .ToListAsync();
         }
+
+        public async Task<List<Receipt>> GetReceiptsByBudgetIdAsync(long budgetId, int skip)
+        {
+            return await db.Receipts
+                .AsNoTracking()
+                .Where(x => x.BudgetId == budgetId)
+                .OrderByDescending(x => x.CreatedAt)
+                .Skip(skip).Take(20)
+                .ToListAsync();
+        }
     }
 }

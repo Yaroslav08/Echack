@@ -5,5 +5,6 @@ namespace Ereceipt.Application.Results.Receipts
     public class ListReceiptResult : Result
     {
         public ListReceiptResult(List<ReceiptViewModel> receipts) : base(receipts) { }
+        public ListReceiptResult(string error) : base(error) { }
     }
 }

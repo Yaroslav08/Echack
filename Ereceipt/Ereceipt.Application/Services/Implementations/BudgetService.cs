@@ -5,6 +5,7 @@ using Ereceipt.Application.Results.Receipts;
 using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Budget;
 using Ereceipt.Application.ViewModels.Currency;
+using Ereceipt.Application.ViewModels.Receipt;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
 using System;
@@ -100,9 +101,17 @@ namespace Ereceipt.Application.Services.Implementations
             return new BudgetResult(budgetToView);
         }
 
-        public Task<ListReceiptResult> GetBudgetReceiptsAsync(Guid groupId, long budgetId)
+        public async Task<ListReceiptResult> GetReceiptsByBudgetAsync(Guid groupId, long budgetId, int skip)
         {
-            throw new NotImplementedException();
+            var budgetToCheck = await _budgetRepository.FindAsync(x => x.Id == budgetId);
+            if (budgetToCheck is null)
+                return new ListReceiptResult("Budget not found");
+            if (budgetToCheck.GroupId != groupId)
+                return new ListReceiptResult("The current budget is not in this group");
+            var receiptsToView = await _budgetRepository.GetReceiptsByBudgetIdAsync(budgetId, skip);
+            if (receiptsToView is null || receiptsToView.Count == 0)
+                return new ListReceiptResult("Receipts not found");
+            return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(receiptsToView));
         }
 
         public async Task<ListBudgetResult> GetUnactiveBudgestAsync(Guid groupId)

@@ -16,6 +16,6 @@ namespace Ereceipt.Application.Services.Interfaces
         Task<ListBudgetResult> GetActiveBudgetsAsync(Guid groupId);
         Task<ListBudgetResult> GetAllBudgetsAsync(Guid groupId);
         Task<ListBudgetResult> GetUnactiveBudgestAsync(Guid groupId);
-        Task<ListReceiptResult> GetBudgetReceiptsAsync(Guid groupId, long budgetId);
+        Task<ListReceiptResult> GetReceiptsByBudgetAsync(Guid groupId, long budgetId, int skip);
     }
 }

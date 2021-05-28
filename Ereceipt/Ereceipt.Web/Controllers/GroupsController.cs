@@ -133,6 +133,13 @@ namespace Ereceipt.Web.Controllers
             return Result(result);
         }
 
+        [HttpGet("{groupId}/budgets/{id}/receipts")]
+        public async Task<IActionResult> GetReceiptsByBudgetId(Guid groupId, long budgetId, int skip = 0)
+        {
+            var result = await _mediatr.Send(new GetReceiptsByBudgetIdQuery(groupId, budgetId, skip));
+            return Result(result);
+        }
+
         [HttpGet("{groupId}/budgets/active")]
         public async Task<IActionResult> GetActiveBudgets(Guid groupId)
         {

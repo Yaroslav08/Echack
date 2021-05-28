@@ -8,5 +8,6 @@ namespace Ereceipt.Domain.Interfaces
     public interface IBudgetRepository : IRepository<Budget>
     {
         Task<List<Budget>> GetActiveBudgetsAsync(Guid id);
+        Task<List<Receipt>> GetReceiptsByBudgetIdAsync(long budgetId, int skip);
     }
 }
