@@ -44,7 +44,7 @@ namespace Ereceipt.Web.Middlewares
                 await SendSuccessResponse(httpContext, new
                 {
                     AppName = "Ereceipt",
-                    Version = "1.7.0"
+                    Version = "1.7.1"
                 });
             }
             else if (httpContext.Request.Path.Value == "/api/errors")
