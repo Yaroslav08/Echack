@@ -82,9 +82,11 @@ namespace Ereceipt.Application.Services.Implementations
             var budgetForEdit = await _budgetRepository.FindAsTrackingAsync(x => x.Id == budgetModel.Id);
             if (budgetForEdit is null)
                 return new BudgetResult("Budget for edit not found");
-
-            //ToDo: check can current user edit budget
-
+            var member = await _groupMemberRepository.GetGroupMemberByIdAsync(budgetForEdit.GroupId, budgetModel.UserId);
+            if (member is null)
+                return new BudgetResult("Your aren't a member of group from this budget");
+            if (!_groupMemberCheck.CanMakeAction(member, GroupActionType.CanControlBudget))
+                return new BudgetResult("Access denited");
             budgetForEdit.Name = budgetModel.Name;
             budgetForEdit.Balance = budgetModel.Balance;
             budgetForEdit.Description = budgetModel.Description;
