@@ -134,9 +134,9 @@ namespace Ereceipt.Web.Controllers
         }
 
         [HttpGet("{groupId}/budgets/{id}/receipts")]
-        public async Task<IActionResult> GetReceiptsByBudgetId(Guid groupId, long budgetId, int skip = 0)
+        public async Task<IActionResult> GetReceiptsByBudgetId(Guid groupId, long id, int skip = 0)
         {
-            var result = await _mediatr.Send(new GetReceiptsByBudgetIdQuery(groupId, budgetId, skip));
+            var result = await _mediatr.Send(new GetReceiptsByBudgetIdQuery(groupId, id, skip));
             return Result(result);
         }
 
