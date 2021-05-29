@@ -4,7 +4,7 @@ namespace Ereceipt.Domain.Models
 {
     public class User : BaseModel<int>
     {
-        [Required, MinLength(5), MaxLength(150)]
+        [Required, MinLength(2), MaxLength(150)]
         public string Name { get; set; }
         [Required, MinLength(3), MaxLength(30)]
         public string Username { get; set; }

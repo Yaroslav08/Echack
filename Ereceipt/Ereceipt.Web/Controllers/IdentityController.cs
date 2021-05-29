@@ -44,8 +44,8 @@ namespace Ereceipt.Web.Controllers
         [NonAction]
         private TokenResult GetToken(LoginViewModel user)
         {
-            if (user == null)
-                return new TokenResult("Login or password is incorrect");
+            if (user.IsError)
+                return new TokenResult(user.Error);
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
