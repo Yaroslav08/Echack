@@ -16,7 +16,7 @@ namespace Ereceipt.Application.Services.Implementations
     {
         private readonly IGroupRepository _groupRepository;
         private readonly IGroupMemberRepository _groupMemberRepository;
-        private readonly IReceiptRepository _ReceiptRepository;
+        private readonly IReceiptRepository _receiptRepository;
         private readonly IMapper _mapper;
         private readonly IGroupMemberCheck _groupMemberCheck;
         private readonly IEntityService _entityService;
@@ -25,7 +25,7 @@ namespace Ereceipt.Application.Services.Implementations
             _groupRepository = groupRepository;
             _mapper = mapper;
             _groupMemberRepository = groupMemberRepository;
-            _ReceiptRepository = ReceiptRepository;
+            _receiptRepository = ReceiptRepository;
             _groupMemberCheck = groupMemberCheck;
             _entityService = entityService;
         }
@@ -85,10 +85,10 @@ namespace Ereceipt.Application.Services.Implementations
 
         public async Task<ListReceiptGroupResult> GetReceiptsByGroupIdAsync(Guid groupId, int skip = 0)
         {
-            var receipts = _mapper.Map<List<ReceiptGroupViewModel>>(await _ReceiptRepository.GetReceiptsByGroupIdAsync(groupId, skip));
+            var receipts = _mapper.Map<List<ReceiptGroupViewModel>>(await _receiptRepository.GetReceiptsByGroupIdAsync(groupId, skip));
             receipts.ForEach(x =>
             {
-                x.CommentsCount = _ReceiptRepository.GetCountCommentsByReceiptIdAsync(x.Id).Result;
+                x.CommentsCount = _receiptRepository.GetCountCommentsByReceiptIdAsync(x.Id).Result;
             });
             return new ListReceiptGroupResult(receipts);
         }
@@ -107,7 +107,7 @@ namespace Ereceipt.Application.Services.Implementations
         {
             var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == id);
             if (group == null)
-                return null;
+                return new GroupResult("Group for delete not found");
 
             var groupMember = await _groupMemberRepository.GetGroupMemberByIdAsync(id, userId);
             if (!groupMember.IsCreator)
@@ -115,22 +115,22 @@ namespace Ereceipt.Application.Services.Implementations
 
             var groupMembersForRemove = await _groupMemberRepository.FindListAsTrackingAsync(d => d.GroupId == id);
 
-            if(groupMembersForRemove!=null && groupMembersForRemove.Count > 0)
+            if (groupMembersForRemove != null && groupMembersForRemove.Count > 0)
             {
                 await _groupMemberRepository.RemoveRangeAsync(groupMembersForRemove);
             }
 
-            var Receipts = await _ReceiptRepository.FindListAsTrackingAsync(d => d.GroupId == id);
-            if (Receipts != null || Receipts.Count > 0) //ToDo (take out handler code)
+            var receiptsForUpdate = await _receiptRepository.FindListAsTrackingAsync(d => d.GroupId == id);
+            if (receiptsForUpdate != null && receiptsForUpdate.Count > 0) //ToDo (take out handler code)
             {
-                Receipts.ForEach(d =>
+                receiptsForUpdate.ForEach(d =>
                 {
                     d.GroupId = null;
                     d.LastUpdatedAt = DateTime.UtcNow;
                     d.LastUpdatedBy = userId.ToString();
                     d.LastUpdatedFromIP = "::1";
                 });
-                await _ReceiptRepository.UpdateRangeAsync(Receipts);
+                await _receiptRepository.UpdateRangeAsync(receiptsForUpdate);
             }
             return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.RemoveAsync(group)));
         }
