@@ -32,16 +32,17 @@ namespace Ereceipt.Application.Services.Implementations
 
         public async Task<GroupResult> CreateGroupAsync(GroupCreateModel model)
         {
-            var group = new Group
+            var groupToCreate = new Group
             {
                 Name = model.Name,
                 Desc = model.Desc,
                 Color = model.Color,
                 CreatedBy = model.UserId.ToString()
             };
-            if (string.IsNullOrEmpty(group.Color))
-                group.Color = "#1c64d9";
-            var groupToResult = await _groupRepository.CreateAsync(group);
+            if (string.IsNullOrEmpty(groupToCreate.Color))
+                groupToCreate.Color = "#1c64d9";
+            groupToCreate.SetInitData(model);
+            var groupToResult = await _groupRepository.CreateAsync(groupToCreate);
             var creatorMember = new GroupMember
             {
                 GroupId = groupToResult.Id,
