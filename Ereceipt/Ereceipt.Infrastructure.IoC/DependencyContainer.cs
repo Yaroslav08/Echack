@@ -31,6 +31,7 @@ namespace Ereceipt.Infrastructure.IoC
             services.AddScoped<IBudgetRepository, EFBudgetRepository>();
             services.AddScoped<IBudgetService, BudgetService>();
             services.AddScoped<IGroupMemberCheck, GroupMemberCheck>();
+            services.AddScoped<IEntityService, EFEntityService>();
         }
 
         public static void AddEreceiptAutoMapper(this IServiceCollection services)
