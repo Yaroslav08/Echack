@@ -59,11 +59,13 @@ namespace Ereceipt.Application.Services.Implementations
         public async Task<GroupResult> EditGroupAsync(GroupEditModel model)
         {
             var groupMember = await _groupMemberRepository.GetGroupMemberByIdAsync(model.Id,model.UserId);
+            if (groupMember is null)
+                return new GroupResult("Your not a member of this group");
             if (!_groupMemberCheck.CanMakeAction(groupMember, GroupActionType.CanEditGroup))
-                return null;
+                return new GroupResult("Access denited");
             var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == model.Id);
             if (group == null)
-                return null;
+                return new GroupResult("Group for edit not found");
             group.Name = model.Name;
             group.Desc = model.Desc;
             group.Color = model.Color;
