@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-namespace Ereceipt.Web.Controllers
+namespace Ereceipt.Web.Controllers.V1
 {
     public class GroupsController : ApiController
     {

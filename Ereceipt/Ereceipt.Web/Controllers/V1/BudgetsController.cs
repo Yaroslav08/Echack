@@ -4,7 +4,7 @@ using Ereceipt.Application.ViewModels.Budget;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-namespace Ereceipt.Web.Controllers
+namespace Ereceipt.Web.Controllers.V1
 {
     public class BudgetsController : ApiController
     {
