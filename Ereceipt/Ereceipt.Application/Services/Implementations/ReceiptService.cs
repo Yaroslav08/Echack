@@ -53,7 +53,7 @@ namespace Ereceipt.Application.Services.Implementations
             {
                 currency = _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(d => d.Id == model.CurrencyId));
             }
-            var Receipt = new Receipt
+            var receiptToCreate = new Receipt
             {
                 ShopName = model.ShopName,
                 AddressShop = model.AddressShop,
@@ -66,7 +66,8 @@ namespace Ereceipt.Application.Services.Implementations
                 Products = _jsonConverter.GetStringAsJson(model.Products),
                 CreatedBy = model.UserId.ToString()
             };
-            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.CreateAsync(Receipt)));
+            receiptToCreate.SetInitData(model);
+            return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.CreateAsync(receiptToCreate)));
         }
 
         public async Task<ReceiptResult> EditReceiptAsync(ReceiptEditModel model)
