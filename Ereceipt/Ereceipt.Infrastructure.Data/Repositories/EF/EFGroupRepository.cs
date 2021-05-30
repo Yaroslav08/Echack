@@ -18,6 +18,7 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
                 .AsNoTracking()
                 .Where(d => d.UserId == id)
                 .Select(d => d.Group)
+                .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
         }
     }
