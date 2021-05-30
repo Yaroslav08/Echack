@@ -26,8 +26,9 @@ namespace Ereceipt.Application.Services.Implementations
             var user = await _userRepository.GetByIdAsTrackingAsync(model.UserId);
             if (user == null)
                 return new UserResult($"User with Id:{model.UserId} not found for edit");
-            if (await _usernameService.UsernameIsBusyAsync(model.Username))
-                return new UserResult("This username is busy");
+            if (model.Username != user.Username)
+                if (await _usernameService.UsernameIsBusyAsync(model.Username))
+                    return new UserResult("This username is busy");
             user.Name = model.Name;
             user.Username = model.Username;
             user.SetUpdateData(model);
