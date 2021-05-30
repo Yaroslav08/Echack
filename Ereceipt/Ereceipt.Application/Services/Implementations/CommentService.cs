@@ -13,23 +13,26 @@ namespace Ereceipt.Application.Services.Implementations
     public class CommentService : ICommentService
     {
         private readonly ICommentRepository _commentRepository;
+        private readonly IEntityService _entityService;
         private readonly IMapper _mapper;
-        public CommentService(ICommentRepository commentRepository, IMapper mapper)
+        public CommentService(ICommentRepository commentRepository, IMapper mapper, IEntityService entityService)
         {
             _commentRepository = commentRepository;
             _mapper = mapper;
+            _entityService = entityService;
         }
 
         public async Task<CommentResult> CreateCommentAsync(CommentCreateModel model)
         {
+            if (!await _entityService.IsExistAsync<Receipt>(x => x.Id == model.ReceiptId))
+                return new CommentResult("Receipt not found");
             var comment = new Comment
             {
                 Text = model.Text,
                 ReceiptId = model.ReceiptId,
-                UserId = model.UserId,
-                CreatedBy = model.UserId.ToString(),
-                CreatedAt = DateTime.UtcNow
+                UserId = model.UserId
             };
+            comment.SetInitData(model);
             return new CommentResult(_mapper.Map<CommentViewModel>(await _commentRepository.CreateAsync(comment)));
         }
 
