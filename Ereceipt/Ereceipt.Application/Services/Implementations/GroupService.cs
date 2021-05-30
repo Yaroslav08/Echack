@@ -36,11 +36,16 @@ namespace Ereceipt.Application.Services.Implementations
             {
                 Name = model.Name,
                 Desc = model.Desc,
-                Color = model.Color,
                 CreatedBy = model.UserId.ToString()
             };
-            if (string.IsNullOrEmpty(groupToCreate.Color))
+            if (string.IsNullOrEmpty(model.Color))
                 groupToCreate.Color = "#1c64d9";
+            else
+            {
+                if (!model.Color.IsHexColor())
+                    return new GroupResult("This color isn't HEX");
+                groupToCreate.Color = model.Color;
+            }
             groupToCreate.SetInitData(model);
             var groupToResult = await _groupRepository.CreateAsync(groupToCreate);
             var creatorMember = new GroupMember
@@ -63,14 +68,19 @@ namespace Ereceipt.Application.Services.Implementations
                 return new GroupResult("Your not a member of this group");
             if (!_groupMemberCheck.CanMakeAction(groupMember, GroupActionType.CanEditGroup))
                 return new GroupResult("Access denited");
-            var group = await _groupRepository.FindAsTrackingAsync(d => d.Id == model.Id);
-            if (group == null)
+            var groupToEdit = await _groupRepository.FindAsTrackingAsync(d => d.Id == model.Id);
+            if (groupToEdit == null)
                 return new GroupResult("Group for edit not found");
-            group.Name = model.Name;
-            group.Desc = model.Desc;
-            group.Color = model.Color;
-            group.SetUpdateData(model);
-            return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.UpdateAsync(group)));
+            groupToEdit.Name = model.Name;
+            groupToEdit.Desc = model.Desc;
+            if (!string.IsNullOrEmpty(model.Color))
+            {
+                if (!model.Color.IsHexColor())
+                    return new GroupResult("This color isn't HEX");
+                groupToEdit.Color = model.Color;
+            }
+            groupToEdit.SetUpdateData(model);
+            return new GroupResult(_mapper.Map<GroupViewModel>(await _groupRepository.UpdateAsync(groupToEdit)));
         }
 
         public async Task<ListReceiptGroupResult> GetReceiptsByGroupIdAsync(Guid groupId, int skip = 0)
