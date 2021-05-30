@@ -7,6 +7,7 @@ namespace Ereceipt.Application.ViewModels.Comment
     {
         [Required, MinLength(1), MaxLength(500)]
         public string Text { get; set; }
+        [Required]
         public Guid ReceiptId { get; set; }
     }
 }
