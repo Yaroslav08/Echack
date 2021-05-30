@@ -19,13 +19,15 @@ namespace Ereceipt.Application.Services.Implementations
         private readonly IReceiptRepository _ReceiptRepository;
         private readonly IMapper _mapper;
         private readonly IGroupMemberCheck _groupMemberCheck;
-        public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IReceiptRepository ReceiptRepository, IGroupMemberCheck groupMemberCheck)
+        private readonly IEntityService _entityService;
+        public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IReceiptRepository ReceiptRepository, IGroupMemberCheck groupMemberCheck, IEntityService entityService)
         {
             _groupRepository = groupRepository;
             _mapper = mapper;
             _groupMemberRepository = groupMemberRepository;
             _ReceiptRepository = ReceiptRepository;
             _groupMemberCheck = groupMemberCheck;
+            _entityService = entityService;
         }
 
         public async Task<GroupResult> CreateGroupAsync(GroupCreateModel model)
@@ -123,6 +125,10 @@ namespace Ereceipt.Application.Services.Implementations
             var groupMember = await _groupMemberRepository.GetGroupMemberByIdAsync(model.GroupId, model.UserId);
             if (!_groupMemberCheck.CanMakeAction(groupMember, GroupActionType.CanAddMember))
                 return new GroupMemberResult("Access denited");
+            if (!await _entityService.IsExistAsync<User>(x => x.Id == model.Id))
+                return new GroupMemberResult("User for add not found");
+            if (await _entityService.IsExistAsync<GroupMember>(x => x.GroupId == model.GroupId && x.UserId == model.Id))
+                return new GroupMemberResult("This user is already a member of this group");
             var newMember = new GroupMember()
             {
                 GroupId = model.GroupId,
