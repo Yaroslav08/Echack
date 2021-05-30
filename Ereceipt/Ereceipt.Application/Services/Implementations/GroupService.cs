@@ -39,6 +39,8 @@ namespace Ereceipt.Application.Services.Implementations
                 Color = model.Color,
                 CreatedBy = model.UserId.ToString()
             };
+            if (string.IsNullOrEmpty(group.Color))
+                group.Color = "#1c64d9";
             var groupToResult = await _groupRepository.CreateAsync(group);
             var creatorMember = new GroupMember
             {
