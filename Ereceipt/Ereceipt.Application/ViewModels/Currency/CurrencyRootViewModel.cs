@@ -5,7 +5,7 @@ namespace Ereceipt.Application.ViewModels.Currency
     {
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public string UpdatedBy { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
+        public string LastUpdatedBy { get; set; }
     }
 }

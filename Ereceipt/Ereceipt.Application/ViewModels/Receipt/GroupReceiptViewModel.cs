@@ -8,6 +8,6 @@ namespace Ereceipt.Application.ViewModels.Receipt
         public string Name { get; set; }
         public string Color { get; set; }
         public string Desc { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
     }
 }

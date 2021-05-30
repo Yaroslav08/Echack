@@ -9,7 +9,7 @@ namespace Ereceipt.Application.ViewModels.Receipt
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
         public string ShopName { get; set; }
         public string AddressShop { get; set; }
         public double TotalPrice { get; set; }

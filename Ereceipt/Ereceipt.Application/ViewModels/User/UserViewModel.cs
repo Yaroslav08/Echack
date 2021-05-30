@@ -13,7 +13,7 @@ namespace Ereceipt.Application.ViewModels.User
         public string Username { get; set; }
         public string Avatar { get; set; }
         public string Role { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
         public List<ReceiptViewModel> Receipts { get; set; }
         public List<GroupMemberViewModel> GroupMembers { get; set; }
         public List<CommentViewModel> Comments { get; set; }

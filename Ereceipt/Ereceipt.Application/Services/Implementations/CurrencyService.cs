@@ -5,7 +5,6 @@ using Ereceipt.Application.Services.Interfaces;
 using Ereceipt.Application.ViewModels.Currency;
 using Ereceipt.Domain.Interfaces;
 using Ereceipt.Domain.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace Ereceipt.Application.Services.Implementations
@@ -22,11 +21,10 @@ namespace Ereceipt.Application.Services.Implementations
 
         public async Task<CurrencyResult> CreateCurrencyAsync(CurrencyCreateModel model)
         {
-            if (await _currencyRepository.CountAsync(d => d.Code == model.Code && d.ISOFormat == model.ISOFormat) > 0)
+            if (await _currencyRepository.CountAsync(d => d.Code == model.Code || d.ISOFormat == model.ISOFormat) > 0)
                 return new CurrencyResult("This currency is already exist");
             var currencyForCreate = _mapper.Map<Currency>(model);
-            currencyForCreate.CreatedAt = DateTime.UtcNow;
-            currencyForCreate.CreatedBy = model.UserId.ToString();
+            currencyForCreate.SetInitData(model);
             return new CurrencyResult(_mapper.Map<CurrencyRootViewModel>(await _currencyRepository.CreateAsync(currencyForCreate)));
         }
 
@@ -35,7 +33,11 @@ namespace Ereceipt.Application.Services.Implementations
             var currencyForEdit = await _currencyRepository.FindAsTrackingAsync(d => d.Id == model.Id);
             if (currencyForEdit is null)
                 return new CurrencyResult("Currency for edit not found");
-            currencyForEdit = _mapper.Map(model, currencyForEdit);
+            currencyForEdit.Symbol = model.Symbol;
+            currencyForEdit.Code = model.Code;
+            currencyForEdit.ISOFormat = model.ISOFormat;
+            currencyForEdit.Name = model.Name;
+            currencyForEdit.Countries = model.Countries;
             currencyForEdit.SetUpdateData(model);
             var currencyEdited = _mapper.Map<CurrencyRootViewModel>(await _currencyRepository.UpdateAsync(currencyForEdit));
             return new CurrencyResult(currencyEdited);

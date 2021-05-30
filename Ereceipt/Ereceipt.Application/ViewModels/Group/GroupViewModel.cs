@@ -9,7 +9,7 @@ namespace Ereceipt.Application.ViewModels.Group
         public string Name { get; set; }
         public string Color { get; set; }
         public string Desc { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
         public List<ReceiptGroupViewModel> Receipts { get; set; }
     }
 }
