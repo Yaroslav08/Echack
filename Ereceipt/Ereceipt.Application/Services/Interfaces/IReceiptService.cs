@@ -17,5 +17,6 @@ namespace Ereceipt.Application.Services.Interfaces
         Task<ListReceiptResult> GetAllReceiptsAsync(int skip);
         Task<CountResult> GetAllReceiptsCountAsync();
         Task<ReceiptResult> RemoveReceiptAsync(Guid id, int userId);
+        Task<ListReceiptResult> GetReceiptsByShopNameAsync(int userId, string shopName, int skip);
     }
 }

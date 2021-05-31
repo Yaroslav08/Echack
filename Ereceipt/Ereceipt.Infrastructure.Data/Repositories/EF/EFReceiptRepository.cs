@@ -55,11 +55,13 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
         {
             if (skip == 0)
                 return await db.Receipts.AsNoTracking().Where(d => d.UserId == ownerId && d.ShopName.Contains(shopName))
+                    .OrderByDescending(x => x.CreatedAt)
                     .Take(20)
                     .ToListAsync();
             return await db.Receipts.AsNoTracking().Where(d => d.UserId == ownerId && d.ShopName.Contains(shopName))
-                    .Take(20)
+                    .OrderByDescending(x => x.CreatedAt)
                     .Skip(skip)
+                    .Take(20)
                     .ToListAsync();
         }
 

@@ -113,6 +113,11 @@ namespace Ereceipt.Application.Services.Implementations
             return new ReceiptResult(receipt);
         }
 
+        public async Task<ListReceiptResult> GetReceiptsByShopNameAsync(int userId, string shopName, int skip)
+        {
+            return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _receiptRepos.GetReceiptsByShopNameAsync(userId, shopName, skip)));
+        }
+
         public async Task<ListReceiptResult> GetUserReceiptsByUserIdAsync(int ownerId, int skip)
         {
             return new ListReceiptResult(_mapper.Map<List<ReceiptViewModel>>(await _receiptRepos.GetReceiptsByUserIdAsync(ownerId, skip)));

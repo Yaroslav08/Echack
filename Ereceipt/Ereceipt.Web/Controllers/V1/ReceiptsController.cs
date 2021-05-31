@@ -98,5 +98,12 @@ namespace Ereceipt.Web.Controllers.V1
             var result = await _mediator.Send(new GetUserReceiptsCountQuery(GetId()));
             return Result(result);
         }
+
+        [HttpGet("by-shop/{name}")]
+        public async Task<IActionResult> GetReceiptsByShopName(string name, int skip = 0)
+        {
+            var result = await _mediator.Send(new GetReceiptsByShopNameQuery(GetId(), name, skip));
+            return Result(result);
+        }
     }
 }
