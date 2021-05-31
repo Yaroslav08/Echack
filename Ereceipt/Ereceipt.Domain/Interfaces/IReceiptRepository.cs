@@ -9,7 +9,7 @@ namespace Ereceipt.Domain.Interfaces
         Task<List<Receipt>> GetReceiptsByUserIdAsync(int ownerId, int skip);
         Task<List<Receipt>> GetReceiptsByMounthAsync(int ownerId, int mounth);
         Task<List<Receipt>> GetReceiptsByTimeAsync(int ownerId, DateTime from, DateTime to);
-        Task<List<Receipt>> GetReceiptsByShopNameAsync(int ownerId, string shopName, int afterId);
+        Task<List<Receipt>> GetReceiptsByShopNameAsync(int ownerId, string shopName, int skip);
         Task<Receipt> GetReceiptByIdAsync(Guid id);
         Task<int> GetCountCommentsByReceiptIdAsync(Guid id);
         Task<List<Receipt>> GetReceiptsByGroupIdAsync(Guid groupId, int skip);
