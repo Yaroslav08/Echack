@@ -44,13 +44,6 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
                     .ToListAsync();
         }
 
-        public async Task<List<Receipt>> GetReceiptsByMounthAsync(int ownerId, int mounth)
-        {
-            return await db.Receipts.AsNoTracking()
-                .Where(d => d.UserId == ownerId && d.CreatedAt.Month == mounth && d.CreatedAt.Year == DateTime.Now.Year)
-                .ToListAsync();
-        }
-
         public async Task<List<Receipt>> GetReceiptsByShopNameAsync(int ownerId, string shopName, int skip = 0)
         {
             if (skip == 0)
@@ -63,13 +56,6 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
                     .Skip(skip)
                     .Take(20)
                     .ToListAsync();
-        }
-
-        public async Task<List<Receipt>> GetReceiptsByTimeAsync(int ownerId, DateTime from, DateTime to)
-        {
-            return await db.Receipts.AsNoTracking()
-                .Where(d => d.UserId == ownerId && d.CreatedAt >= from && d.CreatedAt <= to)
-                .ToListAsync();
         }
 
         public async Task<List<Receipt>> GetReceiptsByUserIdAsync(int ownerId, int skip)
