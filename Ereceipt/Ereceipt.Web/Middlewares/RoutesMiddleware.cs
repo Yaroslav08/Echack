@@ -3,6 +3,7 @@ using Ereceipt.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 namespace Ereceipt.Web.Middlewares
@@ -12,16 +13,21 @@ namespace Ereceipt.Web.Middlewares
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
         private readonly RequestDelegate _next;
         private readonly IErrorStorage _errorStorage;
+        private readonly IConfiguration _configuration;
 
-        public RoutesMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IErrorStorage errorStorage)
+        public RoutesMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IErrorStorage errorStorage, IConfiguration configuration)
         {
             _next = next;
             _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
             _errorStorage = errorStorage;
+            _configuration = configuration;
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
+            httpContext.Response.Headers.Add("Name", _configuration["About:Name"]);
+            httpContext.Response.Headers.Add("Version", _configuration["About:Version"]);
+            httpContext.Response.Headers.Add("LastDateUpdated", _configuration["About:LastDateUpdated"]);
             if (httpContext.Request.Path.Value == "/api/routes")
             {
                 var result = new ListRoutes<RouteModel>();
@@ -41,10 +47,14 @@ namespace Ereceipt.Web.Middlewares
             }
             else if (httpContext.Request.Path.Value == "/version")
             {
+                var appName = _configuration["About:Name"];
+                var appVersion = _configuration["About:Version"];
+                var lastDateUpdated = _configuration["About:LastDateUpdated"];
                 await SendSuccessResponse(httpContext, new
                 {
-                    AppName = "Ereceipt",
-                    Version = "1.7.2"
+                    AppName = appName,
+                    Version = appVersion,
+                    LastDateUpdated = lastDateUpdated
                 });
             }
             else if (httpContext.Request.Path.Value == "/api/errors")
