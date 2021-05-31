@@ -4,9 +4,9 @@ namespace Ereceipt.Application.ViewModels.Budget
 {
     public class BudgetReceiptCreateModel : RequestModel
     {
-        [Required]
+        [Required(ErrorMessage = "Budget ID is required")]
         public long BudgetId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Receipt ID is required")]
         public Guid ReceiptId { get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace Ereceipt.Application.ViewModels.Comment
 {
     public class CommentEditModel : CommentCreateModel
     {
-        [Required]
+        [Required(ErrorMessage = "ID is required")]
         public long Id { get; set; }
     }
 }

@@ -4,14 +4,14 @@ namespace Ereceipt.Application.ViewModels.Budget
 {
     public class BudgetCreateModel : RequestModel
     {
-        [Required, MinLength(2), MaxLength(50)]
+        [Required(ErrorMessage = "Name is required"), MinLength(2, ErrorMessage = "Min length of name is 2 symbols"), MaxLength(50, ErrorMessage = "Max length of name is 50 symbols")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Balance is required")]
         public double Balance { get; set; }
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "StartPeriod is required")]
         public DateTime StartPeriod { get; set; }
-        [Required]
+        [Required(ErrorMessage = "EndPeriod is required")]
         public DateTime EndPeriod { get; set; }
         public Guid GroupId { get; set; }
         public int CurrencyId { get; set; }
