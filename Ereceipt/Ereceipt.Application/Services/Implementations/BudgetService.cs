@@ -178,15 +178,15 @@ namespace Ereceipt.Application.Services.Implementations
             var receiptToEdit = await _receiptRepository.FindAsTrackingAsync(x => x.Id == model.ReceiptId);
             if (receiptToEdit is null)
                 return new BudgetResult("Receipt not found");
+            var budgetForEdit = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
+            if (budgetForEdit is null)
+                return new BudgetResult("Budget not found");
             if (receiptToEdit.BudgetId is null)
                 return new BudgetResult("It is impossible to untie the receipt");
             if (receiptToEdit.UserId != model.UserId)
                 return new BudgetResult("Access denited");
             if (receiptToEdit.BudgetId != model.BudgetId)
                 return new BudgetResult("Receipt don't reference with budget");
-            var budgetForEdit = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
-            if (budgetForEdit is null)
-                return new BudgetResult("Budget not found");
             var member = await _groupMemberRepository.GetGroupMemberByIdAsync(budgetForEdit.GroupId, model.UserId);
             if (member is null)
                 return new BudgetResult("Your aren't a member of group from this budget");
