@@ -23,8 +23,9 @@ namespace Ereceipt.Application.Services.Implementations
         private readonly IReceiptRepository _receiptRepository;
         private readonly IJsonConverter _jsonConverter;
         private readonly IGroupMemberCheck _groupMemberCheck;
+        private readonly IEntityService _entityService;
         private readonly IMapper _mapper;
-        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter, IReceiptRepository receiptRepository, IGroupMemberRepository groupMemberRepository, IGroupMemberCheck groupMemberCheck)
+        public BudgetService(IBudgetRepository budgetRepository, IMapper mapper, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter, IReceiptRepository receiptRepository, IGroupMemberRepository groupMemberRepository, IGroupMemberCheck groupMemberCheck, IEntityService entityService)
         {
             _budgetRepository = budgetRepository;
             _mapper = mapper;
@@ -33,6 +34,7 @@ namespace Ereceipt.Application.Services.Implementations
             _receiptRepository = receiptRepository;
             _groupMemberRepository = groupMemberRepository;
             _groupMemberCheck = groupMemberCheck;
+            _entityService = entityService;
         }
 
         public async Task<BudgetResult> AddReceiptToBudgetAsync(BudgetReceiptCreateModel model)
@@ -70,6 +72,8 @@ namespace Ereceipt.Application.Services.Implementations
                 return new BudgetResult("The difference between the start date and the end date must be more than one day");
             if (model.Balance <= 0)
                 return new BudgetResult("Balance must be more than 0");
+            if (!await _entityService.IsExistAsync<Group>(x => x.Id == model.GroupId))
+                return new BudgetResult("Group not found");
             var member = await _groupMemberRepository.GetGroupMemberByIdAsync(model.GroupId, model.UserId);
             if (member is null)
                 return new BudgetResult("Your aren't a member of group from this budget");
