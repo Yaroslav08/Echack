@@ -69,6 +69,8 @@ namespace Ereceipt.Application.Services.Implementations
             var currencyById = _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(x => x.Id == model.CurrencyId));
             if (currencyById is null)
                 return new BudgetResult("Currency by ID not found");
+            if (model.EndPeriod.Subtract(model.StartPeriod) < TimeSpan.FromDays(1))
+                return new BudgetResult("The difference between the start date and the end date must be more than one day");
             var budgetToDb = _mapper.Map<Budget>(model);
             budgetToDb.Currency = _jsonConverter.GetStringAsJson(currencyById);
             budgetToDb.CreatedAt = DateTime.UtcNow;
@@ -87,6 +89,8 @@ namespace Ereceipt.Application.Services.Implementations
                 return new BudgetResult("Your aren't a member of group from this budget");
             if (!_groupMemberCheck.CanMakeAction(member, GroupActionType.CanControlBudget))
                 return new BudgetResult("Access denited");
+            if (budgetModel.EndPeriod.Subtract(budgetModel.StartPeriod) < TimeSpan.FromDays(1))
+                return new BudgetResult("The difference between the start date and the end date must be more than one day");
             budgetForEdit.Name = budgetModel.Name;
             budgetForEdit.Balance = budgetModel.Balance;
             budgetForEdit.Description = budgetModel.Description;
