@@ -174,6 +174,12 @@ namespace Ereceipt.Application.Services.Implementations
             var budgetForEdit = await _budgetRepository.FindAsTrackingAsync(x => x.Id == model.BudgetId);
             if (budgetForEdit is null)
                 return new BudgetResult("Budget not found");
+            var member = await _groupMemberRepository.GetGroupMemberByIdAsync(budgetForEdit.GroupId, model.UserId);
+            if (member is null)
+                return new BudgetResult("Your aren't a member of group from this budget");
+            if (!_groupMemberCheck.CanMakeAction(member, GroupActionType.CanControlBudget))
+                return new BudgetResult("Access denited");
+
             receiptToEdit.BudgetId = null;
             await _receiptRepository.UpdateAsync(receiptToEdit);
             budgetForEdit.Balance = budgetForEdit.Balance + receiptToEdit.TotalPrice;
