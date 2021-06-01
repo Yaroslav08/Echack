@@ -66,6 +66,11 @@ namespace Ereceipt.Application.Services.Implementations
 
         public async Task<BudgetResult> CreateBudgetAsync(BudgetCreateModel model)
         {
+            var member = await _groupMemberRepository.GetGroupMemberByIdAsync(model.GroupId, model.UserId);
+            if (member is null)
+                return new BudgetResult("Your aren't a member of group from this budget");
+            if (!_groupMemberCheck.CanMakeAction(member, GroupActionType.CanControlBudget))
+                return new BudgetResult("Access denited");
             var currencyById = _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(x => x.Id == model.CurrencyId));
             if (currencyById is null)
                 return new BudgetResult("Currency by ID not found");
