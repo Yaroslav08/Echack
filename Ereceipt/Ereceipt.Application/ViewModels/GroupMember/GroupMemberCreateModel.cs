@@ -4,11 +4,13 @@ namespace Ereceipt.Application.ViewModels.GroupMember
 {
     public class GroupMemberCreateModel : RequestModel
     {
-        [Required]
+        [Required(ErrorMessage = "Group ID is required")]
         public Guid GroupId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "ID is required")]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Title is required")]
+        [MinLength(1, ErrorMessage = "Min length of title is 1 symbols")]
+        [MaxLength(100, ErrorMessage = "Max length of title is 100 symbols")]
         public string Title { get; set; }
         public bool IsCreator { get; set; }
         public bool CanEditGroup { get; set; }

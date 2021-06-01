@@ -4,19 +4,19 @@ namespace Ereceipt.Application.ViewModels.GroupMember
 {
     public class GroupMemberEditModel : RequestModel
     {
-        [Required]
+        [Required(ErrorMessage = "ID is required")]
         public Guid Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "CanEditGroup is required")]
         public bool CanEditGroup { get; set; }
-        [Required]
+        [Required(ErrorMessage = "CanAddMember is required")]
         public bool CanAddMember { get; set; }
-        [Required]
+        [Required(ErrorMessage = "CanRemoveMember is required")]
         public bool CanRemoveMember { get; set; }
-        [Required]
+        [Required(ErrorMessage = "CanControlBudget is required")]
         public bool CanControlBudget { get; set; }
-        [Required]
+        [Required(ErrorMessage = "CanRemoveReceipt is required")]
         public bool CanRemoveReceipt { get; set; }
     }
 }

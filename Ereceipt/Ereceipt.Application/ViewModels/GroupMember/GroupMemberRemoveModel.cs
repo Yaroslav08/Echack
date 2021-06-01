@@ -4,7 +4,7 @@ namespace Ereceipt.Application.ViewModels.GroupMember
 {
     public class GroupMemberRemoveModel : RequestModel
     {
-        [Required]
+        [Required(ErrorMessage = "GroupMemberID is required")]
         public Guid GroupMemberId { get; set; }
     }
 }
