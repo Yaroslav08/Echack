@@ -66,6 +66,10 @@ namespace Ereceipt.Application.Services.Implementations
 
         public async Task<BudgetResult> CreateBudgetAsync(BudgetCreateModel model)
         {
+            if (model.EndPeriod.Subtract(model.StartPeriod) < TimeSpan.FromDays(1))
+                return new BudgetResult("The difference between the start date and the end date must be more than one day");
+            if (model.Balance <= 0)
+                return new BudgetResult("Balance must be more than 0");
             var member = await _groupMemberRepository.GetGroupMemberByIdAsync(model.GroupId, model.UserId);
             if (member is null)
                 return new BudgetResult("Your aren't a member of group from this budget");
@@ -74,8 +78,6 @@ namespace Ereceipt.Application.Services.Implementations
             var currencyById = _mapper.Map<CurrencyViewModel>(await _currencyRepository.FindAsync(x => x.Id == model.CurrencyId));
             if (currencyById is null)
                 return new BudgetResult("Currency by ID not found");
-            if (model.EndPeriod.Subtract(model.StartPeriod) < TimeSpan.FromDays(1))
-                return new BudgetResult("The difference between the start date and the end date must be more than one day");
             var budgetToDb = _mapper.Map<Budget>(model);
             budgetToDb.Currency = _jsonConverter.GetStringAsJson(currencyById);
             budgetToDb.CreatedAt = DateTime.UtcNow;
@@ -86,6 +88,10 @@ namespace Ereceipt.Application.Services.Implementations
 
         public async Task<BudgetResult> EditBudgetAsync(BudgetEditModel budgetModel)
         {
+            if (budgetModel.EndPeriod.Subtract(budgetModel.StartPeriod) < TimeSpan.FromDays(1))
+                return new BudgetResult("The difference between the start date and the end date must be more than one day");
+            if (budgetModel.Balance <= 0)
+                return new BudgetResult("Balance must be more than 0");
             var budgetForEdit = await _budgetRepository.FindAsTrackingAsync(x => x.Id == budgetModel.Id);
             if (budgetForEdit is null)
                 return new BudgetResult("Budget for edit not found");
@@ -94,8 +100,6 @@ namespace Ereceipt.Application.Services.Implementations
                 return new BudgetResult("Your aren't a member of group from this budget");
             if (!_groupMemberCheck.CanMakeAction(member, GroupActionType.CanControlBudget))
                 return new BudgetResult("Access denited");
-            if (budgetModel.EndPeriod.Subtract(budgetModel.StartPeriod) < TimeSpan.FromDays(1))
-                return new BudgetResult("The difference between the start date and the end date must be more than one day");
             budgetForEdit.Name = budgetModel.Name;
             budgetForEdit.Balance = budgetModel.Balance;
             budgetForEdit.Description = budgetModel.Description;
