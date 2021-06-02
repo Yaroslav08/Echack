@@ -133,10 +133,6 @@ namespace Ereceipt.Application.Services.Implementations
             var receiptToDelete = await _receiptRepos.FindAsTrackingAsync(d => d.Id == id);
             if (receiptToDelete == null)
                 return new ReceiptResult("Receipt not found");
-            if (userId == 0)
-            {
-                return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.RemoveAsync(receiptToDelete)));
-            }
             if (receiptToDelete.UserId != userId)
                 return new ReceiptResult("Access denited");
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.RemoveAsync(receiptToDelete)));
