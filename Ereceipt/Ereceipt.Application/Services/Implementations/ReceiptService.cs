@@ -138,7 +138,7 @@ namespace Ereceipt.Application.Services.Implementations
                 return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.RemoveAsync(receiptToDelete)));
             }
             if (receiptToDelete.UserId != userId)
-                return null;
+                return new ReceiptResult("Access denited");
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.RemoveAsync(receiptToDelete)));
         }
 
