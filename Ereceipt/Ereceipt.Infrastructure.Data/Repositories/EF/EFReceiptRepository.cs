@@ -12,11 +12,6 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
     {
         public EFReceiptRepository(EreceiptContext db) : base(db) { }
 
-        public async Task<int> GetCountCommentsByReceiptIdAsync(Guid id)
-        {
-            return await db.Comments.CountAsync(d => d.ReceiptId == id);
-        }
-
         public async Task<Receipt> GetReceiptByIdAsync(Guid id)
         {
             return await db.Receipts

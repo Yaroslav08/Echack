@@ -17,10 +17,11 @@ namespace Ereceipt.Application.Services.Implementations
         private readonly IGroupRepository _groupRepository;
         private readonly IGroupMemberRepository _groupMemberRepository;
         private readonly IReceiptRepository _receiptRepository;
+        private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
         private readonly IGroupMemberCheck _groupMemberCheck;
         private readonly IEntityService _entityService;
-        public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IReceiptRepository ReceiptRepository, IGroupMemberCheck groupMemberCheck, IEntityService entityService)
+        public GroupService(IGroupRepository groupRepository, IMapper mapper, IGroupMemberRepository groupMemberRepository, IReceiptRepository ReceiptRepository, IGroupMemberCheck groupMemberCheck, IEntityService entityService, ICommentRepository commentRepository)
         {
             _groupRepository = groupRepository;
             _mapper = mapper;
@@ -28,6 +29,7 @@ namespace Ereceipt.Application.Services.Implementations
             _receiptRepository = ReceiptRepository;
             _groupMemberCheck = groupMemberCheck;
             _entityService = entityService;
+            _commentRepository = commentRepository;
         }
 
         public async Task<GroupResult> CreateGroupAsync(GroupCreateModel model)
@@ -86,9 +88,11 @@ namespace Ereceipt.Application.Services.Implementations
         public async Task<ListReceiptGroupResult> GetReceiptsByGroupIdAsync(Guid groupId, int skip = 0)
         {
             var receipts = _mapper.Map<List<ReceiptGroupViewModel>>(await _receiptRepository.GetReceiptsByGroupIdAsync(groupId, skip));
+            if (receipts == null || receipts.Count == 0)
+                return new ListReceiptGroupResult("Receipts not found");
             receipts.ForEach(x =>
             {
-                x.CommentsCount = _receiptRepository.GetCountCommentsByReceiptIdAsync(x.Id).Result;
+                x.CommentsCount = _commentRepository.GetCountCommentsByReceiptIdAsync(x.Id).Result;
             });
             return new ListReceiptGroupResult(receipts);
         }

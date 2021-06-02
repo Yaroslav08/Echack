@@ -21,6 +21,11 @@ namespace Ereceipt.Infrastructure.Data.Repositories.EF
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<int> GetCountCommentsByReceiptIdAsync(Guid id)
+        {
+            return await db.Comments.AsNoTracking().CountAsync(x => x.ReceiptId == id);
+        }
+
         public async Task<List<Comment>> GetReceiptCommentsAsync(Guid id)
         {
             return await db.Comments

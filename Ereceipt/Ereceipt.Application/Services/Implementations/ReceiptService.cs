@@ -119,7 +119,7 @@ namespace Ereceipt.Application.Services.Implementations
         {
             var receipt = _mapper.Map<ReceiptViewModel>(await _receiptRepos.GetReceiptByIdAsync(id));
             if (receipt != null)
-                receipt.CommentsCount = await _receiptRepos.GetCountCommentsByReceiptIdAsync(id);
+                receipt.CommentsCount = await _commentRepository.GetCountCommentsByReceiptIdAsync(id);
             return new ReceiptResult(receipt);
         }
 

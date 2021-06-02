@@ -9,5 +9,6 @@ namespace Ereceipt.Domain.Interfaces
     {
         Task<List<Comment>> GetReceiptCommentsAsync(Guid id);
         Task<Comment> GetCommentWithDetailsAsync(long id);
+        Task<int> GetCountCommentsByReceiptIdAsync(Guid id);
     }
 }
