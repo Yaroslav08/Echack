@@ -19,9 +19,10 @@ namespace Ereceipt.Application.Services.Implementations
         private readonly IProductService _productService;
         private readonly IJsonConverter _jsonConverter;
         private readonly ICurrencyRepository _currencyRepository;
+        private readonly ICommentRepository _commentRepository;
         private readonly IEntityService _entityService;
         private readonly IMapper _mapper;
-        public ReceiptService(IReceiptRepository ReceiptRepos, IMapper mapper, IProductService productService, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter, IEntityService entityService)
+        public ReceiptService(IReceiptRepository ReceiptRepos, IMapper mapper, IProductService productService, ICurrencyRepository currencyRepository, IJsonConverter jsonConverter, IEntityService entityService, ICommentRepository commentRepository)
         {
             _receiptRepos = ReceiptRepos;
             _mapper = mapper;
@@ -29,6 +30,7 @@ namespace Ereceipt.Application.Services.Implementations
             _currencyRepository = currencyRepository;
             _jsonConverter = jsonConverter;
             _entityService = entityService;
+            _commentRepository = commentRepository;
         }
 
         public async Task<ReceiptResult> AddReceiptToGroupAsync(ReceiptGroupCreateModel model)
@@ -85,10 +87,14 @@ namespace Ereceipt.Application.Services.Implementations
                 return new ReceiptResult("This receipt can't be edit");
             if (model.CurrencyId is not null)
             {
-                var newCurrency = await _currencyRepository.FindAsync(d => d.Id == model.CurrencyId);
-                if (newCurrency is null)
-                    return new ReceiptResult("Currency not found");
-                receiptForEdit.Currency = _jsonConverter.GetStringAsJson(newCurrency);
+                var currentCurrency = _jsonConverter.GetModelFromJson<Currency>(receiptForEdit.Currency);
+                if(model.CurrencyId != currentCurrency.Id)
+                {
+                    var newCurrency = await _currencyRepository.FindAsync(d => d.Id == model.CurrencyId);
+                    if (newCurrency is null)
+                        return new ReceiptResult("Currency not found");
+                    receiptForEdit.Currency = _jsonConverter.GetStringAsJson(newCurrency);
+                }
             }
             receiptForEdit.ShopName = model.ShopName;
             receiptForEdit.AddressShop = model.AddressShop;
@@ -139,6 +145,9 @@ namespace Ereceipt.Application.Services.Implementations
                 return new ReceiptResult("Receipt not found");
             if (receiptToDelete.UserId != userId)
                 return new ReceiptResult("Access denited");
+            var commentsToRemove = await _commentRepository.FindListAsTrackingAsync(x => x.ReceiptId == id);
+            if (commentsToRemove != null && commentsToRemove.Count > 0)
+                await _commentRepository.RemoveRangeAsync(commentsToRemove);
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.RemoveAsync(receiptToDelete)));
         }
 
@@ -149,8 +158,10 @@ namespace Ereceipt.Application.Services.Implementations
                 return new ReceiptResult("Receipt not found");
             if (Receipt.UserId != model.UserId)
                 return new ReceiptResult("Access Denited");
+            if (Receipt.GroupId is null)
+                return new ReceiptResult("The receipt isn't tied to a group");
             if (Receipt.GroupId != model.GroupId)
-                return new ReceiptResult("GroupId not valid");
+                return new ReceiptResult("The receipt isn't tied to this group");
             Receipt.GroupId = null;
             return new ReceiptResult(_mapper.Map<ReceiptViewModel>(await _receiptRepos.UpdateAsync(Receipt)));
         }
