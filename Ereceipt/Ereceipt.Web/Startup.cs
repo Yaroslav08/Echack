@@ -33,10 +33,6 @@ namespace Ereceipt.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<EreceiptContext>(option => option.UseSqlServer(connection), ServiceLifetime.Transient);
             services.Configure<ApiBehaviorOptions>(options =>
@@ -103,6 +99,10 @@ namespace Ereceipt.Web
             });
             services.AddMediatR(typeof(Mapper));
             services.AddHealthChecks();
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -110,7 +110,6 @@ namespace Ereceipt.Web
             loggerFactory.AddFile("Logs/Ereceipt-{Date}.txt");
             app.UseMiddleware<ErrorMiddleware>();
             app.UseMiddleware<RoutesMiddleware>();
-            app.UseStaticFiles();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
