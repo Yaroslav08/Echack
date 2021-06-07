@@ -122,6 +122,10 @@ namespace Ereceipt.Web
             {
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
+                endpoints.MapGet("/test", async context =>
+                                 {
+                                     await context.Response.WriteAysnc("Test response");
+                                 });
             });
         }
     }
