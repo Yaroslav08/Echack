@@ -44,9 +44,19 @@ namespace Ereceipt.Application.Services.Implementations
         {
             return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.FindAsync(d => d.Id == id)));
         }
+
         public async Task<ListUsersResult> SearchUsersAsync(string user, int afterId)
         {
             return new ListUsersResult(_mapper.Map<List<UserViewModel>>(await _userRepository.SearchUsersAsync(user, afterId)));
+        }
+
+        public async Task<UserResult> UploadPictureAsync(string path, int userId)
+        {
+            var userToUpdate = await _userRepository.FindAsTrackingAsync(x => x.Id == userId);
+            if (userToUpdate is null)
+                return new UserResult("User not found");
+            userToUpdate.Avatar = path;
+            return new UserResult(_mapper.Map<UserViewModel>(await _userRepository.UpdateAsync(userToUpdate)));
         }
     }
 }
