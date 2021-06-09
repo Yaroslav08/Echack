@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -124,7 +125,7 @@ namespace Ereceipt.Web
                 endpoints.MapHealthChecks("/health");
                 endpoints.MapGet("/test", async context =>
                                  {
-                                     await context.Response.WriteAysnc("Test response");
+                                     await context.Response.WriteAsync("Test response");
                                  });
             });
         }
