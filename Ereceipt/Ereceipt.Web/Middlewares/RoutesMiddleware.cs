@@ -27,7 +27,7 @@ namespace Ereceipt.Web.Middlewares
         {
             httpContext.Response.Headers.Add("Name", _configuration["About:Name"]);
             httpContext.Response.Headers.Add("Version", _configuration["About:Version"]);
-            httpContext.Response.Headers.Add("LastDateUpdated", _configuration["About:LastDateUpdated"]);
+            httpContext.Response.Headers.Add("LastUpdated", _configuration["About:LastUpdated"]);
             if (httpContext.Request.Path.Value == "/api/routes")
             {
                 var result = new ListRoutes<RouteModel>();
