@@ -1,14 +1,16 @@
-using Ereceipt.Application;
+﻿using Ereceipt.Application;
 using Ereceipt.Infrastructure.Data.EntityFramework.Context;
 using Ereceipt.Infrastructure.IoC;
 using Ereceipt.Web.AppSetting;
 using Ereceipt.Web.AppSetting.Errors;
 using Ereceipt.Web.Filters;
+using Ereceipt.Web.Logging;
 using Ereceipt.Web.Middlewares;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,6 +40,7 @@ namespace Ereceipt.Web
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            services.AddSingleton<ILoggerRepo, LoggerRepo>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -104,6 +107,7 @@ namespace Ereceipt.Web
         {
             loggerFactory.AddFile("Logs/Ereceipt-{Date}.txt");
             app.UseMiddleware<ErrorMiddleware>();
+            app.UseMiddleware<Logger>();
             app.UseMiddleware<RoutesMiddleware>();
             app.UseStaticFiles();
             if (env.IsDevelopment())
@@ -117,7 +121,7 @@ namespace Ereceipt.Web
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<LoggingMiddleware>();
+            //app.UseMiddleware<LoggingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

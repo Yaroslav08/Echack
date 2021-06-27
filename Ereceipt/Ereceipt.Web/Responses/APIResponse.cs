@@ -1,5 +1,4 @@
 ﻿using Ereceipt.Web.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 
 namespace Ereceipt.Web.Responses
@@ -17,13 +16,11 @@ namespace Ereceipt.Web.Responses
             Data = data;
         }
     }
-
     public class APIOKResponse : APIResponse
     {
         public APIOKResponse(object Data = null) : base(true, null, Data)
         { }
     }
-
     public class APIBadRequestResponse : APIResponse
     {
         public APIBadRequestResponse(string error): base(false, error,null)
@@ -32,13 +29,11 @@ namespace Ereceipt.Web.Responses
         public APIBadRequestResponse(string error, List<ValidationModel> errors) : base(false, error, errors)
         { }
     }
-
     public class APINotFoundResponse : APIResponse
     {
         public APINotFoundResponse(string errormessage = "Resource not found") : base(false, errormessage, null)
         { }
     }
-
     public class APIInternalServerErrorResponse : APIResponse
     {
         public APIInternalServerErrorResponse() : base(false, "Internal erver error", null)

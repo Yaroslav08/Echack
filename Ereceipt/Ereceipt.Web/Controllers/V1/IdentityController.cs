@@ -48,9 +48,10 @@ namespace Ereceipt.Web.Controllers.V1
                 return new TokenResult(user.Error);
             var claims = new List<Claim>
                 {
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim("Name", user.Name),
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role),
-                    new Claim("Id", user.Id.ToString())
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
                 };
             ClaimsIdentity claimsIdentity =
             new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
