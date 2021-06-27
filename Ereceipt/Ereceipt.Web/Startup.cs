@@ -39,7 +39,7 @@ namespace Ereceipt.Web
                 options.SuppressModelStateInvalidFilter = true;
             });
             services.AddSingleton<ILoggerRepository, LoggerRepository>();
-            services.AddSingleton<ILoggerStore, LoggerStore>();
+            services.AddSingleton<ILoggerStore, FileLoggerStore>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

@@ -41,7 +41,8 @@ namespace Ereceipt.Web.Logging
                 }
                 await _next.Invoke(context);
                 swapStream.Seek(0, SeekOrigin.Begin);
-                log.Response = await new StreamReader(swapStream).ReadToEndAsync();
+                if (!context.Request.Path.Value.Contains("swagger"))
+                    log.Response = await new StreamReader(swapStream).ReadToEndAsync();
                 swapStream.Seek(0, SeekOrigin.Begin);
                 await swapStream.CopyToAsync(originalResponseBody);
                 context.Response.Body = originalResponseBody;
