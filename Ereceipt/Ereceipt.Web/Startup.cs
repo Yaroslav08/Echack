@@ -40,7 +40,8 @@ namespace Ereceipt.Web
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-            services.AddSingleton<ILoggerRepo, LoggerRepo>();
+            services.AddSingleton<ILoggerRepository, LoggerRepository>();
+            services.AddSingleton<ILoggerStore, LoggerStore>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

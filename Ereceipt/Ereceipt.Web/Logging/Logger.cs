@@ -13,7 +13,7 @@ namespace Ereceipt.Web.Logging
         {
             _next = next;
         }
-        public async Task InvokeAsync(HttpContext context, ILoggerRepo repo)
+        public async Task InvokeAsync(HttpContext context, ILoggerRepository repo)
         {
             if (context.Request.Path.Value.Contains("/api/logs"))
             {
