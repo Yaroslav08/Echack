@@ -1,5 +1,4 @@
-﻿using Ereceipt.Web.AppSetting.Errors;
-using Ereceipt.Web.Models;
+﻿using Ereceipt.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -12,14 +11,12 @@ namespace Ereceipt.Web.Middlewares
     {
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
         private readonly RequestDelegate _next;
-        private readonly IErrorStorage _errorStorage;
         private readonly IConfiguration _configuration;
 
-        public RoutesMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IErrorStorage errorStorage, IConfiguration configuration)
+        public RoutesMiddleware(RequestDelegate next, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IConfiguration configuration)
         {
             _next = next;
             _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
-            _errorStorage = errorStorage;
             _configuration = configuration;
         }
 
@@ -56,10 +53,6 @@ namespace Ereceipt.Web.Middlewares
                     Version = appVersion,
                     LastDateUpdated = lastDateUpdated
                 });
-            }
-            else if (httpContext.Request.Path.Value == "/api/errors")
-            {
-                await SendSuccessResponse(httpContext, _errorStorage.GetAllErrors());
             }
             else
             {

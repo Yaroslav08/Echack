@@ -2,7 +2,6 @@
 using Ereceipt.Infrastructure.Data.EntityFramework.Context;
 using Ereceipt.Infrastructure.IoC;
 using Ereceipt.Web.AppSetting;
-using Ereceipt.Web.AppSetting.Errors;
 using Ereceipt.Web.Filters;
 using Ereceipt.Web.Logging;
 using Ereceipt.Web.Middlewares;
@@ -10,7 +9,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,7 +56,6 @@ namespace Ereceipt.Web
                     };
                 });
             services.AddServices();
-            services.AddSingleton<IErrorStorage, FileErrorStorage>();
             services.AddEreceiptAutoMapper();
             services.AddControllers(options =>
             {
